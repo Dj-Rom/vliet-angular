@@ -5,7 +5,8 @@
   "scope": "./",
   "start_url": "./",
   "theme_color": "#000000",          // black top menu / status bar
-  "background_color": "#000000",     // splash screen background
+  "background_color": "#000000",
+    // splash screen background
   "icons": [
     {
       "src": "icons/icon-72x72.png",
