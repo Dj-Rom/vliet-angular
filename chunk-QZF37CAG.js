@@ -1,1 +1,0 @@
-import{L as o}from"./chunk-GCAN2TPR.js";var i=class r{_alert;register(t){this._alert=t}show(t,e){this._alert?.setAlert(t,e)}static \u0275fac=function(e){return new(e||r)};static \u0275prov=o({token:r,factory:r.\u0275fac,providedIn:"root"})};export{i as a};
