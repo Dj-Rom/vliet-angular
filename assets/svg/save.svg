@@ -1,0 +1,7 @@
+<!-- Outline/save icon (50x50) -->
+<svg width="50" height="50" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Save">
+  <title>Save</title>
+  <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V7l-4-4z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+  <rect x="7" y="7" width="10" height="5" rx="0.5" fill="none" stroke="currentColor" stroke-width="1.5" />
+  <circle cx="12" cy="15.5" r="2.5" fill="none" stroke="currentColor" stroke-width="1.5"/>
+</svg>
