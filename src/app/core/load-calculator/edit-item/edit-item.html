@@ -1,0 +1,54 @@
+  <app-alert></app-alert>
+  <div class="header-add-new-list font400size16 mt12" >
+    <button class="font500size14" routerLink="/app/load-management/all">Back</button>
+    <span class="font400size16">Add Package</span>
+    <button class="font500size14" (click)="doneSaveEdit()">Done</button>
+  </div>
+
+  <!-- Client Input -->
+<div class="client-input">
+    <h3 class="font500size14">Title</h3>
+  <div class="item mt6">
+
+
+    <div class="item-info">
+      <input
+        class="font400size16 inpClient"
+        type="text"
+        placeholder="Enter list name"
+        [(ngModel)]="companyName"
+
+        (input)="onCompanyNameInput($event)"
+        id="inputAddNewListCompanyName"
+      />
+    </div>
+
+  </div>
+</div>
+<section class="edit-item-page mt6">
+
+  <div *ngFor="let item of list.value | keyvalue" >
+    <div class="section-add-new-list mt6">
+      <div class="section-add-new-list-text">
+        <img src="assets/svg/load-calc-icons/Info.svg" alt="icon" />
+        <span class="font600size16">{{ item.key }}</span>
+      </div>
+
+      <div class="section-add-new-list-buttons">
+        <button class="btn" (click)="decrement(item.key)">
+          <img src="assets/svg/load-calc-icons/Vector.svg">
+        </button>
+
+        <span class="inp font400size16">{{ item.value }}</span>
+
+        <button class="btn" (click)="increment(item.key)">
+          <img src="assets/svg/load-calc-icons/add.svg">
+        </button>
+
+        <button class="btn-calculate btn" (click)="calculator()">
+          <img src="assets/svg/load-calc-icons/Calculate.svg" alt="icon-calculate" />
+        </button>
+      </div>
+    </div>
+  </div>
+</section>

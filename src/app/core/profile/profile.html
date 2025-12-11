@@ -1,0 +1,6 @@
+<h1>Profile</h1>
+<label for="name">Name:</label>
+<input type="text" name="name" id="name" [readOnly]="isEditFullName" [value]="user?.displayName"> <span (click)="isEditFullName=!isEditFullName"><img src="assets/svg/edit.svg" /></span>
+<label for="email">Email:</label>
+<input type="text" name="email" id="email" [readOnly]="isEditEmail" [value]="user?.email"> <span (click)="isEditEmail=!isEditEmail"><img src="assets/svg/edit.svg" /></span>
+<span class="logout" (click)="logout()">Logout</span>

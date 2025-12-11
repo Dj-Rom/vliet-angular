@@ -1,0 +1,8 @@
+<section class="modal-window">
+<h2 class="font400size16 ">{{title}}</h2>
+  <input type="text" [(ngModel)]="name" class="mt16 font400size16"  >
+<div class="groupBtn mt16 ">
+  <button class="font500size16" (click)="cancel()">Cancel</button>
+  <button class="font600size16 createBtn" (click)="create()" [disabled]="!name" ]>Create</button>
+</div>
+</section>

@@ -1,0 +1,47 @@
+<div class="backgroundForMobileModal" *ngIf="isOpen"></div>
+<section class="modal-window" *ngIf="isOpen">
+  <ng-container *ngIf="client; else loading">
+    <table>
+      <thead>
+      <tr>
+        <th>Company</th>
+        <th>Address</th>
+        <th>Google Link</th>
+        <th class="note">GPS</th>
+        <th >Note</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+        @if (isEdit){
+        <td><input [(ngModel)]="client.company" type="text" placeholder="Write company name"></td>
+          <td><input [(ngModel)]="client.address" type="text" placeholder="Write address"></td>
+          <td><input [(ngModel)]="client.google_link" type="text" placeholder="Write link for Google Maps"></td>
+          <td class="note"><input [(ngModel)]="client.gps" type="text" placeholder="Write GPS for example: 22.222222, 22.222222"></td>
+          <td><input [(ngModel)]="client.notes" type="text" placeholder="Write notes"></td>
+
+        }
+        @else{
+        <td>{{ client.company }}</td>
+        <td>{{ client.address }}</td>
+        <td>
+          <a [href]="client.google_link" target="_blank" rel="noopener noreferrer">
+            Google link
+          </a>
+        </td>
+        <td class="note">{{ client.gps }}</td>
+        <td *ngIf="isAuth()" >{{ client.notes }}</td>}
+      </tr>
+      </tbody>
+    </table>
+    <button class="btnSave btn" (click)="save()" *ngIf="isEdit">Save</button>
+ <div class="btns">
+   <button class="btn" (click)="edit()">Edit</button>
+   <button class="btn" (click)="close()">Close</button>
+ </div>
+  </ng-container>
+
+  <ng-template #loading>
+    <p>Loading client data...</p>
+  </ng-template>
+</section>

@@ -1,0 +1,38 @@
+
+  <form class="formWaybill" [formGroup]="form" (ngSubmit)="onSubmit()">
+  <h2>Waybill</h2>
+    @if (isOpenModalFormForAddNewVehicle) {
+    <app-add-new-vehicle>{{isOpenModalFormForAddNewVehicle}}</app-add-new-vehicle>
+     }
+  <label for="truck">Truck:</label>
+ <select name="truck" formControlName="truck"  (change)="addTrailer(this.form.value.truck)">
+  @for (item of vehicleFleetList.trucks; track item.id) {
+    <option>
+      {{ item.vehicle_number }}
+    </option>
+  }
+   <option value="add">
+     add
+   </option>
+</select>
+  <label for="trailer">Trailer:</label>
+<select name="trailer" formControlName="trailer" (change)="addTrailer(this.form.value.trailer)">
+  @for (item of vehicleFleetList.trailers; track item.id) {
+    <option>
+      {{ item.vehicle_number }}
+    </option>
+  }
+  <option value="add">
+    add
+  </option>
+
+</select>
+<label >
+  Start: <input  formControlName="dataStart" type="datetime-local">
+</label>
+<label >
+  Finish: <input  formControlName="dataFinish" type="datetime-local">
+</label>
+<textarea formControlName="notes" name="" id="" cols="30" rows="10" placeholder="Notes"></textarea>
+  <button type="submit" class="btn">SAVE</button>
+</form>

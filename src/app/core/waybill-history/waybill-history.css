@@ -1,0 +1,118 @@
+.waybill-history {
+  margin: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 95%;
+  border: 1px solid white;
+  border-radius: 10px;
+  padding: 10px;
+  text-align: center;
+  color: white;
+  font-size: 2vw;
+  background: var(--dark-color);
+
+
+}
+
+.waybill-history table {
+  width: 90%;
+  border-collapse: collapse;
+  margin-top: 10px;
+  font-size: 10px;
+}
+
+.waybill-history th {
+  background: #000103;
+  color: white;
+  padding: 6px;
+  text-align: center;
+  opacity: .4;
+
+}
+
+/* Ячейки таблицы */
+.waybill-history td {
+  padding: 6px;
+  text-align: center;
+  border-bottom: 1px solid white;
+  input, select, textarea {
+    max-width: 90px;
+    font-size: .5rem;
+  }
+}
+
+/* Чётные строки */
+.waybill-history tr:nth-child(even) {
+  background: var(--dark-color-b);
+  color: var(--text-secondary-color);
+}
+
+/* Нечётные строки */
+.waybill-history tr:nth-child(odd) {
+  background: var(--ripple-duration);
+  color: var(--text-secondary-color);
+}
+
+/* Лейблы и селекты */
+.waybill-history label {
+  color: white;
+  font-weight: bold;
+  margin-right: 10px;
+  color: var(--text-secondary-color);
+
+}
+
+.waybill-history select {
+  padding: 4px 8px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-size: 1rem;
+  background: var(--ripple-duration);
+  color: var(--text-secondary-color);
+}
+.button-add{
+  background: green;
+  color:white;
+  margin-top: 16px;
+  width: 95%;
+  height: 44px;
+  border-radius: 4px;
+  angle: 0 deg;
+  opacity: 1;
+  gap: 8px;
+  padding-top: 10px;
+  padding-right: 18px;
+  padding-bottom: 10px;
+  padding-left: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.buttons{
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  button{
+
+  }
+}
+
+
+/* Класс для адаптивности */
+@media screen and (max-width: 660px) {
+  .waybill-history {
+    position: absolute;
+    top: 0;
+    font-size: 3vw;
+  }
+
+  .waybill-history th,
+  .waybill-history td {
+    padding: 2px;
+    font-size: 2.5vw;
+  }
+}
+input{
+  width: 100%;
+}

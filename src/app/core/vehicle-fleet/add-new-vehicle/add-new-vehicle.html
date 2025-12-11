@@ -1,0 +1,39 @@
+<section class="add-new-vehicle">
+  <h1>Add new vehicle</h1>
+
+  <form [formGroup]="vehicleForm" (ngSubmit)="onSubmit()">
+
+    <!-- Vehicle Type -->
+    <select formControlName="vehicleType" (change)="onTypeChange($event)">
+      <option value="trailer">TRAILER</option>
+      <option value="truck">TRUCK</option>
+    </select>
+    <br>
+    <!-- Vehicle Brand -->
+    <select formControlName="vehicleBrand" *ngIf="!curentType">
+      <option value="volvo">VOLVO</option>
+      <option value="daf">DAF</option>
+      <option value="iveco">IVECO</option>
+    </select>
+<br>
+
+    <!-- Trailer Brand (only visible if curentType = true) -->
+    <select formControlName="vehicleTrailerBrand" *ngIf="curentType" >
+      <option value="schmitz">SCHMITZ</option>
+      <option value="other">OTHER</option>
+    </select>
+
+    <!-- Vehicle Number -->
+    <input
+      type="text"
+      placeholder="Write Number"
+      formControlName="vehicleNumber"
+      minlength="6"
+    />
+    <div *ngIf="vehicleForm.get('vehicleNumber')?.touched && vehicleForm.get('vehicleNumber')?.invalid" class="error">
+     Please write number! For example: PZ1R741
+    </div>
+
+    <button class="btn" type="submit">SAVE</button>
+  </form>
+</section>

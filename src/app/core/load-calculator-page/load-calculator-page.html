@@ -1,0 +1,21 @@
+<app-alert></app-alert>
+
+<section class="calculator-section mt24" >
+<span class="font400size16" *ngIf="selectedPage !='add'">Packaging Receiving</span>
+  <nav class="navi font400size14 mt24" *ngIf="selectedPage!=='add'">
+    <ul class="navi-ul">
+      <li id="all"
+          (click)="changePage('all')"
+          [class.active]="selectedPage === 'all'">All</li>
+      <li id="today"
+          (click)="changePage('today')"
+          [class.active]="selectedPage === 'today'">Today</li>
+    </ul>
+  </nav>
+  <router-outlet class="mt24"></router-outlet>
+  <app-more-menu *ngIf="isOpenMoreMenu"
+                 [date]="this.menuDate"
+                 [title]="this.menuTitle">
+  ></app-more-menu>
+<button class="btnAdd active" (click)="changePage('add')"><img src="assets/svg/load-calc-icons/add.svg"></button>
+</section>

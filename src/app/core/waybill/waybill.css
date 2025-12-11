@@ -1,0 +1,28 @@
+.formWaybill {
+  width: 80vw;
+  max-width: 600px;
+  height: 70vh;
+  background: #1c69af;
+  border: 2px solid white;
+  padding: 10px;
+  border-radius: 8px;
+  margin: 10px auto;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: center;
+  color: white;
+  font-size: 18px;
+}
+h2{
+ text-align: center;
+}
+input,select{
+  margin-bottom: 20px;
+  margin-top: 5px;
+  width: 100%;
+  height: 30px;
+}
+textarea{
+  margin-bottom: 30px;
+}

@@ -1,0 +1,30 @@
+<section class="time-counter load-calculator-section">
+  <h2>⏱️ Time Counter</h2>
+
+  <div class="form-group">
+    <label>Start time:</label>
+    <input
+      type="datetime-local"
+      [value]="dataStart"
+      (change)="setDateTime($event.target.value, true)"
+    />
+  </div>
+  <br>
+  <div class="form-group">
+    <label>Finish time:</label>
+    <input
+      type="datetime-local"
+      [value]="dataFinish"
+      (change)="setDateTime($event.target.value, false)"
+    />
+  </div>
+  <br>
+  <div class="buttons">
+    <button class="btn" (click)="getResult()">Calculate</button>
+    <button  class="btn" (click)="reset()">Reset</button>
+  </div>
+
+  <div class="result btn-add" *ngIf="result">
+    <p>📊 Result: <strong>{{ result }}</strong></p>
+  </div>
+</section>

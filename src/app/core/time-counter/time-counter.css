@@ -1,0 +1,42 @@
+.time-counter {
+  display: flex;
+  align-items: flex-end !important;
+  flex-direction: column;
+  border: 3px solid white;
+
+  input{
+    margin-top: 10px;
+  }
+  button{
+    --ripple-duration: 700ms;
+    position: relative;
+    display: inline-block;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    cursor: pointer;
+    -webkit-user-select: none;
+    user-select: none;
+    color: #e6faff;
+    font-weight: 600;
+    font-size: 16px;
+    padding: 14px 36px;
+    border-radius: 4px;
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(10px) saturate(180%);
+    -webkit-backdrop-filter: blur(10px) saturate(180%);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.15);
+    transition: transform 200ms
+    cubic-bezier(.2, .9, .3, 1), box-shadow 200ms, background 200ms;
+    overflow: hidden;
+    outline: none;
+    background: green;
+  }
+}
+h2{color:var(--ligth-color);
+text-align: center !important;}
+@media screen and (max-width: 450px) {
+  button{
+    width: 26vw;
+    font-size: 12px;
+    padding: 4px !important;
+  }
+}

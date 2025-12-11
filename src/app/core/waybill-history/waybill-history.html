@@ -1,0 +1,130 @@
+<section class="waybill-history">
+
+    <app-spinner *ngIf="isLoading()"></app-spinner>
+
+  <label>Choose month:</label>
+  <select (change)="onMonthChange($event)">
+    @for (month of monthsFromFirebase; track month) {
+      <option [value]="month">{{ months[month] }}</option>
+    }
+  </select>
+
+  <table class="table-striped">
+
+    <tr>
+      <th>Truck</th>
+      <th>Trailer</th>
+      <th>Start</th>
+      <th>Finish</th>
+      <th>Trip Time</th>
+      <th>Billable Days</th>
+      <th>Notes</th>
+      <th>Edit</th>
+      <th>Delete</th>
+    </tr>
+
+
+        <tr *ngFor="let bill of  filteredWaybills()">
+      <!-- TRUCK -->
+      <td>
+        <ng-container *ngIf="editId !== bill.id; else editTruck">
+          {{ bill.truck }}
+        </ng-container>
+        <ng-template #editTruck>
+          <select [(ngModel)]="bill.truck">
+            <option *ngFor="let t of vehicleFleetList.trucks" [value]="t.vehicle_number">{{ t.vehicle_number }}</option>
+          </select>
+        </ng-template>
+      </td>
+
+      <!-- TRAILER -->
+      <td>
+        <ng-container *ngIf="editId !== bill.id; else editTrailer">
+          {{ bill.trailer }}
+        </ng-container>
+        <ng-template #editTrailer>
+          <select [(ngModel)]="bill.trailer">
+            <option *ngFor="let tr of vehicleFleetList.trailers"  [value]="tr.vehicle_number">{{ tr.vehicle_number }}</option>
+          </select>
+        </ng-template>
+      </td>
+
+      <!-- DATE START -->
+      <td>
+        <ng-container *ngIf="editId !== bill.id; else editStart">
+          {{ bill.dataStart | date:'yyyy-MM-dd HH:mm' }}
+        </ng-container>
+        <ng-template #editStart>
+          <input type="datetime-local" [(ngModel)]="bill.dataStart" />
+        </ng-template>
+      </td>
+
+      <!-- DATE FINISH -->
+      <td>
+        <ng-container *ngIf="editId !== bill.id; else editFinish">
+          {{ bill.dataFinish | date:'yyyy-MM-dd HH:mm' }}
+        </ng-container>
+        <ng-template #editFinish>
+          <input type="datetime-local" [(ngModel)]="bill.dataFinish" />
+        </ng-template>
+      </td>
+
+      <!-- TRIP TIME -->
+      <td>
+          {{ bill.tripTime }}
+      </td>
+
+      <!-- BILLABLE DAYS -->
+      <td>
+          {{ bill.billableDays }}
+      </td>
+
+      <!-- NOTES -->
+      <td>
+        <ng-container *ngIf="editId !== bill.id; else editNotes">
+          {{ bill.notes }}
+        </ng-container>
+        <ng-template #editNotes>
+          <textarea [(ngModel)]="bill.notes" rows="2"></textarea>
+        </ng-template>
+      </td>
+
+      <!-- ACTIONS -->
+      <td>
+        <img
+          *ngIf="editId !== bill.id"
+          class="icon-svg"
+          src="assets/svg/edit.svg"
+          alt="Edit"
+          (click)="editWaybill(bill.id)"
+        />
+        <img
+          *ngIf="editId === bill.id"
+          class="icon-svg"
+          src="assets/svg/save.svg"
+          alt="Save"
+          (click)="saveWaybill(bill)"
+        />
+      </td>
+
+      <td>
+        <img
+          class="icon-svg"
+          src="assets/svg/delete.svg"
+          alt="Delete"
+          (click)="deleteWaybill(bill.id)"
+        />
+      </td>
+    </tr>
+
+  </table>
+
+  <br>
+  <span *ngIf="totalTime"> Total:  {{totalTime()}}</span>
+ <div class="buttons">
+   <button (click)="getReport()"  class="button-add font400size14" >Get REPORT</button>
+   <button class="button-add font400size14" routerLink="/app/waybill" >
+  add new Waybill
+   </button>
+ </div>
+</section>

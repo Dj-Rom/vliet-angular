@@ -1,0 +1,69 @@
+<!--<span>Already have an account?  </span><a [routerLink]="['/auth/login']" class="auth-link">  Log in</a>-->
+<section class="auth-registration" xmlns="http://www.w3.org/1999/html">
+
+  <div class="auth-logo-group">
+    <h2 class="font700size32">Welcome to Vliet</h2>
+    <span class="mt8 font400size14">Please log in using the  form below.</span>
+  </div>
+
+  <div *ngIf="message" class="error-auth-message mt16 font400size16" [style.color]="'red'">
+    <img src="assets/svg/error-message-logo.svg" alt="error=logo">{{message}}
+    <img  src="assets/svg/close-X.svg" alt="X" (click)="form.reset()">
+  </div>
+  <form [formGroup]="form" (ngSubmit)="onSubmit()" class="auth-form-registration mt68">
+    <label for="name" class="mt14 font500size14">
+      Full name
+    </label>
+    <input formControlName="name"
+           [style.border-color]="!form.get('name')?.valid && form.get('name')?.touched ? 'rgba(255, 94, 94, 1)': 'black' "
+           class="input font400size16" type="text" placeholder="Full name" />
+    <div class="error" *ngIf="form.get('name')?.invalid && form.get('name')?.touched"
+         class="error-auth-m mt6 font400size16">
+      <small *ngIf="form.get('name')?.errors?.['required']">Full name is required</small>
+      <small *ngIf="form.get('name')?.errors?.['minlength']">Minimum 4 characters</small>
+    </div>
+
+    <label for="email" class="mt24 font500size14">
+      Email
+    </label>
+    <input formControlName="email"
+           [style.border-color]="!form.get('email')?.valid && form.get('email')?.touched ? 'rgba(255, 94, 94, 1)': 'black' "
+           class="input font400size16" type="email" placeholder="example@mail.com" />
+    <div class="error" *ngIf="form.get('email')?.invalid && form.get('email')?.touched"
+         class="error-auth-m mt6 font400size16">
+      <small *ngIf="form.get('email')?.errors?.['required']">Email is required</small>
+      <small *ngIf="form.get('email')?.errors?.['email']">Invalid email format</small>
+    </div>
+
+    <!-- Password -->
+    <label for="password" class="mt24 font500size14">
+      Password
+    </label>
+    <div class="auth-password-group">
+      <input name="password"
+             [style.border-color]="!form.get('password')?.valid && form.get('password')?.touched ? 'rgba(255, 94, 94, 1)': 'black' "
+             class="input font400size16" formControlName="password" [type]="isShow ? 'text' : 'password'" placeholder="Min 8 characters">
+      <button class="auth-show-password" type="button" (click)="setShow()">
+        <img *ngIf="!isShow" src="assets/svg/unshow.svg" width="25" height="25" alt="Hide password icon">
+        <img *ngIf="isShow" src="assets/svg/show.svg" width="25" height="25" alt="Show password icon">
+      </button></div>
+    <div class="error" *ngIf="form.get('password')?.invalid && form.get('password')?.touched"  class="error-auth-m mt6 font400size16">
+      <small *ngIf="form.get('password')?.errors?.['required']">Password is required</small>
+      <small *ngIf="form.get('password')?.errors?.['minlength']">Minimum 8 characters</small>
+      <small *ngIf="form.get('password')?.errors?.['pattern']">
+        Must contain 1 uppercase letter, 1 number, and 1 special character
+      </small>
+    </div>
+
+    <div *ngIf="message" class="info-message">{{ message }}</div>
+
+    <button type="submit" class="button mt56 btn-auth-submit font600size16" [disabled]="loading">
+      <span *ngIf="!loading">Create account</span>
+      <span *ngIf="loading">⏳ Processing...</span>
+    </button>
+
+    <div class="font400size14 sing-up mt24">
+      Already have account? <a [routerLink]="['/auth/sing-in']" class="auth-link font500size14">Log in</a>
+    </div>
+  </form>
+</section>

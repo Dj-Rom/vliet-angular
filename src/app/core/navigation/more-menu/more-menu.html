@@ -1,0 +1,12 @@
+<section class="more-menu">
+  <div class="block title">
+    <img src="assets/svg/load-calc-icons/LocationAway.svg" alt="icon">
+    <div>
+      <h5 class="font400size16">{{title}}</h5>
+      <span class="font400size12">{{date}}</span>
+    </div>
+  </div>
+  <button class="block font400size16" (click)="edit(date)"><img src="assets/svg/navi/Edit.svg" alt="icon-edit">Edit</button>
+  <button class="block font400size16" (click)="onSend(date)"><img src="assets/svg/navi/Sent.svg" alt="icon-sent">Sent</button>
+  <button class="block font400size16" (click)="onDelete(date)"><img src="assets/svg/navi/Delete.svg" alt="icon-delete">Delete</button>
+</section>

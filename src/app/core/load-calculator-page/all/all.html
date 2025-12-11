@@ -1,0 +1,9 @@
+
+
+@for (item of (list | keyvalue); track item.key) {
+  <app-item
+    [title]="item.value.name"
+    [date]="item.value.date">
+  </app-item>
+}
+

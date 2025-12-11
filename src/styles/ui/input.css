@@ -1,0 +1,10 @@
+.input {
+  width: 361px;
+  height: 44px;
+  border-radius: 4px;
+  border-width: 1px;
+  angle: 0deg;
+  opacity: 1;
+  gap: 8px;
+  padding: 10px 12px 10px 16px;
+}

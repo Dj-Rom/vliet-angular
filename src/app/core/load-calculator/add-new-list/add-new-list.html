@@ -1,0 +1,59 @@
+<app-add-name-modal
+  *ngIf="isOpenedModalForName()"
+[title]="'Enter the name'"
+></app-add-name-modal>
+<header>
+  <div class="header-add-new-list font400size16" >
+
+    <img class="more" routerLink="/app/load-management/all"  src="assets/svg/load-calc-icons/arrow-back.svg">
+    <span class="font400size16">{{companyName}}</span>
+    <img src="assets/svg/load-calc-icons/download-svg.svg">
+    <img class="more" src="assets/svg/load-calc-icons/More.svg">
+  </div>
+
+  <!-- Filter Input -->
+  <div class="filterInput mt12">
+    <img src="assets/svg/load-calc-icons/filter.svg"  alt="filter">
+    <input
+      type="text"
+      class="font400size16"
+      [value]="filterValue"
+      (input)="onFilterChange($event)"
+      placeholder="Search">
+  <img src="assets/svg/load-calc-icons/closeItem.svg"  alt="close">
+  </div>
+</header>
+
+
+
+
+<section class="section-add-new-lists">
+
+<div *ngFor="let item of filteredList | keyvalue" >
+  <div class="section-add-new-list mt6">
+    <div class="section-add-new-list-text">
+      <img src="assets/svg/load-calc-icons/Info.svg" alt="icon" />
+      <span class="font600size16">{{ item.key }}</span>
+    </div>
+
+    <div class="section-add-new-list-buttons">
+      <button class="btn" (click)="decrement(item.key)">
+        <img src="assets/svg/load-calc-icons/Vector.svg">
+      </button>
+
+      <span class="inp font400size16">{{ item.value }}</span>
+
+      <button class="btn" (click)="increment(item.key)">
+        <img src="assets/svg/load-calc-icons/add.svg">
+      </button>
+
+      <button class="btn-calculate btn" (click)="calculator()">
+        <img src="assets/svg/load-calc-icons/Calculate.svg" alt="icon-calculate" />
+      </button>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- Reset -->
+<button (click)="resetList()">Reset List</button>

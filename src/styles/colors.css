@@ -1,0 +1,49 @@
+:root {
+  --dark-color: #1E2329;
+  --dark-color-b: #1C1F23;
+  --tertiary-color: rgba(110, 119, 129, 1);
+  --primary-color: rgba(255, 255, 255, 1);
+  --focus-color: rgba(76, 141, 255, 1);
+  --bg-system-error-color: rgba(42, 23, 26, 1);
+  --text-error-color: rgba(255, 94, 94, 1);
+  --button-primary-color: rgba(76, 141, 255, 1);
+  --text-secondary-color: rgba(155, 164, 174, 1);;
+
+  --bg-primary: #0D0F12;
+  --bg-secondary: #14171A;
+  --bg-tertiary: #1A1E22;
+  --bg-header: #0F1114;
+  --bg-nav: #0F1114;
+  --bg-container: #161A1F;
+  --bg-input: #1E2329;
+  --bg-input-disabled: #161A1F;
+
+  --stroke-light: #2A2F36;
+  --stroke-dark: #1C1F23;
+  --stroke-focus: #4C8DFF;
+
+  --text-primary: #FFFFFF;
+  --text-secondary: #9B4AAE;
+  --text-tertiary: #6E7781;
+  --text-disabled: #50555B;
+  --text-on-primary: #FFFFFF;
+
+  --button-primary-bg: #4C8DFF;
+  --button-primary-hover: #70A4FF;
+  --button-primary-active: #3B79E6;
+  --button-primary-disabled: #2D3B4F;
+
+  --button-secondary-bg: #1E2329;
+  --button-secondary-hover: #262C33;
+  --button-secondary-active: #1A2026;
+  --button-secondary-border: #2F363E;
+
+  --system-success: #4AAD7F;
+  --system-warning: #EFB75A;
+  --system-error: #FF5E5E;
+  --system-info: #4C8DFF;
+
+  --shadow-default: rgba(0, 0, 0, 0.36);
+  --overlay: rgba(0, 0, 0, 0.55);
+
+}

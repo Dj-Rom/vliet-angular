@@ -1,0 +1,18 @@
+<app-modal-window [style]="'display: flex;justify-content: center;'"></app-modal-window>
+
+<h3 class="h3LoadLocation">Company:</h3>
+<br>
+<div class="groupCompanyBtn">
+@for (item of listAddress; track item.id) {
+  <button
+    [id]="item.id"
+    class="btn companySelectBtn "
+    (click)="modalService.open(item)">
+    {{ item.company }}
+  </button>
+}
+</div>
+<br>
+<button class="btnAddCompany" routerLink="/app/add-new-address">+</button>
+
+

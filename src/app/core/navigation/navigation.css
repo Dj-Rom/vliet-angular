@@ -1,0 +1,96 @@
+.content{
+  margin-left: 200px;
+}
+
+h2{margin:80px 20px 0 20px;
+  color: var(--ligth-color);
+}
+.nav {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 200px;
+  height: 100vh;
+  background: #091b2e;
+  border: 1px solid #1c69af;
+  opacity: 1;
+  transition: left 0.3s ease, opacity 0.3s ease;
+  z-index: 10;
+
+  & .nav-ul {
+    margin: 60px 20px 20px 20px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+
+
+    & li {
+      margin-top: 26px;
+      display: flex;
+      align-items: center;
+
+      & a {
+        text-decoration: none;
+        color: var(--ligth-color);
+        margin-bottom: -3px;
+        font-size: 20px;
+        font-family: "Times New Roman";
+      }
+    }
+  }
+}
+
+.icon-svg {
+  width: 20px;
+  height: 20px;
+  margin-right: 10px;
+  filter: invert(100%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(1);
+}
+
+/* Burger кнопка */
+.burger {
+  display: none;
+  position: absolute;
+  top: 15px;
+  left: 15px;
+  cursor: pointer;
+  z-index: 25;
+}
+
+/* Иконка закрытия */
+.close {
+  display: none;
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  cursor: pointer;
+  z-index: 25;
+}
+
+/* Мобильный вид */
+@media (max-width: 768px) {
+  .burger {
+    display: block;
+  }
+  .content{
+    margin: 20px;
+  }
+
+  .nav {
+    position: fixed;
+    left: -80vw;
+    top: 0;
+    width: 80vw;
+    opacity: 0.87;
+    transition: left 0.3s ease, opacity 0.3s ease;
+
+    &.open {
+      left: 0;
+    }
+  }
+
+  .close {
+    display: block;
+  }
+}

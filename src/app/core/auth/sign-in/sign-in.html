@@ -1,0 +1,55 @@
+
+<div class="app-login">
+  <div class="auth-logo-group">
+    <h2 class="font700size32">Welcome to Vliet</h2>
+    <span class="mt8 font400size14">Please log in using the  form below.</span>
+
+
+
+  </div>
+  <form class="form-login mt68" [formGroup]="form" (ngSubmit)="onSubmit()">
+    <div *ngIf="errorMessage ||
+     form.get('password')?.invalid && form.get('password')?.touched ||
+    form.get('email')?.invalid && form.get('email')?.touched" class="error-auth-message mt16 font400size16" [style.color]="'red'">
+      <img src="assets/svg/error-message-logo.svg" alt="error=logo">{{errorMessage}}
+      <small *ngIf="form.get('password')?.errors?.['required']">Password is required</small>
+      <p *ngIf="form.get('password')?.invalid && form.get('email')?.invalid">/</p>
+      <small *ngIf="form.get('email')?.errors?.['required']">Email is required</small>
+      <small *ngIf="form.get('email')?.errors?.['email']">Invalid email format </small>
+      <img  src="assets/svg/close-X.svg" alt="X" (click)="form.reset()">
+    </div>
+
+
+    <!-- Email -->
+    <label for="email" class="mt14 font500size14">
+      Email:
+    </label>
+    <input name="email" class="input font400size16" formControlName="email" type="email" placeholder="example@mail.com">
+    <!-- Password -->
+    <label for="password" class="mt24 font500size14">
+      Password:   <a [routerLink]="['auth/forgot-password?']" class="font500size14 forgot-password">Forgot password?</a>
+    </label>
+    <input name="password" class="input font400size16" formControlName="password" [type]="isShow ? 'text' : 'password'" placeholder="Password">
+    <button class="auth-show-password" type="button" (click)="setShow()">
+      <img *ngIf="!isShow" src="assets/svg/unshow.svg" width="25" height="25" alt="Hide password icon">
+      <img *ngIf="isShow" src="assets/svg/show.svg" width="25" height="25" alt="Show password icon">
+    </button>
+
+
+    <label class="remember-me font400size14">
+      <input type="checkbox" name="rm" id="rm" class="rm" formControlName="rm">
+      Remember me
+    </label>
+
+
+
+
+    <br>
+    <button type="submit" class="button mt56 btn-auth-submit font600size16" [disabled]="loading">
+      {{ loading ? 'Loading...' : 'Log in' }}
+    </button>
+    <div class="font400size14 sing-up mt24">
+      Don’t have account? <a [routerLink]="['/auth/sign-up']" class="auth-link font500size14">Sign up</a>
+    </div>
+  </form>
+</div>

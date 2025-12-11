@@ -1,0 +1,60 @@
+@if(isMobile){
+  <app-mobile></app-mobile>
+} @else {
+  <!-- Burger Icon -->
+  <div class="burger" (click)="toggleMenu()">
+    <img *ngIf="!menuOpen; else closeIcon" src="assets/svg/burger.svg" alt="Open menu" class="icon-svg" />
+  </div>
+  <ng-template #closeIcon>
+    <img src="assets/svg/close.svg" alt="Close menu" class="icon-svg" />
+  </ng-template>
+
+  <!-- Navigation Menu -->
+  <nav class="nav" [class.open]="menuOpen">
+    <h2>Hello, {{user?user:'Guest'}}</h2>
+    <ul class="nav-ul">
+      <li (click)="toggleMenu()">
+        <img class="icon-svg" src="assets/svg/home.svg" alt="Home" />
+        <a routerLink="/app" class="nav-link">Main</a>
+      </li>
+      <li (click)="toggleMenu()">
+        <img class="icon-svg" src="assets/svg/time.svg" alt="Time Counter" />
+        <a routerLink="/app/time-counter"   class="nav-link">Time counter</a>
+      </li>
+      <li (click)="toggleMenu()">
+        <img class="icon-svg" src="assets/svg/truck.svg" alt="Load Management" />
+        <a routerLink="/app/load-management" class="nav-link">Load Management</a>
+      </li>
+      <li (click)="toggleMenu()">
+        <img class="icon-svg" src="assets/svg/pallet.svg" alt="Package Count" />
+        <a routerLink="/app/flora-pack" class="nav-link">Package Count</a>
+      </li>
+      <li (click)="toggleMenu()">
+        <img class="icon-svg" src="assets/svg/map.svg" alt="Load Locations" />
+        <a routerLink="/app/load-location" class="nav-link">Load Locations</a>
+      </li>
+      <li (click)="toggleMenu()">
+        <img class="icon-svg" src="assets/svg/map.svg" alt="+ New Address" />
+        <a routerLink="/app/waybill" class="nav-link">add new Waybill</a>
+      </li>
+      <li (click)="toggleMenu()">
+        <img class="icon-svg" src="assets/svg/map.svg" alt="+ New Address" />
+        <a routerLink="/app/waybills-history" class="nav-link">Waybill history</a>
+      </li>
+
+      <!-- Logout / Login -->
+      <ng-container *ngIf="isLoggedIn; else login">
+        <li (click)="toggleMenu()">
+          <img class="icon-svg" src="assets/svg/logout.svg" alt="Logout" />
+          <a (click)="logout()" class="nav-link">Logout</a>
+        </li>
+      </ng-container>
+      <ng-template #login>
+        <li>
+          <img class="icon-svg" src="assets/svg/logout.svg" alt="Login" />
+          <a routerLink="/auth/login" class="nav-link">Login</a>
+        </li>
+      </ng-template>
+    </ul>
+  </nav>
+}
