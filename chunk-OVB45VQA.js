@@ -1,0 +1,1 @@
+import{L as t,ga as n}from"./chunk-B4AEFEQM.js";var a=class e{isLoggedIn=n(!1);setAuth(o){this.isLoggedIn.set(o)}static \u0275fac=function(i){return new(i||e)};static \u0275prov=t({token:e,factory:e.\u0275fac,providedIn:"root"})};export{a};
