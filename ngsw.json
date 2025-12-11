@@ -1,6 +1,6 @@
 {
   "configVersion": 1,
-  "timestamp": 1765465834603,
+  "timestamp": 1765467037944,
   "index": "https://Dj-Rom.github.io/vliet-angular/index.html",
   "assetGroups": [
     {
@@ -38,7 +38,7 @@
         "https://Dj-Rom.github.io/vliet-angular/chunk-ZRE5YRNQ.js",
         "https://Dj-Rom.github.io/vliet-angular/favicon.ico",
         "https://Dj-Rom.github.io/vliet-angular/index.html",
-        "https://Dj-Rom.github.io/vliet-angular/main-XFT6ZPGC.js",
+        "https://Dj-Rom.github.io/vliet-angular/main-JGVVTK72.js",
         "https://Dj-Rom.github.io/vliet-angular/manifest.webmanifest",
         "https://Dj-Rom.github.io/vliet-angular/styles-FTGWNDGF.css"
       ],
@@ -172,8 +172,8 @@
     "https://Dj-Rom.github.io/vliet-angular/icons/icon-512x512.png": "1de182f76f7329dfa8f9fcdd1fdcdd695bea6a99",
     "https://Dj-Rom.github.io/vliet-angular/icons/icon-72x72.png": "aa88a6096bd973be7f6d7a5489bfa6bc2463f8c4",
     "https://Dj-Rom.github.io/vliet-angular/icons/icon-96x96.png": "7fb8f59c30ce2ff12c700321a0b39e14b3dc8f95",
-    "https://Dj-Rom.github.io/vliet-angular/index.html": "330ec88af7e68d486b4a5cbefa3afa3eba24d3e1",
-    "https://Dj-Rom.github.io/vliet-angular/main-XFT6ZPGC.js": "f517788672ce66affb67108b11010e4ac6fc32e6",
+    "https://Dj-Rom.github.io/vliet-angular/index.html": "c9d906370f45d1f4871fd023b4db1b8161bccbcd",
+    "https://Dj-Rom.github.io/vliet-angular/main-JGVVTK72.js": "de9da87380be0e384f4638aeeaedbd75e724e6ce",
     "https://Dj-Rom.github.io/vliet-angular/manifest.webmanifest": "5867a1c0059fb510727a2b615c3031a95a0bc627",
     "https://Dj-Rom.github.io/vliet-angular/styles-FTGWNDGF.css": "8a74b65bf063d850753a7aa6cc136999aba02361"
   },
