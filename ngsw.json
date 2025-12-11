@@ -1,6 +1,6 @@
 {
   "configVersion": 1,
-  "timestamp": 1765467697914,
+  "timestamp": 1765467859784,
   "index": "https://Dj-Rom.github.io/vliet-angular/index.html",
   "assetGroups": [
     {
@@ -11,7 +11,6 @@
         "ignoreVary": true
       },
       "urls": [
-        "https://Dj-Rom.github.io/vliet-angular/chunk-3FK7PAF4.js",
         "https://Dj-Rom.github.io/vliet-angular/chunk-53A4UQ2N.js",
         "https://Dj-Rom.github.io/vliet-angular/chunk-5OT4C6C4.js",
         "https://Dj-Rom.github.io/vliet-angular/chunk-5SBTTGMY.js",
@@ -32,13 +31,14 @@
         "https://Dj-Rom.github.io/vliet-angular/chunk-QZF37CAG.js",
         "https://Dj-Rom.github.io/vliet-angular/chunk-RUC545AN.js",
         "https://Dj-Rom.github.io/vliet-angular/chunk-UZGXYLCI.js",
+        "https://Dj-Rom.github.io/vliet-angular/chunk-WQ2LIQ3V.js",
         "https://Dj-Rom.github.io/vliet-angular/chunk-XBAYVSOR.js",
         "https://Dj-Rom.github.io/vliet-angular/chunk-XLOHN24S.js",
         "https://Dj-Rom.github.io/vliet-angular/chunk-Z5FXYGDF.js",
         "https://Dj-Rom.github.io/vliet-angular/chunk-ZRE5YRNQ.js",
         "https://Dj-Rom.github.io/vliet-angular/favicon.ico",
         "https://Dj-Rom.github.io/vliet-angular/index.html",
-        "https://Dj-Rom.github.io/vliet-angular/main-L2IC7A47.js",
+        "https://Dj-Rom.github.io/vliet-angular/main-I4JOELEF.js",
         "https://Dj-Rom.github.io/vliet-angular/manifest.webmanifest",
         "https://Dj-Rom.github.io/vliet-angular/styles-FTGWNDGF.css"
       ],
@@ -138,7 +138,6 @@
     "https://Dj-Rom.github.io/vliet-angular/assets/svg/time.svg": "816d4975278fcb234eb9599928f2292d9c289447",
     "https://Dj-Rom.github.io/vliet-angular/assets/svg/truck.svg": "24b23720a574f4d9b948b6dd2b3cc3e69d7725b8",
     "https://Dj-Rom.github.io/vliet-angular/assets/svg/unshow.svg": "4e12d91eade43e5fb06fb5e3a90ab352a39fc9e0",
-    "https://Dj-Rom.github.io/vliet-angular/chunk-3FK7PAF4.js": "2e264406adee2b9a3705c14aa4d49aeca9ba49f0",
     "https://Dj-Rom.github.io/vliet-angular/chunk-53A4UQ2N.js": "ded89406be263c421124d74b3a3ce61e3e8c0c22",
     "https://Dj-Rom.github.io/vliet-angular/chunk-5OT4C6C4.js": "2e612787974832f8f70cde9e19a8f93b145a97df",
     "https://Dj-Rom.github.io/vliet-angular/chunk-5SBTTGMY.js": "5ad6389b3358be4dfe10df585a3a8fe369d89acb",
@@ -159,6 +158,7 @@
     "https://Dj-Rom.github.io/vliet-angular/chunk-QZF37CAG.js": "02201665c5de69b41edf553336d13a0cdc27d49a",
     "https://Dj-Rom.github.io/vliet-angular/chunk-RUC545AN.js": "6f3f862dd2cd9a6fbd0f9b6bf20d25cf0c018e98",
     "https://Dj-Rom.github.io/vliet-angular/chunk-UZGXYLCI.js": "3f075f67527057f2142f07cfd6976bb03c0b5ded",
+    "https://Dj-Rom.github.io/vliet-angular/chunk-WQ2LIQ3V.js": "68c648e6504936d496627982a35cf0b29e7f8acc",
     "https://Dj-Rom.github.io/vliet-angular/chunk-XBAYVSOR.js": "f72e1cfdb4038116bd8607c579529b9ca6806ca3",
     "https://Dj-Rom.github.io/vliet-angular/chunk-XLOHN24S.js": "6591945d2ba3b886089204af3c172f03fc4285de",
     "https://Dj-Rom.github.io/vliet-angular/chunk-Z5FXYGDF.js": "e1d01d7e8397e3bd9c1937d0d47949540a6be2a4",
@@ -172,8 +172,8 @@
     "https://Dj-Rom.github.io/vliet-angular/icons/icon-512x512.png": "1de182f76f7329dfa8f9fcdd1fdcdd695bea6a99",
     "https://Dj-Rom.github.io/vliet-angular/icons/icon-72x72.png": "aa88a6096bd973be7f6d7a5489bfa6bc2463f8c4",
     "https://Dj-Rom.github.io/vliet-angular/icons/icon-96x96.png": "7fb8f59c30ce2ff12c700321a0b39e14b3dc8f95",
-    "https://Dj-Rom.github.io/vliet-angular/index.html": "31b07345a8d010e346e1d122fbe65926c9ee600e",
-    "https://Dj-Rom.github.io/vliet-angular/main-L2IC7A47.js": "1d20e9aa8892f8fec5087396c503ee591bd8010b",
+    "https://Dj-Rom.github.io/vliet-angular/index.html": "30fd7fa81ce62b68a02747fce34209817d9208fe",
+    "https://Dj-Rom.github.io/vliet-angular/main-I4JOELEF.js": "e87d9ad6b2f09bd3b31e30fbf3d3a2e32af320b7",
     "https://Dj-Rom.github.io/vliet-angular/manifest.webmanifest": "3b53d84fc8e58663163e905f8915f085a4658a43",
     "https://Dj-Rom.github.io/vliet-angular/styles-FTGWNDGF.css": "8a74b65bf063d850753a7aa6cc136999aba02361"
   },
