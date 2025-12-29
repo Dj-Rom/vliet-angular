@@ -1,0 +1,6 @@
+import{d as m}from"./chunk-XBQ2GD63.js";import{a as c}from"./chunk-7F4ZF3UR.js";import{L as o,P as r,ga as a}from"./chunk-WPT7XH7H.js";var l=class n{constructor(t,e){this.listService=t;this.router=e}isOpen=a(!1);title="";date="";toggleMenu(){this.isOpen.set(!this.isOpen())}closeMenu(){this.isOpen.set(!1)}getIsOpen(){return this.isOpen()}formatListItemMessage(t){let e=this.listService.getSavedLists()[t];if(!e)return"";let s=`Name: ${e.name}
+Date: ${e.date}
+
+Values:
+`;for(let i of Object.keys(e.value))e.value[i]>0&&(s+=`${i}: ${e.value[i]}
+`);return s.trim()}sendToWhatsApp(t){let e=this.formatListItemMessage(t),s=`https://wa.me/?text=${encodeURIComponent(e)}`;window.open(s,"_blank"),this.closeMenu()}sendToNumber(t,e){let s=this.formatListItemMessage(t),i=`https://wa.me/${e}?text=${encodeURIComponent(s)}`;window.open(i,"_blank"),this.closeMenu()}deleteListItem(t){let e=this.listService.getSavedLists();return delete e[t],localStorage.setItem("lists",JSON.stringify(e)),this.listService.listChanged$.next(),this.closeMenu(),e}editListItem(t){this.router.navigate(["app/load-management/edit",t]),this.closeMenu()}openMenu(t,e){this.title=t,this.date=e,this.toggleMenu()}static \u0275fac=function(e){return new(e||n)(r(c),r(m))};static \u0275prov=o({token:n,factory:n.\u0275fac,providedIn:"root"})};export{l as a};
