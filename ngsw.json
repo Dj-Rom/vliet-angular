@@ -1,6 +1,6 @@
 {
   "configVersion": 1,
-  "timestamp": 1768436261737,
+  "timestamp": 1768436517407,
   "index": "/vliet-angular/index.html",
   "assetGroups": [
     {
@@ -25,6 +25,7 @@
         "/vliet-angular/chunk-C6Q5SG76.js",
         "/vliet-angular/chunk-CAKZZI6B.js",
         "/vliet-angular/chunk-D5WOYJCF.js",
+        "/vliet-angular/chunk-DLLUQWGK.js",
         "/vliet-angular/chunk-EA5VQALH.js",
         "/vliet-angular/chunk-ERTNZ2E2.js",
         "/vliet-angular/chunk-FK6H3RFT.js",
@@ -53,13 +54,12 @@
         "/vliet-angular/chunk-THVO4KXH.js",
         "/vliet-angular/chunk-UHHTIX6S.js",
         "/vliet-angular/chunk-VQQNNWR4.js",
-        "/vliet-angular/chunk-WFC6ZNWU.js",
         "/vliet-angular/chunk-WLNVIVFK.js",
         "/vliet-angular/chunk-X4RPI7YB.js",
         "/vliet-angular/chunk-ZHSHFKTB.js",
         "/vliet-angular/favicon.ico",
         "/vliet-angular/index.html",
-        "/vliet-angular/main-4UMMZLVK.js",
+        "/vliet-angular/main-6IWQFCAJ.js",
         "/vliet-angular/manifest.webmanifest",
         "/vliet-angular/styles-O5PWLKR7.css"
       ],
@@ -218,6 +218,7 @@
     "/vliet-angular/chunk-C6Q5SG76.js": "fd4fc33dfc3c6ef846db1272f907a0dbbbb1e374",
     "/vliet-angular/chunk-CAKZZI6B.js": "ad83f6a594422dec3d53e5791ed9c8a44b8c81de",
     "/vliet-angular/chunk-D5WOYJCF.js": "9622c4bd85cd64c4b1be9d309c3a053700823337",
+    "/vliet-angular/chunk-DLLUQWGK.js": "a7392e2050cd24c227f3474e8d6af11540969190",
     "/vliet-angular/chunk-EA5VQALH.js": "f88e5e4741da9f281005926320fca2c9ccc00e5c",
     "/vliet-angular/chunk-ERTNZ2E2.js": "cd8e28369aeb4b1dc5356dcd147e5fe5f20f432d",
     "/vliet-angular/chunk-FK6H3RFT.js": "3c538698719f1cf34410542b8c702bc484e025ee",
@@ -246,7 +247,6 @@
     "/vliet-angular/chunk-THVO4KXH.js": "69620162d8c6a1720e63013e78821de73f790028",
     "/vliet-angular/chunk-UHHTIX6S.js": "97205f3257407f9ca77a0e5e20f165488bc25094",
     "/vliet-angular/chunk-VQQNNWR4.js": "f4ac12c7c1dbb7f26ca1121e729fa0b538b78679",
-    "/vliet-angular/chunk-WFC6ZNWU.js": "75f4cca256ce2166cf16031bf31e91213b142d3b",
     "/vliet-angular/chunk-WLNVIVFK.js": "257d07a2ce965aaaf6e90273dcee0a8b442e352e",
     "/vliet-angular/chunk-X4RPI7YB.js": "4a0ad15b2f4ac91ec488508902ede2d24ff40ff7",
     "/vliet-angular/chunk-ZHSHFKTB.js": "3489a455c985d2a58b0e3b0a3a49560d08eb6a4c",
@@ -256,8 +256,8 @@
     "/vliet-angular/icons/apple-touch-icon.png": "fa9a50e955420a4e952d4c6028cfd9138f4cbc61",
     "/vliet-angular/icons/favicon-16x16.png": "368552a7b0c0b753fd6f2552e0617f4c59a58503",
     "/vliet-angular/icons/favicon-32x32.png": "9500acfa0e467e9f136019c8c6e27f9cdc7deb0c",
-    "/vliet-angular/index.html": "11c014884b71e14636c064d3325b24e823365391",
-    "/vliet-angular/main-4UMMZLVK.js": "78c5249822a0f2dfe393ded48c593ae5386e981d",
+    "/vliet-angular/index.html": "980c683c8007d59572a7744561f3fb7b0f620a06",
+    "/vliet-angular/main-6IWQFCAJ.js": "b3dc8418728a92652fecbdc5218e26bc637036dd",
     "/vliet-angular/manifest.webmanifest": "87f755544134fd653353a1ba12a62a821b749e57",
     "/vliet-angular/styles-O5PWLKR7.css": "3b9c34c5e34f145476ff9133eeee2ddb2a55ae26"
   },
