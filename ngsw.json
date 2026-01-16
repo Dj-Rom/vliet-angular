@@ -1,6 +1,6 @@
 {
   "configVersion": 1,
-  "timestamp": 1768576877376,
+  "timestamp": 1768576965604,
   "index": "/vliet-angular/index.html",
   "assetGroups": [
     {
@@ -62,7 +62,7 @@
         "/vliet-angular/index.html",
         "/vliet-angular/main-FRN443OA.js",
         "/vliet-angular/manifest.webmanifest",
-        "/vliet-angular/styles-MWHKEQ5S.css"
+        "/vliet-angular/styles-LDR27CIN.css"
       ],
       "patterns": []
     },
@@ -258,10 +258,10 @@
     "/vliet-angular/icons/apple-touch-icon.png": "fa9a50e955420a4e952d4c6028cfd9138f4cbc61",
     "/vliet-angular/icons/favicon-16x16.png": "368552a7b0c0b753fd6f2552e0617f4c59a58503",
     "/vliet-angular/icons/favicon-32x32.png": "9500acfa0e467e9f136019c8c6e27f9cdc7deb0c",
-    "/vliet-angular/index.html": "8b6684e82133d2cf799c1bf9cccf838b788d68a2",
+    "/vliet-angular/index.html": "9f2f9ddc2f1a95f97f9680d3334dfa306fb2248d",
     "/vliet-angular/main-FRN443OA.js": "b94171aaaa3c3f880156ddcfdbbdf4e94dd8b8b2",
     "/vliet-angular/manifest.webmanifest": "87f755544134fd653353a1ba12a62a821b749e57",
-    "/vliet-angular/styles-MWHKEQ5S.css": "c9920d111da3472a213f98046744e0634e30bd4d"
+    "/vliet-angular/styles-LDR27CIN.css": "228f47077a03cddb74f3498d6d0e97952332b671"
   },
   "navigationUrls": [
     {
