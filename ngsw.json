@@ -1,6 +1,6 @@
 {
   "configVersion": 1,
-  "timestamp": 1769801999554,
+  "timestamp": 1769803702140,
   "index": "/vliet-angular/index.html",
   "assetGroups": [
     {
@@ -34,7 +34,7 @@
         "/vliet-angular/chunk-KQFHQ3CM.js",
         "/vliet-angular/chunk-KT2ZDVGA.js",
         "/vliet-angular/chunk-LFZHQARY.js",
-        "/vliet-angular/chunk-Q3VUFKUS.js",
+        "/vliet-angular/chunk-LT2OFQZB.js",
         "/vliet-angular/chunk-QHWQZTYM.js",
         "/vliet-angular/chunk-QLK3WJ3K.js",
         "/vliet-angular/chunk-QUSRG5M7.js",
@@ -56,7 +56,7 @@
         "/vliet-angular/chunk-ZUOK66C4.js",
         "/vliet-angular/favicon.ico",
         "/vliet-angular/index.html",
-        "/vliet-angular/main-3GDDOO7K.js",
+        "/vliet-angular/main-GTPAYC7J.js",
         "/vliet-angular/manifest.webmanifest",
         "/vliet-angular/styles-KNBQYGR4.css"
       ],
@@ -193,7 +193,7 @@
     "/vliet-angular/chunk-KQFHQ3CM.js": "65d63b3b806f24160720073632202e556881cc1c",
     "/vliet-angular/chunk-KT2ZDVGA.js": "5d06327bd0b41ed499e4827529336a618aa7436d",
     "/vliet-angular/chunk-LFZHQARY.js": "9079619a804efd315a00f481f99cf2174f319407",
-    "/vliet-angular/chunk-Q3VUFKUS.js": "2719ae30ae0bc8bb504ea02165351abb69cc28b6",
+    "/vliet-angular/chunk-LT2OFQZB.js": "b8b75e089b21dc2ddd4a8aedcd194c97686e1e64",
     "/vliet-angular/chunk-QHWQZTYM.js": "c7de9c9f61c9613a1d34d9899e3bbd3b8f8b1622",
     "/vliet-angular/chunk-QLK3WJ3K.js": "a3e2ca0340ff6d06105f5c3ba4a2486bd498fbf6",
     "/vliet-angular/chunk-QUSRG5M7.js": "43e3c2f4e5928543b1d070bd45447ea863cf8cbe",
@@ -220,8 +220,8 @@
     "/vliet-angular/icons/favicon-16x16.png": "368552a7b0c0b753fd6f2552e0617f4c59a58503",
     "/vliet-angular/icons/favicon-32x32.png": "9500acfa0e467e9f136019c8c6e27f9cdc7deb0c",
     "/vliet-angular/icons/og-image.png": "cf5d20eeea9ca7b1abf97a78f9fa0e71c8d68ffc",
-    "/vliet-angular/index.html": "89adb0dba1cd6f828c30cc1e8c981b3ea60ca4c0",
-    "/vliet-angular/main-3GDDOO7K.js": "cd977ebd2e18e814b10de00d37c08bedfc8fe9e3",
+    "/vliet-angular/index.html": "e671926552926c84b20af8bdd175e18f9afabdc9",
+    "/vliet-angular/main-GTPAYC7J.js": "32cc2b03bacff749077cddd6e59c51b2b6afb35d",
     "/vliet-angular/manifest.webmanifest": "36c85f7c79aaac1a54f2eadc4c90af3daf0386ee",
     "/vliet-angular/styles-KNBQYGR4.css": "453cf4756324de193d7253b66e5169faeb209005"
   },
