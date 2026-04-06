@@ -93,7 +93,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 10px 0;
+  padding: 10px 2px;
   border-bottom: 0.5px solid #1a1d27;
   cursor: pointer;
   transition: background 0.2s, color 0.2s;
@@ -103,10 +103,10 @@
   background: #1e2329;
   border-radius: 2px;
   margin: 3px auto;
-  padding: 5px !important;
+  padding: 5px 2px !important;
 
 span{
-  margin:5px 10px!important;
+  margin:5px 1px!important;
   color:  yellow!important;
 }
   padding: 10px 4px;
