@@ -1,0 +1,60 @@
+<!--@if(isMobile){-->
+<app-mobile></app-mobile>
+<!--} @else {-->
+<!--  &lt;!&ndash; Ikona burgera &ndash;&gt;-->
+<!--  <div class="burger" (click)="toggleMenu()">-->
+<!--    <img *ngIf="!menuOpen; else closeIcon" src="assets/svg/burger.svg" alt="Otwórz menu" class="icon-svg" />-->
+<!--  </div>-->
+<!--  <ng-template #closeIcon>-->
+<!--    <img src="assets/svg/close.svg" alt="Zamknij menu" class="icon-svg" />-->
+<!--  </ng-template>-->
+
+<!--  &lt;!&ndash; Menu nawigacyjne &ndash;&gt;-->
+<!--  <nav class="nav" [class.open]="menuOpen">-->
+<!--    <h2>Cześć, {{user ? user : 'Gość'}}</h2>-->
+<!--    <ul class="nav-ul">-->
+<!--      <li (click)="toggleMenu()">-->
+<!--        <img class="icon-svg" src="assets/svg/home.svg" alt="Strona główna" />-->
+<!--        <a routerLink="/app" class="nav-link">Strona główna</a>-->
+<!--      </li>-->
+<!--      <li (click)="toggleMenu()">-->
+<!--        <img class="icon-svg" src="assets/svg/time.svg" alt="Licznik czasu" />-->
+<!--        <a routerLink="/app/time-counter" class="nav-link">Licznik czasu</a>-->
+<!--      </li>-->
+<!--      <li (click)="toggleMenu()">-->
+<!--        <img class="icon-svg" src="assets/svg/truck.svg" alt="Zarządzanie załadunkiem" />-->
+<!--        <a routerLink="/app/load-management" class="nav-link">Zarządzanie załadunkiem</a>-->
+<!--      </li>-->
+<!--      <li (click)="toggleMenu()">-->
+<!--        <img class="icon-svg" src="assets/svg/pallet.svg" alt="Liczba paczek" />-->
+<!--        <a routerLink="/app/flora-pack" class="nav-link">Liczba paczek</a>-->
+<!--      </li>-->
+<!--      <li (click)="toggleMenu()">-->
+<!--        <img class="icon-svg" src="assets/svg/map.svg" alt="Lokalizacje załadunku" />-->
+<!--        <a routerLink="/app/load-location" class="nav-link">Lokalizacje załadunku</a>-->
+<!--      </li>-->
+<!--      <li (click)="toggleMenu()">-->
+<!--        <img class="icon-svg" src="assets/svg/map.svg" alt="Dodaj nowy list przewozowy" />-->
+<!--        <a routerLink="/app/waybill" class="nav-link">Dodaj nowy list przewozowy</a>-->
+<!--      </li>-->
+<!--      <li (click)="toggleMenu()">-->
+<!--        <img class="icon-svg" src="assets/svg/map.svg" alt="Historia listów przewozowych" />-->
+<!--        <a routerLink="/app/waybills-history" class="nav-link">Historia listów przewozowych</a>-->
+<!--      </li>-->
+
+<!--      &lt;!&ndash; Wyloguj / Zaloguj &ndash;&gt;-->
+<!--      <ng-container *ngIf="isLoggedIn; else login">-->
+<!--        <li (click)="toggleMenu()">-->
+<!--          <img class="icon-svg" src="assets/svg/logout.svg" alt="Wyloguj" />-->
+<!--          <a (click)="logout()" class="nav-link">Wyloguj</a>-->
+<!--        </li>-->
+<!--      </ng-container>-->
+<!--      <ng-template #login>-->
+<!--        <li>-->
+<!--          <img class="icon-svg" src="assets/svg/logout.svg" alt="Zaloguj" />-->
+<!--          <a routerLink="/auth/login" class="nav-link">Zaloguj</a>-->
+<!--        </li>-->
+<!--      </ng-template>-->
+<!--    </ul>-->
+<!--  </nav>-->
+<!--}-->

@@ -1,0 +1,36 @@
+<section class="available-capacity">
+  <h2>Dostępna pojemność</h2>
+  <div class="btnChooseGroup">
+    <button class="select-btn font500size16" (click)="onSelect('TIR')" id="tir">TIR</button>
+    <button class="select-btn font500size16" (click)="onSelect('SOLO')" id="solo">SOLO</button>
+    <button class="select-btn font500size16" (click)="onSelect('TRAILER')" id="trailer">
+      PRZYCZEPA
+    </button>
+  </div>
+  <table class="mt24">
+    <thead class="font500size14">
+      <th>Typ</th>
+      <th>Rozmiar</th>
+      <th>Załadowane</th>
+      <th>Pozostało</th>
+    </thead>
+    <tbody class="font400size14">
+      <tr *ngFor="let pallet of palletKeys()">
+        <td class="font600size16">{{ pallet }}</td>
+        <td>{{ truckData.palletSize[pallet] || '-' }}</td>
+        <td>{{ truckData.currentLoaded[pallet] }}</td>
+        <td class="canload" [style.color]="truckData.canLoad[pallet] == 0 ? 'red' : ''">
+          {{ truckData.canLoad[pallet] }}
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="mt24 btnGroupLoad">
+    <button class="btnLoad font500size16" (click)="availableCapacityService.resetAll()">
+      Resetuj wszystko
+    </button>
+    <button class="btnLoad font500size16" (click)="openEdit()">Rozładuj</button>
+    <button class="btnLoad font500size16" (click)="openEdit()">Załaduj</button>
+  </div>
+</section>

@@ -1,118 +1,167 @@
 import { Routes } from '@angular/router';
-import { AuthGuard } from './authguard';
+import { AuthGuard } from './core/guard/authguard';
 
 export const routes: Routes = [
-  // Redirect root → login
-  {
-    path: '',
-    redirectTo: '/auth/sign-in',
-    pathMatch: 'full'
-  },
+  // Default → redirect to sign-in
+  { path: '', redirectTo: '/auth/sign-in', pathMatch: 'full' },
 
-  // Auth pages
+  // Authentication routes
   {
     path: 'auth',
     children: [
       {
         path: 'sign-in',
-        loadComponent: () =>
-          import('./core/auth/sign-in/sign-in').then(m => m.SignIn),
-        data: { title: 'Sign-in' }
+        loadComponent: () => import('./auth/sign-in/sign-in').then((m) => m.SignIn),
+        data: { title: 'Sign-in' },
       },
       {
         path: 'sign-up',
-        loadComponent: () =>
-          import('./core/auth/sign-up/sign-up').then(m => m.SignUp),
-        data: { title: 'Sign-up' }
-      }
-    ]
+        loadComponent: () => import('./auth/sign-up/sign-up').then((m) => m.SignUp),
+        data: { title: 'Sign-up' },
+      },
+    ],
   },
 
-  // Main app (protected)
+  // Main protected app
   {
     path: 'app',
     canActivate: [AuthGuard],
+    canActivateChild: [AuthGuard],
     children: [
+      // Waybills
       {
-        path: 'waybill',
+        path: 'waybill-new',
         loadComponent: () =>
-          import('./core/waybill/waybill').then(m => m.Waybill),
-        data: { title: 'Waybill' }
-      },
-      {
-        path: 'time-counter',
-        loadComponent: () =>
-          import('./core/time-counter/time-counter').then(m => m.TimeCounter),
-        data: { title: 'Time Counter' }
-      },
-      {
-        path: 'load-management',
-
-        loadComponent: () =>
-          import('./core/load-calculator-page/load-calculator-page')
-            .then(m => m.LoadCalculatorPage),
+          import('./features/waybiils/layout/waybiils').then((m) => m.WaybiilsPage),
         children: [
           {
-            path: 'all',
+            path: '',
             loadComponent: () =>
-              import('./core/load-calculator-page/all/all').then(m => m.All)
-          },
-          {
-            path: 'today',
-            loadComponent: () =>
-              import('./core/load-calculator-page/today/today').then(m => m.Today)
+              import('./features/waybiils/pages/view-waybills-page/view-waybills-page').then(
+                (m) => m.ViewWaybillsPage,
+              ),
           },
           {
             path: 'add',
             loadComponent: () =>
-              import('./core/load-calculator/add-new-list/add-new-list').then(m => m.AddNewList)
+              import('./features/waybiils/pages/add-new-waybill-page/add-new-waybill-page').then(
+                (m) => m.AddNewWaybillPage,
+              ),
           },
-        ]
-      },
           {
-            path: 'load-management/edit/:id',
+            path: 'edit/:id',
             loadComponent: () =>
-              import('./core/load-calculator/edit-item/edit-item').then(m => m.EditItem)
+              import('./features/waybiils/pages/edit-waybills-page/edit-waybills-page').then(
+                (m) => m.EditWaybillsPage,
+              ),
           },
+        ],
+      },
 
+      // Available Capacity
+      {
+        path: 'available-capacity',
+        loadComponent: () =>
+          import('./features/available-capacity-page/available-capacity').then(
+            (m) => m.AvailableCapacity,
+          ),
+        data: { title: 'Available Capacity' },
+      },
+      {
+        path: 'available-capacity-edit/:key',
+        loadComponent: () =>
+          import('./features/available-capacity-page/edit-page/edit-page').then((m) => m.EditPage),
+        data: { title: 'Available Capacity' },
+      },
+
+      // Load Management
+      {
+        path: 'load-management',
+        loadComponent: () =>
+          import('./features/packaking-manager-page/layout/load-calculator-page').then(
+            (m) => m.LoadCalculatorPage,
+          ),
+        children: [
+          { path: '', redirectTo: 'all', pathMatch: 'full' },
+          {
+            path: 'all',
+            loadComponent: () =>
+              import('./features/packaking-manager-page/pages/list-page/list-page').then(
+                (m) => m.ListPage,
+              ),
+          },
+          {
+            path: 'today',
+            loadComponent: () =>
+              import('./features/packaking-manager-page/pages/list-page/list-page').then(
+                (m) => m.ListPage,
+              ),
+          },
+          {
+            path: 'add',
+            loadComponent: () =>
+              import('./features/packaking-manager-page/pages/add-new-list/add-new-list').then(
+                (m) => m.AddNewList,
+              ),
+          },
+          {
+            path: 'calc/:key',
+            loadComponent: () =>
+              import('./features/packaking-manager-page/pages/calculator/calculator').then(
+                (m) => m.Calculator,
+              ),
+          },
+        ],
+      },
+      {
+        path: 'load-management/edit/:id',
+        loadComponent: () =>
+          import('./features/packaking-manager-page/pages/edit-item/edit-item').then(
+            (m) => m.EditItem,
+          ),
+      },
+
+      // Load Locations
       {
         path: 'load-location',
         loadComponent: () =>
-          import('./core/load-location/load-location').then(m => m.LoadLocation),
-        data: { title: 'Load Location' }
+          import('./features/load-location-page/load-location').then((m) => m.LoadLocation),
+        data: { title: 'Load Location' },
       },
       {
-        path: 'waybills-history',
+        path: 'load-location/add',
         loadComponent: () =>
-          import('./core/waybill-history/waybill-history').then(m => m.WaybillHistory),
-        data: { title: 'Waybill History' }
+          import('./features/load-location-page/pages/add-new-client-page/add-new-client-page').then(
+            (m) => m.AddNewClientPage,
+          ),
+        data: { title: 'Load Location' },
       },
+      {
+        path: 'load-location/edit/:id',
+        loadComponent: () =>
+          import('./features/load-location-page/pages/edit-client-page/edit-client-page').then(
+            (m) => m.EditClientPage,
+          ),
+        data: { title: 'Edit Client' },
+      },
+
+      // Profile
       {
         path: 'profile',
-        loadComponent: () =>
-          import('./core/profile/profile').then(m => m.Profile),
-        data: { title: 'Profile' }
+        loadComponent: () => import('./features/profile-page/profile').then((m) => m.Profile),
+        data: { title: 'Profile' },
       },
 
-      {
-        path: '',
-        redirectTo: 'waybill',
-        pathMatch: 'full'
-      }
-    ]
+      // Default for app
+      { path: '', redirectTo: 'waybill-new', pathMatch: 'full' },
+    ],
   },
 
-  // Not found page
+  // Not Found
   {
     path: 'not-found',
-    loadComponent: () =>
-      import('./core/not-found/not-found').then(m => m.NotFound),
-    data: { title: 'Not found' }
+    loadComponent: () => import('./features/not-found-page/not-found').then((m) => m.NotFound),
+    data: { title: 'Not found' },
   },
-
-  // Wildcard MUST be last
-  // {
-  //   path: '**',
-  //   redirectTo: '/not-found'
-  // }
+  { path: '**', redirectTo: '/not-found' },
 ];

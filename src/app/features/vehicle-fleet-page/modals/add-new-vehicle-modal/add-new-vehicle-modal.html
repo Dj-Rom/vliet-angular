@@ -1,0 +1,44 @@
+<section class="add-new-vehicle">
+  <header class="header">
+    <button class="backBtn" (click)="back()">
+      <img src="assets/svg/back.svg" />
+    </button>
+    <span class="font400size16">Dodawanie pojazdu</span>
+  </header>
+  <form [formGroup]="vehicleForm" (ngSubmit)="onSubmit()">
+    <label for="type">Typ</label>
+    <select formControlName="vehicleType" (change)="onTypeChange($event)" name="type">
+      <option value="trailer">TRAILER</option>
+      <option value="truck">TRUCK</option>
+    </select>
+    <br />
+    <label for="marka">Marka</label>
+    <select formControlName="vehicleBrand" *ngIf="!isTrailer" name="marka">
+      <option value="volvo">VOLVO</option>
+      <option value="daf">DAF</option>
+      <option value="iveco">IVECO</option>
+    </select>
+    <select formControlName="vehicleTrailerBrand" *ngIf="isTrailer" name="marka-trailer">
+      <option value="schmitz">SCHMITZ</option>
+      <option value="other">OTHER</option>
+    </select>
+    <br />
+    <label for="number">Numer registraciny</label>
+    <input
+      type="text"
+      name="number"
+      placeholder="Wpisz numer pojazdu"
+      formControlName="vehicleNumber"
+      minlength="6"
+    />
+    <div
+      *ngIf="vehicleForm.get('vehicleNumber')?.touched && vehicleForm.get('vehicleNumber')?.invalid"
+      class="error"
+    >
+      Proszę wpisać numer! Na przykład: PZ1R741
+    </div>
+    <div class="saveBtnBack">
+      <button class="save-btn" type="submit">SAVE</button>
+    </div>
+  </form>
+</section>

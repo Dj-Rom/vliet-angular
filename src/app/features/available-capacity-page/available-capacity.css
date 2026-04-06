@@ -1,0 +1,125 @@
+.available-capacity {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  flex-direction: column;
+  align-items: center;
+}
+.btnChooseGroup {
+  display: flex;
+  justify-content: space-between;
+  margin: 24px 2vw 12px 2vw;
+  height: 44px;
+  gap: 8px;
+  angle: 0 deg;
+  opacity: 1;
+  border-bottom-width: 1px;
+}
+.select-btn {
+  width: 115px;
+  height: 44px;
+
+  gap: 8px;
+  angle: 0 deg;
+  opacity: 1;
+  border-radius: 4px;
+  color: rgba(255, 255, 255, 1);
+
+  background: rgba(30, 35, 41, 1);
+  border: 1px solid rgba(47, 54, 62, 1);
+}
+
+table {
+  border-collapse: collapse;
+  width: 96vw;
+  max-width: 600px;
+  margin: 10px 2vw 0 2vw;
+  height: 320px;
+  angle: 0 deg;
+  opacity: 1;
+  border-radius: 8px;
+  background: rgba(22, 26, 31, 1);
+  border: 1px solid rgba(42, 47, 54, 1);
+}
+thead {
+  background: rgba(29, 34, 40, 1);
+}
+tr {
+  border-bottom: 1px solid rgba(42, 47, 54, 1);
+}
+th,
+td {
+  text-align: center;
+  width: 104px;
+  height: 40px;
+  padding-top: 10px;
+  padding-right: 8px;
+  padding-bottom: 10px;
+  padding-left: 8px;
+  gap: 8px;
+  angle: 0 deg;
+  opacity: 1;
+  color: rgba(255, 255, 255, 1);
+}
+.canload {
+  font-family: Inter;
+  font-weight: 600;
+  font-style: Semi Bold;
+  font-size: 16px;
+  leading-trim: NONE;
+  line-height: 24px;
+  letter-spacing: 0%;
+  text-align: center;
+  color: rgba(108, 233, 166, 1);
+}
+.btnGroupLoad {
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: column;
+  height: 208px;
+  gap: 8px;
+  angle: 0 deg;
+  opacity: 1;
+  border-bottom-width: 1px;
+}
+.btnLoad {
+  width: 96vw;
+  max-width: 600px;
+
+  height: 44px;
+  padding-top: 10px;
+  padding-right: 18px;
+  padding-bottom: 10px;
+  padding-left: 18px;
+  gap: 0px;
+  angle: 0 deg;
+  opacity: 1;
+  border-radius: 4px;
+  background: rgba(30, 35, 41, 1);
+  border: 1px solid rgba(47, 54, 62, 1);
+  color: rgba(255, 255, 255, 1);
+}
+.active {
+  background: rgba(76, 141, 255, 1);
+  font-family: Inter;
+  font-weight: 600;
+  font-style: Semi Bold;
+  font-size: 16px;
+  leading-trim: NONE;
+  line-height: 24px;
+  letter-spacing: 0%;
+}
+@media screen and (max-width: 368px) {
+  .btnChooseGroup,
+  table,
+  .btnGroupLoad {
+    width: 95vw;
+  }
+  th,
+  td {
+    height: 2vh;
+  }
+  .btnLoad {
+    width: 95vw;
+  }
+}

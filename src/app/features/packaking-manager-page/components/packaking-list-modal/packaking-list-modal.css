@@ -1,0 +1,136 @@
+.packaging-list-modal {
+  position: fixed;
+  top: 10px;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+  background: rgba(0, 0, 0, 0.55);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-bottom: 20px;
+
+}
+.title{
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  font-size: 18px;
+  font-weight: 500;
+  color: #ffffff;
+}
+.items{
+  margin-top: 24px;
+  display: flex;
+  width: 100%;
+  gap: 10px;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding: 10px 0;
+  border-bottom: 0.5px solid #1a1d27;
+  flex-direction: column;
+
+  div{
+    width: 100%;
+
+  }
+
+}
+.packaging-list-modal > .modal-inner {
+  background: #0f1117;
+  border: 0.5px solid #2a2d3a;
+  border-radius: 12px;
+  width: 100%;
+  max-width: 420px;
+  overflow: hidden;
+  position: relative;
+  padding: 20px;
+}
+
+.packaging-list-modal .btnClose {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 6px;
+  border: 0.5px solid #2a2d3a;
+  background: #1a1d27;
+  color: white;
+  font-size: 13px;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+}
+
+.packaging-list-modal .btnClose:hover {
+  background: #252836;
+  color: #ffffff;
+}
+
+.packaging-list-modal div {
+  display: flex;
+  /* gap: 10px; */
+  max-height: 96vh;
+  align-items: flex-start;
+  justify-content: space-between;
+  padding: 10px 0;
+  border-bottom: 0.5px solid gray;
+
+}
+
+.packaging-list-modal div:last-child {
+  border-bottom: none;
+}
+
+.packaging-list-modal div span:first-child {
+  font-size: 14px;
+  color: #c8d0e0;
+}
+.item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 0;
+  border-bottom: 0.5px solid #1a1d27;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+
+.item.active {
+  background: #1e2329;
+  border-radius: 2px;
+  margin: 3px auto;
+  padding: 5px !important;
+
+span{
+  margin:5px 10px!important;
+  color:  yellow!important;
+}
+  padding: 10px 4px;
+}
+
+.item.active span {
+  color: #4adf8a;
+}
+.packaging-list-modal div span:last-child {
+  font-size: 12px;
+  font-weight: 500;
+  padding: 3px 10px;
+  border-radius: 20px;
+  background: #1a2a3a;
+  color: white;
+  border: 0.5px solid #1e3a5a;
+  min-width: 32px;
+  text-align: center;
+}
+.list{
+  max-height: 80vh;
+  overflow: auto;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+  margin-top: 20px;
+}

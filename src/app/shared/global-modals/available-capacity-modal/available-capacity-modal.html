@@ -1,0 +1,5 @@
+<section class="modal-content-available-capacity">
+  @for (entry of Object.entries(listAvCapacity); track entry[0]) {
+    <app-item [title]="entry[0]" [date]="entry[1].toString()"></app-item>
+  }
+</section>

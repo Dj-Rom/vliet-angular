@@ -1,0 +1,81 @@
+.add-new-vehicle {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  max-width: 100%;
+  background: black;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  align-items: center;
+  border: none;
+  height: 100vh;
+  form {
+    display: flex;
+    height: 100%;
+    background: black;
+    flex-direction: column;
+    align-content: center;
+    align-items: center;
+    width: 100%;
+  }
+  .header {
+    position: sticky;
+    display: flex;
+    top: 0;
+    background: black;
+    flex-direction: row;
+    align-content: center;
+    align-items: center;
+    width: 90%;
+    justify-content: space-between;
+    padding: 20px 0;
+    span {
+      text-align: center;
+      width: 98%;
+    }
+  }
+}
+label {
+  width: 96vw;
+  max-width: 600px;
+  margin: 0px 2vw 0 2vw;
+  height: 20px;
+  angle: 0 deg;
+  opacity: 1;
+  padding-left: 0px;
+  font-family: Inter;
+  font-weight: 500;
+  font-style: Medium;
+  font-size: 14px;
+  leading-trim: NONE;
+  line-height: 20px;
+  letter-spacing: 0%;
+  color: rgba(155, 164, 174, 1);
+}
+select,
+input {
+  width: 96vw;
+  max-width: 600px;
+  margin: 0px 2vw 0 2vw;
+  height: 44px;
+  gap: 6px;
+  angle: 0 deg;
+  opacity: 1;
+
+  background: rgba(30, 35, 41, 1);
+  border: 1px solid rgba(28, 31, 35, 1);
+  font-family: Inter;
+  font-weight: 600;
+  font-style: Semi Bold;
+  font-size: 16px;
+  leading-trim: NONE;
+  line-height: 24px;
+  letter-spacing: 0%;
+  color: white;
+  padding-left: 12px;
+}
+.saveBtnBack {
+  height: 80px !important;
+}

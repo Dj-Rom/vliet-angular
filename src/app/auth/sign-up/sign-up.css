@@ -1,0 +1,83 @@
+@import url('../shared-auth.css');
+
+.auth-registration {
+  top: 120px;
+  width: 100%;
+
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  z-index: 5;
+  background: black;
+
+  span {
+    display: inline-block;
+  }
+}
+
+input:focus,
+input:active,
+label:focus,
+label:active {
+  outline: none;
+  border: 1px solid rgba(76, 141, 255, 1) !important;
+}
+
+.auth-form-registration {
+  width: 96vw;
+  max-width: 600px;
+  margin: 0px 2vw 0 2vw;
+  height: 344px;
+  angle: 0deg;
+  opacity: 1;
+  top: 270px;
+  left: 16px;
+  gap: 56px;
+
+  label {
+    width: 96%;
+    width: 96vw;
+    max-width: 600px;
+    margin: 16px 2vw 0 2vw;
+    height: 20px;
+    angle: 0deg;
+    opacity: 1;
+    gap: 6px;
+    color: var(--primary-color);
+
+    display: flex;
+    justify-content: space-between;
+  }
+
+  input {
+    width: 96%;
+    margin-top: 6px;
+    background-color: var(--dark-color);
+    border: 1px solid var(--dark-color-b);
+    color: var(--primary-color);
+  }
+
+  input::placeholder {
+    color: var(--tertiary-color);
+  }
+}
+
+.error-auth-m {
+  display: inline;
+  color: var(--text-error-color);
+}
+
+
+
+.sing-up {
+  color: var(--primary-color);
+  text-align: center;
+
+  .auth-link {
+    color: var(--focus-color);
+    text-decoration-line: none;
+  }
+}
+
+/**/

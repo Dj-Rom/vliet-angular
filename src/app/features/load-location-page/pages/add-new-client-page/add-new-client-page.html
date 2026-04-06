@@ -1,0 +1,40 @@
+<header class="header">
+  <button class="backBtn" (click)="back()">
+    <img src="assets/svg/back.svg" />
+  </button>
+  <span class="font400size16 header-title">Dodawanie klienta</span>
+</header>
+
+<main>
+  <form [formGroup]="form" (ngSubmit)="submit()">
+    <label>Firma</label>
+    <input type="text" formControlName="company" />
+    <div *ngIf="form.get('company')?.touched && form.get('company')?.invalid" class="error">
+      Company is required (min 2 chars)
+    </div>
+
+    <label>Address</label>
+    <input type="text" formControlName="address" />
+    <div *ngIf="form.get('address')?.touched && form.get('address')?.invalid" class="error">
+      Address is required
+    </div>
+
+    <label>Link</label>
+    <input type="text" formControlName="google_link" />
+    <div *ngIf="form.get('google_link')?.touched && form.get('google_link')?.invalid" class="error">
+      Enter a valid URL
+    </div>
+
+    <label>GPS</label>
+    <input type="text" formControlName="gps" placeholder="lat,lng" />
+    <div *ngIf="form.get('gps')?.touched && form.get('gps')?.invalid" class="error">
+      Enter valid coordinates (e.g., 22.222222, 22.222222)
+    </div>
+
+    <label>Notes</label>
+    <textarea formControlName="notes"></textarea>
+    <div class="saveBtnBack">
+      <button type="submit" class="save-btn">Dodaj</button>
+    </div>
+  </form>
+</main>

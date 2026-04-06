@@ -1,0 +1,14 @@
+  <app-packaking-list-modal></app-packaking-list-modal>
+<div class="listItems">
+  <app-item
+    *ngFor="let kv of list() | keyvalue"
+    [item]="kv.value"
+    [title]="kv.value.name"
+    [date]="kv.value.date"
+  >
+  </app-item>
+
+  <p *ngIf="!Object.keys(list()).length">
+    {{ filter === 'today' ? 'Brak zapisanych list...' : 'Brak zapisanych list' }}
+  </p>
+</div>

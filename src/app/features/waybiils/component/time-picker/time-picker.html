@@ -1,0 +1,25 @@
+<div class="time-picker">
+  <div class="wheels">
+    <!-- HOURS -->
+    <div class="wheel-container">
+      <div class="wheel" #hoursWheel (scroll)="onHourScroll()">
+        <div class="wheel-item" *ngFor="let h of hours" [class.active]="h === selectedHour()">
+          {{ h }}
+        </div>
+      </div>
+    </div>
+
+    <div class="colon">:</div>
+
+    <!-- MINUTES -->
+    <div class="wheel-container">
+      <div class="wheel" #minutesWheel (scroll)="onMinuteScroll()">
+        <div class="wheel-item" *ngFor="let m of minutes" [class.active]="m === selectedMinute()">
+          {{ m }}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <button class="save-btn" (click)="save()">Zapisz</button>
+</div>

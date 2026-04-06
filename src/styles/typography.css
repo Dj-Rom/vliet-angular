@@ -25,7 +25,7 @@
   line-height: 40px;
   letter-spacing: 0%;
 }
-.font400size14{
+.font400size14 {
   font-family: Inter;
   font-weight: 400;
   font-style: Regular;
@@ -33,9 +33,17 @@
   leading-trim: NONE;
   line-height: 20px;
   letter-spacing: 0%;
-
 }
-.font500size14{
+.font400size48 {
+  font-family: Inter;
+  font-weight: 400;
+  font-style: Regular;
+  font-size: 48px;
+  leading-trim: NONE;
+  line-height: 20px;
+  letter-spacing: 0%;
+}
+.font500size14 {
   font-family: Inter;
   font-weight: 500;
   font-style: Medium;
@@ -44,11 +52,10 @@
   line-height: 20px;
   letter-spacing: 0%;
 }
-.size24{
+.size24 {
   font-size: 24px;
-
 }
-.font500size12{
+.font500size12 {
   font-family: Inter;
   font-weight: 500;
   font-style: Medium;
@@ -57,7 +64,7 @@
   line-height: 20px;
   letter-spacing: 0%;
 }
-.font500size16{
+.font500size16 {
   font-family: Inter;
   font-weight: 500;
   font-style: Medium;
@@ -74,10 +81,8 @@
   leading-trim: NONE;
   line-height: 24px;
   letter-spacing: 0%;
-
-
 }
-.font600size14{
+.font600size14 {
   font-family: Inter;
   font-weight: 600;
   font-style: Semi Bold;
@@ -85,5 +90,4 @@
   leading-trim: NONE;
   line-height: 24px;
   letter-spacing: 0%;
-
 }

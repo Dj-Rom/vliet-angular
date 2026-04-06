@@ -1,3 +1,30 @@
+<!-- Global spinner overlay -->
+<app-spinner *ngIf="fb.isLoading()"></app-spinner>
+<!---->
+<!-- Main content -->
+<div [style]="'display: flex; flex-direction: column; align-content: center; align-items: center;'">
+  <router-outlet (activate)="onActivate()" (deactivate)="onDeactivate()"></router-outlet>
+</div>
 
-<router-outlet [style]=" 'display: block;height: 100vh;'"/>
-<app-navigation *ngIf="isLoggedIn"></app-navigation>
+<!-- Conditional modals and menus -->
+<app-navigation *ngIf=" !router.url.includes('auth')"></app-navigation>
+<app-add-name-modal
+  *ngIf="modalService.isNameModalOpen()"
+  style="position: absolute; z-index: 10; width: 100%;left: 0; height: 120vh; background: #060606"
+></app-add-name-modal>
+<app-are-your-sure-modal
+  *ngIf="modalService.isSureModalOpen()"
+  style="position: absolute; z-index: 10; width: 100%; height: 120vh; background: #060606"
+></app-are-your-sure-modal>
+<app-available-capacity-modal
+  *ngIf="modalService.isAvailableCapacityModalOpen()"
+  style="position: absolute; z-index: 10; width: 100%; height: 120vh; background: #060606"
+></app-available-capacity-modal>
+
+<app-more-menu *ngIf="moreMenuService.isOpen()"></app-more-menu>
+<app-more-menu-waybill *ngIf="moreMenuService.isOpenWaybillMoreMenu()"></app-more-menu-waybill>
+<app-more-menu-client *ngIf="moreMenuService.isOpenClientMoreMenu()"></app-more-menu-client>
+
+<app-alert *ngIf="alert.isShow()"></app-alert>
+<app-pwa-install></app-pwa-install>
+<app-swipe></app-swipe>

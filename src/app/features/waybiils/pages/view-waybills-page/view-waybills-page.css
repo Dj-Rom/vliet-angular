@@ -1,0 +1,70 @@
+.header-waybill {
+  height: 44px;
+  angle: 0 deg;
+  opacity: 1;
+  gap: 8px;
+  padding-right: 6px;
+  padding-left: 6px;
+  width: 96vw;
+  max-width: 600px;
+  margin: 12px 2vw 0 2vw;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  h3 {
+    margin-left: -70px;
+    margin-top: 12px;
+    width: 95%;
+    font-family: Inter;
+    font-weight: 400;
+    font-style: Regular;
+    font-size: 16px;
+    leading-trim: NONE;
+    line-height: 24px;
+    letter-spacing: 0%;
+    text-align: center;
+    color: rgba(255, 255, 255, 1);
+  }
+}
+.closeReport {
+  position: absolute;
+  right: 30px;
+  top: 30px;
+}
+.total {
+  color: var(--text-primary);
+  margin-right: -5px;
+  width: 120px !important;
+}
+table {
+  padding-bottom: 167px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.report-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 92vh;
+  display: flex;
+  padding: 80px 6px;
+  justify-content: flex-start;
+  align-items: center;
+  align-content: center;
+  flex-direction: column;
+
+  background: var(--bg-primary);
+  z-index: 100;
+}
+
+header {
+  display: flex;
+  position: sticky;
+  top: 0;
+  background: black;
+  flex-direction: column;
+  align-content: center;
+  align-items: center;
+}

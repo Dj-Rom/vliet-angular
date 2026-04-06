@@ -1,0 +1,42 @@
+<section class="calendar-header-filter mt24">
+  <header>
+    <div class="month-switcher">
+      <img (click)="backMonth()" src="assets/svg/back.svg" alt="" />
+      <span class="mmyyTitle font500size16">
+        {{ dateService.MONTHS[dateService.currentSelectedMonth()]?.name }}
+        {{ dateService.currentSelectedYear() }}
+      </span>
+      <img (click)="nextMonth()" src="assets/svg/next.svg" alt="" />
+    </div>
+  </header>
+
+  <div class="scroll-container">
+    <div class="days-wrapper">
+      <div
+        #dayItem
+        class="day-card"
+        *ngFor="let day of monthDays()"
+        [class.selected]="isSelected(day)"
+        (click)="selectDay(day)"
+      >
+        <div class="week font400size14">{{ day.weekday }}</div>
+        <div class="day font400size16">{{ day.day }}</div>
+      </div>
+    </div>
+  </div>
+</section>
+<br />
+<span
+  *ngIf="this.dateService.selectedDay()"
+  (click)="viewAllDayItems()"
+  style="
+  font-family: Inter;
+    display: block;
+    text-align: end;
+    margin: 10px auto;
+    color: var(--focus-color);
+    max-width: 600px;
+    width: 90vw;
+  "
+  >All</span
+>

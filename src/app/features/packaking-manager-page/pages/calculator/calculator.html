@@ -1,0 +1,51 @@
+<section class="container-calculator">
+  <div class="calculator-history font400size24">
+    {{ history() }}
+  </div>
+
+  <div class="calculator-output font400size48">
+    {{ currentInput() }}
+  </div>
+
+  <div class="btnArea mt24">
+    <div >
+      <button class="btn_delete btnL" (click)="btnClear()">CE</button>
+
+      <button class="btn_backspace" (click)="btnBackspace()">
+        <img src="assets/svg/Backspace.svg" />
+      </button>
+
+      <button class="btnL color_blue" (click)="btnClick($event)">÷</button>
+    </div>
+
+    <div>
+      <button class="btnL" (click)="btnClick($event)">7</button>
+      <button class="btnL" (click)="btnClick($event)">8</button>
+      <button class="btnL" (click)="btnClick($event)">9</button>
+      <button class="btnL color_blue" (click)="btnClick($event)">×</button>
+    </div>
+
+    <div>
+      <button class="btnL" (click)="btnClick($event)">4</button>
+      <button class="btnL" (click)="btnClick($event)">5</button>
+      <button class="btnL" (click)="btnClick($event)">6</button>
+      <button class="btnL color_blue" (click)="btnClick($event)">-</button>
+    </div>
+
+    <div>
+      <button class="btnL" (click)="btnClick($event)">1</button>
+      <button class="btnL" (click)="btnClick($event)">2</button>
+      <button class="btnL" (click)="btnClick($event)">3</button>
+      <button class="btnL color_blue" (click)="btnClick($event)">+</button>
+    </div>
+
+    <div>
+      <button class="btnL btn_zero" (click)="btnClick($event)">0</button>
+      <button class="btnL color_blue" (click)="calculate()">=</button>
+    </div>
+  </div>
+
+  <div class="saveBtnBack">
+    <button class="save-btn" (click)="enter()">Zapisać</button>
+  </div>
+</section>

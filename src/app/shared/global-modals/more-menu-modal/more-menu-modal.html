@@ -1,0 +1,33 @@
+<section class="more-menu">
+  <img
+    class="block close-more-menu"
+    src="assets\svg\load-calc-icons\closeItem.svg"
+    alt="zamknij więcej opcji"
+    (click)="this.moreMenuService.toggleMenu()"
+  />
+
+  @if (window.location.pathname.includes('/app/load-management/add')) {
+    <button class="block font400size16 border" (click)="changeFileName()">
+      <img src="assets/svg/load-calc-icons/Edit_pencl.svg" alt="ikona" />Zmień nazwę pliku
+    </button>
+  } @else {
+    <div class="block border block-company-name">
+      <img src="assets/svg/load-calc-icons/LocationAway.svg" alt="ikona" />
+      <div class="block-company-name">
+        <h5 class="font400size16">{{ title }}</h5>
+        <span class="font400size12">{{ date }}</span>
+      </div>
+    </div>
+    <button class="block font400size16 border" (click)="edit(date)">
+      <img src="assets/svg/navi/Edit.svg" alt="ikona-edytuj" />Edytuj
+    </button>
+  }
+
+  <button class="block font400size16 border" (click)="onSend(date)">
+    <img src="assets/svg/navi/Sent.svg" alt="ikona-wyślij" />Wyślij
+  </button>
+
+  <button class="block font400size16" (click)="onDelete(date)">
+    <img src="assets/svg/navi/Delete.svg" alt="ikona-usun" />Usuń
+  </button>
+</section>

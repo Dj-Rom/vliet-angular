@@ -5,7 +5,7 @@ export interface PalletData {
 export interface TruckData {
   capacityCC: number;
   Pallets: Record<string, PalletData>;
-  palletSize: Record<string,string>
+  palletSize: Record<string, string>;
   currentLoaded: Record<string, number>;
   canLoad: Record<string, number>;
 }
@@ -19,18 +19,18 @@ export class TruckTypes {
     const baseTruck: TruckData = {
       capacityCC: 43, // full tir only 43 cc or 22KK + 1 cc
       Pallets: {
-        CC: { ccValue: 1},
+        CC: { ccValue: 1 },
         KK: { ccValue: 1.909 },
         FIN: { ccValue: 1.65 },
-        EURO : { ccValue: 1.303 },
+        EURO: { ccValue: 1.303 },
         ISO: { ccValue: 1.953 },
       },
-      palletSize:{
-        CC: "L135 W57",
-        KK: "",
-        FIN: "L120 W100",
-        EURO : "L120 W80",
-        ISO: "L120 W120",
+      palletSize: {
+        CC: 'L135 W57',
+        KK: '',
+        FIN: 'L120 W100',
+        EURO: 'L120 W80',
+        ISO: 'L120 W120',
       },
       currentLoaded: { CC: 0, KK: 0, FIN: 0, EURO: 0, ISO: 0 },
       canLoad: { CC: 0, KK: 0, FIN: 0, EURO: 0, ISO: 0 },
@@ -52,17 +52,15 @@ export class TruckTypes {
     return this[type] as TruckData;
   }
 
-
   totalLoad(type: keyof TruckTypes) {
     const truck = this.getTruck(type);
     const usedCC = Object.entries(truck.currentLoaded).reduce(
       (sum, [key, count]) => sum + truck.Pallets[key].ccValue * count,
-      0
+      0,
     );
     const percentFull = (usedCC / truck.capacityCC) * 100;
     return { usedCC, capacityCC: truck.capacityCC, percentFull: Math.min(percentFull, 100) };
   }
-
 
   recalculateCanLoad(type: keyof TruckTypes) {
     const truck = this.getTruck(type);
@@ -108,18 +106,21 @@ export class TruckTypes {
   }
 
   save() {
-    localStorage.setItem('truckDataCC', JSON.stringify({
-      TIR: this.TIR,
-      SOLO: this.SOLO,
-      TRAILER: this.TRAILER
-    }));
+    localStorage.setItem(
+      'truckDataCC',
+      JSON.stringify({
+        TIR: this.TIR,
+        SOLO: this.SOLO,
+        TRAILER: this.TRAILER,
+      }),
+    );
   }
 
   loadFromStorage() {
     const data = localStorage.getItem('truckDataCC');
     if (!data) return;
     const parsed = JSON.parse(data);
-    for (const t of ['TIR','SOLO','TRAILER'] as const) {
+    for (const t of ['TIR', 'SOLO', 'TRAILER'] as const) {
       const truck = this.getTruck(t);
       if (parsed[t]) {
         truck.currentLoaded = parsed[t].currentLoaded;

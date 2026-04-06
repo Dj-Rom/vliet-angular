@@ -1,0 +1,34 @@
+<section class="calculator-section">
+  @if (selectedPage.includes('all') || selectedPage.includes('today')) {
+    <span class="font400size16 mt24">Odbiór opakowań</span>
+    <nav class="navi font400size14 mt24" *ngIf="selectedPage !== 'add'">
+      <ul class="navi-ul">
+        <li id="all" (click)="changePage('all')" [class.active]="selectedPage === 'all'">
+          Wszystkie
+        </li>
+        <li id="today" (click)="changePage('today')" [class.active]="selectedPage === 'today'">
+          Dzisiaj
+        </li>
+      </ul>
+    </nav>
+  } @else if (selectedPage.includes('edit')) {
+    <span class="font400size16">Edytuj paczkę</span>
+  } @else if (router.url.includes('calc')) {
+    <div class="header" (click)="changePage('calc')">
+      <button class="backBtn" (click)="location.back()">
+        <img src="assets/svg/back.svg" />
+      </button>
+      <span class="font400size16">Kalkulator</span>
+      <span></span>
+    </div>
+  }
+
+  <router-outlet class="mt24"> </router-outlet>
+
+  @if (router.url.includes('calc') || router.url.includes('add')) {
+  } @else {
+    <button class="btn-add-new" (click)="changePage('add')">
+      <img src="assets/svg/load-calc-icons/add.svg" />
+    </button>
+  }
+</section>

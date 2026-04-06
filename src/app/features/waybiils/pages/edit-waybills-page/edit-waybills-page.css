@@ -1,0 +1,22 @@
+@import url('../add-new-waybill-page/add-new-waybill-page.css');
+.current {
+  width: 63px;
+  height: 24px;
+  border-radius: 100px;
+  angle: 0 deg;
+  opacity: 1;
+  gap: 10px;
+  /* padding-top: 4px; */
+  /* padding-right: 10px; */
+  /* padding-bottom: 4px; */
+  /* padding-left: 10px; */
+  background: rgba(76, 141, 255, 1);
+  font-family: Inter;
+  font-weight: 400;
+  font-style: Regular;
+  font-size: 12px;
+  leading-trim: NONE;
+  /* line-height: 16px; */
+  letter-spacing: 0%;
+  color: var(--text-primary);
+}
