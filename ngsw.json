@@ -1,6 +1,6 @@
 {
   "configVersion": 1,
-  "timestamp": 1775482165660,
+  "timestamp": 1775482273350,
   "index": "/vliet-angular/index.html",
   "assetGroups": [
     {
@@ -15,11 +15,11 @@
         "/vliet-angular/chunk-2K65DUJL.js",
         "/vliet-angular/chunk-2LIC47DB.js",
         "/vliet-angular/chunk-3BVBHAWR.js",
-        "/vliet-angular/chunk-7O4ZXN6T.js",
         "/vliet-angular/chunk-AVH5SGUN.js",
         "/vliet-angular/chunk-AZEYOE5Z.js",
         "/vliet-angular/chunk-BGAXESOW.js",
         "/vliet-angular/chunk-BPIOPTP4.js",
+        "/vliet-angular/chunk-C4EMXZSC.js",
         "/vliet-angular/chunk-C6Q5SG76.js",
         "/vliet-angular/chunk-CGS7WWEA.js",
         "/vliet-angular/chunk-DQDZMLE4.js",
@@ -56,7 +56,7 @@
         "/vliet-angular/chunk-ZUOK66C4.js",
         "/vliet-angular/favicon.ico",
         "/vliet-angular/index.html",
-        "/vliet-angular/main-Q6LCS6G4.js",
+        "/vliet-angular/main-3ARYPPWT.js",
         "/vliet-angular/manifest.webmanifest",
         "/vliet-angular/styles-74JC23ZE.css"
       ],
@@ -174,11 +174,11 @@
     "/vliet-angular/chunk-2K65DUJL.js": "ec38fd0efc4a36c6d18e712cdb9ab53dc95c09f4",
     "/vliet-angular/chunk-2LIC47DB.js": "2df84efb7c5bc7a465d7ca6c8fdf1dea6d700fe5",
     "/vliet-angular/chunk-3BVBHAWR.js": "caa252a54f447c16ae73bc547a3fb93b8324e9f6",
-    "/vliet-angular/chunk-7O4ZXN6T.js": "4e61cab71ee6bd004edd81d11a6022ee9e221993",
     "/vliet-angular/chunk-AVH5SGUN.js": "74d3e6fb1f217e0fb1931d51b6cf5ddcc6bfeba8",
     "/vliet-angular/chunk-AZEYOE5Z.js": "4f3e811a9abdd12fe1363fc978b6106243ebef7c",
     "/vliet-angular/chunk-BGAXESOW.js": "b545ce0f5e0445fff79bdf5a71f464d53a4d3035",
     "/vliet-angular/chunk-BPIOPTP4.js": "d4b517f6be2fabfc56542fcebb7effcb27ac10c6",
+    "/vliet-angular/chunk-C4EMXZSC.js": "38b2a5e887d824fd49474e9fa1f1464c0bea5767",
     "/vliet-angular/chunk-C6Q5SG76.js": "fd4fc33dfc3c6ef846db1272f907a0dbbbb1e374",
     "/vliet-angular/chunk-CGS7WWEA.js": "a922522bff7e497721b82c1682fe27d2e1471c91",
     "/vliet-angular/chunk-DQDZMLE4.js": "10f9770fa0a3fe05b9bf13026b6b4e1782dd2e9c",
@@ -220,8 +220,8 @@
     "/vliet-angular/icons/favicon-16x16.png": "368552a7b0c0b753fd6f2552e0617f4c59a58503",
     "/vliet-angular/icons/favicon-32x32.png": "9500acfa0e467e9f136019c8c6e27f9cdc7deb0c",
     "/vliet-angular/icons/og-image.png": "cf5d20eeea9ca7b1abf97a78f9fa0e71c8d68ffc",
-    "/vliet-angular/index.html": "027d42901482219082cc0616a0f9c87519baae1c",
-    "/vliet-angular/main-Q6LCS6G4.js": "b776297cab2310ea5bdea9dd1655519e104d8c25",
+    "/vliet-angular/index.html": "dfdcaf632f4e2ad26f3b0ce6f690a49e9dcfcece",
+    "/vliet-angular/main-3ARYPPWT.js": "81ee60638aa21e5738c22f0322cd39fbab2780a6",
     "/vliet-angular/manifest.webmanifest": "87f755544134fd653353a1ba12a62a821b749e57",
     "/vliet-angular/styles-74JC23ZE.css": "814eab81cd6ccb7405b4aaa6a9962c90267d56b4"
   },
