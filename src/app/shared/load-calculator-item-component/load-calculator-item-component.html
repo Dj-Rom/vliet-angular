@@ -1,0 +1,15 @@
+<div class="section-add-new-list mt6">
+  <div class="section-add-new-list-text">
+    <img src="assets/svg/load-calc-icons/Info.svg" />
+    <span class="font600size16">{{ type }}</span>
+  </div>
+
+  <div class="section-add-new-list-buttons">
+    <button class="btn char" (click)="decrement.emit(type)">-</button>
+    <span class="inp font400size16">{{ value }}</span>
+    <button (click)="increment.emit(type)" class="btn char">+</button>
+    <button (click)="calculate.emit(type)" class="btn-calculate btn">
+      <img src="assets/svg/load-calc-icons/Calculate.svg" />
+    </button>
+  </div>
+</div>

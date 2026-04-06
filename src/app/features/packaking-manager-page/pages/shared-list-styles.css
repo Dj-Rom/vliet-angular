@@ -1,0 +1,16 @@
+.listItems {
+  height: 71vh;
+  overflow: auto;
+  overflow-x: hidden;
+  padding-bottom: 20px;
+}
+p {
+  color: rgba(155, 164, 174, 1);
+  font-family: Inter;
+  font-weight: 400;
+  font-style: Regular;
+  font-size: 12px;
+  leading-trim: NONE;
+  line-height: 16px;
+  letter-spacing: 0%;
+}

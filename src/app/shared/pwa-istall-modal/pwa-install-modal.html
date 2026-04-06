@@ -1,0 +1,14 @@
+<div *ngIf="showInstallButton()" class="pwa-banner">
+  <button class="close-btn" (click)="showInstallButton.set(!showInstallButton())">X</button>
+  <ng-container *ngIf="isIos; else androidInstall">
+    <p>
+      Dodaj Vliet Transport do ekranu głównego:<br />
+      Kliknij <strong>Udostępnij → Dodaj do ekranu początkowego</strong>
+    </p>
+  </ng-container>
+
+  <ng-template #androidInstall>
+    <p>Możesz zainstalować aplikację Vliet Transport:</p>
+    <button (click)="installPwa()">Zainstaluj aplikację</button>
+  </ng-template>
+</div>

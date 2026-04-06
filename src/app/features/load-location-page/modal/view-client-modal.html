@@ -1,0 +1,81 @@
+<section class="modal-window" *ngIf="isOpen">
+  <ng-container *ngIf="item; else loading">
+    <header class="header">
+      <button class="backBtn" (click)="back()">
+        <img src="assets/svg/back.svg" />
+      </button>
+      <span class="font400size16">Klient</span>
+      <img
+        src="assets/svg/load-calc-icons/More-white.svg"
+        width="24 "
+        (click)="moreMenuService.openClientMoreMenu(item!.id.toString())"
+      />
+    </header>
+    <main class="mt24">
+      <div class="new-waybill-vehicle-input-group">
+        <div class="new-waybill-vehicle-input">
+          Firma
+          <p class="font600size16"
+            (mousedown)="startPress($event)"
+            (mouseup)="endPress()"
+            (mouseleave)="endPress()"
+            (touchstart)="startPress($event)"
+            (touchend)="endPress()"
+          >
+            {{ item!.company.toUpperCase() }}
+          </p>
+        </div>
+        <div class="new-waybill-vehicle-input">
+          Address
+          <p
+            (mousedown)="startPress($event)"
+            (mouseup)="endPress()"
+            (mouseleave)="endPress()"
+            (touchstart)="startPress($event)"
+            (touchend)="endPress()"
+          >
+            {{ item!.address }}
+          </p>
+        </div>
+        <div class="new-waybill-vehicle-input">
+          Link
+          <p
+            (mousedown)="startPress($event)"
+            (mouseup)="endPress()"
+            (mouseleave)="endPress()"
+            (touchstart)="startPress($event)"
+            (touchend)="endPress()"
+          >
+            {{ item!.google_link }}
+          </p>
+        </div>
+        <div class="new-waybill-vehicle-input">
+          GPS
+          <p
+            (mousedown)="startPress($event)"
+            (mouseup)="endPress()"
+            (mouseleave)="endPress()"
+            (touchstart)="startPress($event)"
+            (touchend)="endPress()"
+          >
+            {{ item!.gps }}
+          </p>
+        </div>
+      </div>
+      <div class="new-waybill-notes">
+        <span class="font500size14">Notatki</span>
+        <textarea #textArea>{{ item!.notes }}</textarea>
+      </div>
+    </main>
+  </ng-container>
+
+  <ng-template #loading>
+    <p>Ładowanie danych klienta...</p>
+  </ng-template>
+</section>
+<div class="saveBtnBack" *ngIf="isOpen">
+  <button class="save-btn font400size14" (click)="navigate()">Nawigacja</button>
+  <button class="save-btn font400size14" (click)="CopyLink()">Kopiuj Link</button>
+
+  <button class="save-btn font400size14" (click)="CopyGPS()">Kopiuj GPS</button>
+</div>

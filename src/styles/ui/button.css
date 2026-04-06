@@ -1,9 +1,10 @@
-.button{
-  width: 361px;
+.button {
+  width: 96vw;
+  max-width: 600px;
+  margin: 0 2vw 0 2vw;
   height: 44px;
   border-radius: 4px;
   angle: 0 deg;
   opacity: 1;
   gap: 8px;
-
 }

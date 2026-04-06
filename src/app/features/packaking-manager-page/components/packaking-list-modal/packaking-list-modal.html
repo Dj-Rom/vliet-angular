@@ -1,0 +1,32 @@
+<section class="packaging-list-modal" *ngIf="pMService.isOpenModal()">
+
+  <div class="modal-inner">
+
+    <span class="btnClose" (click)="pMService.closeModalAndClear()">X</span>
+
+
+
+
+    <div class="items">
+      <section class="title">
+        <h3>{{pMService.title()}}</h3>
+        <p>{{pMService.date()}}</p>
+      </section>
+      <div class="empty-message" *ngIf="isListEmpty">
+        Ładunek jest pusty
+      </div>
+<div class="list">
+
+      <ng-container *ngFor="let item of pMService.list() | keyvalue" >
+        <div *ngIf="item.value !== 0"
+             (click)="pMService.isActive($event)"
+             class="item">
+          <span>{{ item.key }}</span>
+          <span>{{ item.value }}</span>
+        </div>
+      </ng-container>
+</div>
+
+    </div>
+  </div>
+</section>

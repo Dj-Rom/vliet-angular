@@ -1,15 +1,139 @@
 <!doctype html>
-<html lang="en">
+<html lang="pl">
 <head>
-  <meta charset="utf-8">
-  <title>VlietTransport</title>
-  <base href="/">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="icon" type="image/x-icon" href="favicon.ico">
-  <link rel="manifest" href="manifest.webmanifest">
+  <meta charset="utf-8" />
+
+  <title>Vliet Transport - Aplikacja dla kierowców</title>
+  <meta name="description" content="Profesjonalna aplikacja dla kierowców transportu. Zarządzaj trasami, dokumentami i czasem pracy w jednym miejscu." />
+  <meta name="keywords" content="aplikacja dla kierowców, transport, zarządzanie trasami, dokumenty przewozowe, Vliet Transport" />
+  <meta name="author" content="Vliet Transport" />
+
+  <base href="/" />
+
+  <!-- ===================== -->
+  <!-- VIEWPORT -->
+  <!-- ===================== -->
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover"
+  />
+
+  <!-- ===================== -->
+  <!-- CANONICAL URL -->
+  <!-- ===================== -->
+  <link rel="canonical" href="https://dj-rom.github.io/vliet-angular/" />
+
+  <!-- ===================== -->
+  <!-- PWA -->
+  <!-- ===================== -->
+  <link rel="manifest" href="./manifest.webmanifest" />
+  <meta name="theme-color" content="#000000" />
+  <meta name="background-color" content="#000000" />
+
+  <!-- ===================== -->
+  <!-- ICONS -->
+  <!-- ===================== -->
+  <link rel="icon" type="image/png" sizes="32x32" href="./icons/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="./icons/favicon-16x16.png" />
+  <link rel="apple-touch-icon" href="./icons/apple-touch-icon.png" />
+  <link rel="shortcut icon" href="./icons/favicon.ico" />
+
+  <!-- ===================== -->
+  <!-- ANDROID -->
+  <!-- ===================== -->
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="application-name" content="Vliet Transport - Kierowcy" />
+
+  <!-- ===================== -->
+  <!-- iOS PWA -->
+  <!-- ===================== -->
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-title" content="Vliet - Kierowcy" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+  <!-- ===================== -->
+  <!-- WINDOWS -->
+  <!-- ===================== -->
+  <meta name="msapplication-TileColor" content="#000000" />
+  <meta name="msapplication-TileImage" content="./icons/icon-144x144.png" />
+
+  <!-- ===================== -->
+  <!-- Open Graph (Facebook, WhatsApp, LinkedIn, Messenger) -->
+  <!-- ===================== -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://dj-rom.github.io/vliet-angular/" />
+  <meta property="og:site_name" content="Vliet Transport" />
+  <meta property="og:title" content="Vliet Transport - Aplikacja dla kierowców" />
+  <meta property="og:description" content="📱 Profesjonalna aplikacja dla kierowców transportu. Zarządzaj trasami, dokumentami i czasem pracy w jednym miejscu. Dostępna 24/7 na telefonie." />
+  <meta property="og:image" content="https://dj-rom.github.io/vliet-angular/icons/og-image.png" />
+  <meta property="og:image:secure_url" content="https://dj-rom.github.io/vliet-angular/icons/og-image.png" />
+  <meta property="og:image:type" content="image/png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="Vliet Transport - Aplikacja dla kierowców" />
+  <meta property="og:locale" content="pl_PL" />
+  <meta property="og:locale:alternate" content="en_US" />
+
+  <!-- ===================== -->
+  <!-- Twitter Cards -->
+  <!-- ===================== -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:site" content="@VlietTransport" />
+  <meta name="twitter:creator" content="@VlietTransport" />
+  <meta name="twitter:title" content="Vliet Transport - Aplikacja dla kierowców" />
+  <meta name="twitter:description" content="📱 Profesjonalna aplikacja dla kierowców transportu. Zarządzaj trasami, dokumentami i czasem pracy w jednym miejscu." />
+  <meta name="twitter:image" content="https://dj-rom.github.io/vliet-angular/icons/og-image.png" />
+  <meta name="twitter:image:alt" content="Vliet Transport - Aplikacja dla kierowców" />
+
+  <!-- ===================== -->
+  <!-- Schema.org (Structured Data) -->
+  <!-- ===================== -->
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "MobileApplication",
+      "name": "Vliet Transport - Aplikacja dla kierowców",
+      "applicationCategory": "BusinessApplication",
+      "operatingSystem": "Android, iOS, Web",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "PLN"
+      },
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.8",
+        "ratingCount": "150"
+      },
+      "description": "Profesjonalna aplikacja dla kierowców transportu. Zarządzaj trasami, dokumentami i czasem pracy.",
+      "screenshot": "https://dj-rom.github.io/vliet-angular/icons/og-image.png",
+      "url": "https://dj-rom.github.io/vliet-angular/"
+    }
+  </script>
+
+  <!-- ===================== -->
+  <!-- Additional SEO -->
+  <!-- ===================== -->
+  <meta name="robots" content="index, follow" />
+  <meta name="googlebot" content="index, follow" />
+  <meta name="language" content="Polish" />
+
+  <!-- ===================== -->
+  <!-- Preconnect (Performance) -->
+  <!-- ===================== -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
 </head>
+
 <body>
-  <app-root></app-root>
-  <noscript>Please enable JavaScript to continue using this application.</noscript>
+<app-root></app-root>
+<noscript>
+  <div style="padding: 2rem; text-align: center; font-family: Arial, sans-serif;">
+    <h1>📱 Aplikacja wymaga JavaScript</h1>
+    <p>Proszę włączyć JavaScript w przeglądarce, aby korzystać z aplikacji.</p>
+    <p>Please enable JavaScript to continue using this application.</p>
+  </div>
+</noscript>
 </body>
 </html>

@@ -1,0 +1,20 @@
+<section class="mt8 edit-item-container">
+  <app-packaging-header></app-packaging-header>
+
+  @for (entry of Object.entries(listService.filteredList()); track entry[0]) {
+
+    <app-load-calculator-item
+      [type]="entry[0]"
+      [value]="entry[1]"
+      (increment)="increment($event)"
+      (decrement)="decrement($event)"
+      (calculate)="calculator($event)"
+    />
+  }
+
+  <div class="btn-group mt24">
+    <div _ngcontent-ng-c4093345898="" class="saveBtnBack">
+      <button (click)="doneSaveEdit()" class="save-btn font600size16">Zapisz</button>
+    </div>
+  </div>
+</section>

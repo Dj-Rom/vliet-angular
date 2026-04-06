@@ -1,0 +1,37 @@
+<div class="item-waybill">
+  <header class="more-menu">
+    <div class="header-more-menu-icon">
+      <div *ngIf="!item.dataFinish" class="current">Aktualny</div>
+    </div>
+    <img class="more-menu-img" src="assets/svg/load-calc-icons/More.svg" (click)="openMoreMenu()" />
+  </header>
+  <main>
+    <div class="item-waybill-info">
+      <img src="assets/svg/load-calc-icons/Truck.svg" />
+      <span class="font400size12"
+        ><p class="truck-p">Ciężarówka</p>
+        {{ item.truck }}
+        <p>Przyczepa</p>
+        {{ item.trailer }}</span
+      >
+    </div>
+    <div class="item-waybill-info">
+      <img src="assets/svg/load-calc-icons/Calendar.svg" />
+      <span class="font400size12"
+        >{{ item.dataStart.toString().replace('T', ' ') }}
+        <img src="assets/svg/load-calc-icons/ArrowRight.svg" />
+        {{ item.dataFinish.toString().replace('T', ' ') }}</span
+      >
+    </div>
+    <div class="item-waybill-info">
+      <img src="assets/svg/load-calc-icons/Schedule.svg" />
+      <span class="font400size12">{{
+        item.dataFinish ? item.tripTime + '(' + item.billableDays + ')' : ''
+      }}</span>
+    </div>
+    <div class="item-waybill-info">
+      <img src="assets/svg/load-calc-icons/Comment.svg" />
+      <span class="font400size12">{{ !item.notes ? 'Notatki' : item.notes }}</span>
+    </div>
+  </main>
+</div>

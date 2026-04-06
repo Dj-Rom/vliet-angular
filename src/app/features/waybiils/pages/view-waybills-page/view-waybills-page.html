@@ -1,0 +1,42 @@
+<header>
+  <div class="header-waybill">
+    <span class="total font400size12">łącznie: {{ totalTime() }}</span>
+    <h3>Trasy</h3>
+    <img src="assets/svg/load-calc-icons/Report.svg" alt="Report" (click)="getReport()" />
+  </div>
+
+  <!-- Date filter emits selected day -->
+  <app-date-filter (daySelected)="filterByRange($event)"> </app-date-filter>
+</header>
+
+<!-- Waybills list -->
+<table class="waybills-table">
+  <ng-container *ngFor="let bill of filteredWaybills()">
+    <app-item-waybill [item]="bill"></app-item-waybill>
+  </ng-container>
+</table>
+
+<!-- Add new button -->
+<button class="btn-add-new" (click)="addNewWaybill()">
+  <img src="assets/svg/load-calc-icons/add.svg" alt="Add Waybill" />
+</button>
+<div *ngIf="waybillsService.isReportOpen()" class="report-modal">
+  <img
+    class="closeReport"
+    (click)="waybillsService.isReportOpen.set(false)"
+    src="assets/svg/load-calc-icons/closeItem.svg"
+    alt="close"
+  />
+  <app-calendar
+    style="
+      display: flex;
+
+      width: 96vw;
+      max-width: 600px;
+      margin: 0px 2vw 0 2vw;
+      flex-direction: column;
+      align-items: center;
+    "
+    [rangeAvailable]="true"
+  ></app-calendar>
+</div>

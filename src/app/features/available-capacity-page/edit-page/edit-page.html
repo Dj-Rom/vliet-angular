@@ -1,0 +1,40 @@
+<header class="header">
+  <button class="backBtn" (click)="back()">
+    <img src="assets/svg/back.svg" />
+  </button>
+  <span class="font400size16 title">Edytowania</span>
+</header>
+<main>
+  @for (item of data.currentLoaded | keyvalue; track item.key) {
+    <div class="input-group">
+      <h3>{{ item.key }}</h3>
+      <div>
+        <button
+          class="btn char"
+          (click)="availableCapacityService.unload(this.type, item.key.toString(), 1)"
+        >
+          -
+        </button>
+        <input
+          class="input"
+          type="number"
+          [(ngModel)]="item.value"
+          [max]="data.canLoad[item.key]"
+          value="{{ +item.value }}"
+          (blur)="onInput(item)"
+          readonly
+        />
+
+        <button
+          class="btn char"
+          (click)="availableCapacityService.load(this.type, item.key.toString(), 1)"
+        >
+          +
+        </button>
+      </div>
+    </div>
+  }
+</main>
+<div class="saveBtnBack">
+  <button class="save-btn font600size16" (click)="back()">Zapisać</button>
+</div>

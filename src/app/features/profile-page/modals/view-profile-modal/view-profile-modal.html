@@ -1,0 +1,20 @@
+<section class="view-profile-modal">
+  <header class="header">
+    <button class="backBtn" (click)="back()">
+      <img src="assets/svg/back.svg" />
+    </button>
+    <span class="font400size16 header-title">Profile</span>
+  </header>
+  <main>
+    <div class="new-waybill-vehicle-input-group">
+      <div class="new-waybill-vehicle-input">
+        Pełne imię i nazwisko
+        <p>{{ this.Profile.user?.displayName }}</p>
+      </div>
+      <div class="new-waybill-vehicle-input">
+        E-mail
+        <p>{{ this.Profile.user?.email }}</p>
+      </div>
+    </div>
+  </main>
+</section>

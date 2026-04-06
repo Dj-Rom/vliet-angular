@@ -1,0 +1,37 @@
+<section style="display: flex; height: 300px; flex-direction: column; align-items: center">
+  <header class="header">
+    <span class="font400size16"> Ustawienia </span>
+    <img src="assets/svg/Logout.svg" (click)="logout()" />
+  </header>
+  <main>
+    <div class="item-profile" (click)="goToProfile()">
+      <img src="assets/svg/person.svg" alt="icon person" />
+      <span>Profil</span>
+      <img src="assets/svg/Arrow right.svg" alt="" />
+    </div>
+    <div class="item-profile">
+      <img src="assets/svg/Language.svg" alt="icon person" />
+      <span>Język</span>
+      <img src="assets/svg/Arrow right.svg" alt="" />
+    </div>
+    <app-view-profile-modal *ngIf="profileService.isOpenModalName()"></app-view-profile-modal>
+  </main>
+  <br />
+  <span
+    style="
+      position: absolute;
+      left: 50%;
+      transform: translate(-50%);
+      bottom: 78px;
+      color: red;
+      text-align: center;
+      margin: 0 auto;
+    "
+    >Version 1.3.2</span
+  >
+  <!--<label for="name">Name:</label>-->
+  <!--<input type="text" name="name" id="name" [readOnly]="isEditFullName" [value]="user?.displayName"> <span (click)="isEditFullName=!isEditFullName"><img src="assets/svg/edit.svg" /></span>-->
+  <!--<label for="email">Email:</label>-->
+  <!--<input type="text" name="email" id="email" [readOnly]="isEditEmail" [value]="user?.email"> <span (click)="isEditEmail=!isEditEmail"><img src="assets/svg/edit.svg" /></span>-->
+  <!--<span class="logout" (click)="logout()">Logout</span>-->
+</section>

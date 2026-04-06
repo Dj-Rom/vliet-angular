@@ -1,0 +1,93 @@
+span {
+  font-family: Inter;
+  font-weight: 400;
+  font-style: Regular;
+  font-size: 12px;
+  leading-trim: NONE;
+  line-height: 16px;
+  letter-spacing: 0%;
+  color: rgba(255, 255, 255, 1);
+  display: flex;
+}
+.current {
+  width: 70px;
+  height: 24px;
+  border-radius: 100px;
+  angle: 0 deg;
+  opacity: 1;
+  gap: 10px;
+  padding-top: 4px;
+  padding-right: 10px;
+  padding-bottom: 4px;
+  padding-left: 10px;
+  background: rgba(76, 141, 255, 1);
+  font-family: Inter;
+  font-weight: 400;
+  font-style: Regular;
+  font-size: 12px;
+  leading-trim: NONE;
+  line-height: 16px;
+  letter-spacing: 0%;
+  color: var(--text-primary);
+}
+.header-more-menu-icon {
+  width: 96%;
+}
+.more-menu {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  height: 24px;
+  angle: 0 deg;
+  opacity: 1;
+  gap: 10px;
+  text-align: end;
+}
+.more-menu-img {
+  width: 24px;
+  height: 24px;
+  angle: 0 deg;
+  opacity: 1;
+}
+.item-waybill {
+  width: 96vw;
+  max-width: 600px;
+  margin: 8px 2vw 0 2vw;
+  height: 136px;
+  border-radius: 8px;
+  border-width: 1px;
+  angle: 0 deg;
+  opacity: 1;
+  gap: 6px;
+  padding: 8px;
+  background: rgba(22, 26, 31, 1);
+  border: 1px solid rgba(42, 47, 54, 1);
+}
+
+p {
+  margin: 0 8px;
+  font-family: Inter;
+  font-weight: 400;
+  font-style: Regular;
+  font-size: 12px;
+  leading-trim: NONE;
+  line-height: 16px;
+  letter-spacing: 0%;
+  color: rgba(155, 164, 174, 1);
+}
+.truck-p {
+  margin-left: 0px;
+}
+
+.item-waybill-info {
+  margin-top: 6px;
+
+  height: 18px;
+  angle: 0 deg;
+  opacity: 1;
+  gap: 8px;
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}

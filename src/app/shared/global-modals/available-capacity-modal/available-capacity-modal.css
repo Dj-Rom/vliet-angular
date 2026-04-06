@@ -1,0 +1,8 @@
+.modal-content-available-capacity {
+  width: 96vw;
+  max-width: 600px;
+  margin: 0px 2vw 0 2vw;
+  height: 208px;
+  gap: 8px;
+  background: var(--bg-container);
+}

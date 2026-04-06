@@ -1,15 +1,13 @@
-
 export const environment = {
   production: false,
   firebase: {
-    apiKey: "AIzaSyB0dKDMDg5R3HA6c9WJYqfWuY2pQcfZ_eg",
-    authDomain: "flover-ce199.firebaseapp.com",
-    projectId: "flover-ce199",
-    storageBucket: "flover-ce199.firebasestorage.app",
-    messagingSenderId: "858001596237",
-    appId: "1:858001596237:web:01d58ef7cba87f3cbfa104",
-    measurementId: "G-EM8TFGQF33"
-  }
+    apiKey: 'AIzaSyBjlf9i3-o_UjZMrb9_3fsT6FIPouIQg_c',
+    authDomain: 'flover-01012026.firebaseapp.com',
+    databaseURL: 'https://flover-01012026-default-rtdb.asia-southeast1.firebasedatabase.app',
+    projectId: 'flover-01012026',
+    storageBucket: 'flover-01012026.firebasestorage.app',
+    messagingSenderId: '546583829478',
+    appId: '1:546583829478:web:14946b6f71f0a8d2fd1427',
+    measurementId: 'G-00F4RGPE5K',
+  },
 };
-
-export const code = 'q0W9e8r7@'
