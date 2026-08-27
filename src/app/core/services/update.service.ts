@@ -14,7 +14,7 @@ export interface RemoteVersionInfo {
 
 @Injectable({ providedIn: 'root' })
 export class UpdateService implements OnDestroy {
-  readonly currentVersion = environment.appVersion || '2.0.1';
+  readonly currentVersion = environment.appVersion || '2.0.2';
 
   isUpdateAvailable = signal<boolean>(false);
   isChecking = signal<boolean>(false);
