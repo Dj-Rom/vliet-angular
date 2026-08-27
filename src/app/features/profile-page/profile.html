@@ -17,6 +17,16 @@
       <img src="assets/svg/Arrow right.svg" alt="" />
     </div>
 
+    <!-- PWA Install Item (if not standalone) -->
+    <div class="item-profile pwa-profile-item" *ngIf="!pwaService.isInstalled()" (click)="openInstallPrompt()">
+      <span class="pwa-profile-icon">📲</span>
+      <div class="update-info">
+        <span class="update-title">Zainstaluj aplikację na telefonie</span>
+        <span class="update-sub">Dodaj ikonę na pulpit telefonu / tabletu (PWA)</span>
+      </div>
+      <img src="assets/svg/Arrow right.svg" alt="" />
+    </div>
+
     <!-- Check for Updates Item -->
     <div class="item-profile update-item" (click)="checkUpdates()">
       <span class="update-icon">🚀</span>

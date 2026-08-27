@@ -5,6 +5,7 @@ import { ProfileService } from './service/profile';
 import { ViewProfileModal } from './modals/view-profile-modal/view-profile-modal';
 import { NgIf } from '@angular/common';
 import { UpdateService } from '../../core/services/update.service';
+import { PwaService } from '../../core/services/pwa.service';
 
 @Component({
   selector: 'app-profile',
@@ -26,6 +27,7 @@ export class Profile {
     private authService: AuthService,
     protected profileService: ProfileService,
     public updateService: UpdateService,
+    public pwaService: PwaService,
   ) {}
 
   logout() {
@@ -38,5 +40,9 @@ export class Profile {
 
   checkUpdates() {
     this.updateService.checkForUpdateManual();
+  }
+
+  openInstallPrompt() {
+    this.pwaService.openInstallPrompt();
   }
 }

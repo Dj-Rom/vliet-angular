@@ -176,7 +176,8 @@ input:focus {
   padding: 10px;
   border: 1px solid rgba(47, 54, 62, 1);
 }
-.char{
+
+.char {
   padding: 0px 13px 2px 13px;
   font-size: 30px;
   width: auto;
@@ -190,10 +191,12 @@ input:focus {
 .decrBtn {
   padding-bottom: 7px !important;
 }
+
 .download-icon {
   width: 44px;
   height: 44px;
 }
+
 .inp {
   width: 189px;
   height: 44px;
@@ -254,7 +257,7 @@ input:focus {
 
 .btnSaveContainer {
   position: fixed;
-  z-index: 7;
+  z-index: 107;
   left: 0;
   bottom: 0px;
 
@@ -298,6 +301,7 @@ input:focus {
 }
 
 @media screen and (max-width: 371px) {
+
   .section-add-new-list,
   .header,
   .header-add-new-list,
@@ -319,10 +323,8 @@ input:focus {
     width: 72vw !important;
   }
 
-  .saveBtn {
-  }
+  .saveBtn {}
 
   .section-add-new-list-buttons,
-  .section-add-new-list-text {
-  }
+  .section-add-new-list-text {}
 }

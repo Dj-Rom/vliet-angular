@@ -1,14 +1,35 @@
-<div *ngIf="showInstallButton()" class="pwa-banner">
-  <button class="close-btn" (click)="showInstallButton.set(!showInstallButton())">X</button>
-  <ng-container *ngIf="isIos; else androidInstall">
-    <p>
-      Dodaj Vliet Transport do ekranu głównego:<br />
-      Kliknij <strong>Udostępnij → Dodaj do ekranu początkowego</strong>
-    </p>
-  </ng-container>
+<div *ngIf="pwaService.isOpenModal() && !pwaService.isInstalled()" class="pwa-backdrop">
+  <div class="pwa-card">
+    <button class="btn-close-pwa" (click)="close()" aria-label="Zamknij">✕</button>
 
-  <ng-template #androidInstall>
-    <p>Możesz zainstalować aplikację Vliet Transport:</p>
-    <button (click)="installPwa()">Zainstaluj aplikację</button>
-  </ng-template>
+    <div class="pwa-header">
+      <img src="icons/favicon-32x32.png" alt="Vliet Transport" class="pwa-icon" />
+      <div>
+        <h3 class="pwa-title">Zainstaluj Vliet Transport</h3>
+        <span class="pwa-sub">Szybki dostęp z ekranu telefonu</span>
+      </div>
+    </div>
+
+    <!-- iOS Instructions -->
+    <div *ngIf="pwaService.isIos()" class="pwa-ios-instructions">
+      <p class="ios-step">
+        1. Stuknij ikonę Udostępnij <span class="ios-share-icon">⎋</span> w Safari.
+      </p>
+      <p class="ios-step">
+        2. Wybierz <strong>"Dodaj do ekranu początkowego"</strong> ➕.
+      </p>
+    </div>
+
+    <!-- Android / Desktop Install Button -->
+    <div *ngIf="!pwaService.isIos()" class="pwa-android-actions">
+      <button class="btn-install-pwa" (click)="install()">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+          <polyline points="7 10 12 15 17 10"></polyline>
+          <line x1="12" y1="15" x2="12" y2="3"></line>
+        </svg>
+        <span>Zainstaluj aplikację</span>
+      </button>
+    </div>
+  </div>
 </div>
