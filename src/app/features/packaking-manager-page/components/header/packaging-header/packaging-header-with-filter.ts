@@ -2,13 +2,13 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { ListService } from '../../../../../core/services/load-calculator-services/load-calculator.service';
 import { MoreMenuService } from '../../../../../core/services/more-menu.service';
-import {NgIf} from '@angular/common';
+import { NgIf } from '@angular/common';
 
 @Component({
   selector: 'app-packaging-header',
   standalone: true,
   templateUrl: 'packaging-header-with-filter.html',
-  styleUrl: '../../../pages/add-new-list/add-new-list.css',
+  styleUrls: ['../../../pages/add-new-list/add-new-list.css', './packaging-header-with-filter.css'],
   imports: [
     NgIf
   ]
