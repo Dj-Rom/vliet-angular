@@ -3,11 +3,10 @@
   bottom: 0;
   left: 0;
   width: 100%;
-  z-index: 1;
-  padding: 0 2%;
+  z-index: 100;
   text-align: center;
-  background: black;
-
+  background: #000000;
+  padding-bottom: env(safe-area-inset-bottom, 4px);
   transform: translateZ(0);
   will-change: transform;
 }
@@ -15,45 +14,86 @@
 .nav-mobile ul {
   display: flex;
   width: 100%;
-  height: 68px;
-  justify-content: space-between;
-  border-top: 1px solid rgba(255, 255, 255, 0.2);
-  padding: 4px 8px 8px 8px;
-  margin: 0;
+  max-width: 600px;
+  margin: 0 auto;
+  height: 64px;
+  justify-content: space-around;
+  align-items: center;
+  border-top: 1px solid rgba(255, 255, 255, 0.15);
+  padding: 0 4px;
   list-style: none;
 }
 
 .nav-mobile li {
-  font-family: Inter;
+  font-family: Inter, -apple-system, sans-serif;
   font-weight: 500;
-  font-size: 11px;
-  line-height: 16px;
+  font-size: 10px;
+  line-height: 14px;
   text-align: center;
-  color: var(--text-secondary-color);
+  color: var(--text-secondary-color, #94a3b8);
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  width: 66px;
-  height: 68px;
-  padding-top: 8px;
-  padding-bottom: 16px;
-  gap: 8px;
+  flex: 1;
+  min-width: 0;
+  height: 100%;
+  gap: 4px;
+  cursor: pointer;
+  touch-action: manipulation;
+  user-select: none;
+}
+
+.nav-mobile li svg {
+  width: 18px;
+  height: 18px;
+  transition: all 0.15s ease;
 }
 
 .nav-mobile li img {
-  width: 20px;
-  height: 20px;
+  width: 18px;
+  height: 18px;
 }
 
 .nav-mobile li a {
   text-decoration: none;
-  color: var(--text-secondary-color);
+  color: inherit;
 }
+
 .active {
-  color: var(--focus-color) !important;
-  svg {
-    stroke: var(--focus-color) !important;
-    fill: var(--focus-color) !important;
+  color: var(--focus-color, #38bdf8) !important;
+}
+
+.active svg {
+  stroke: var(--focus-color, #38bdf8) !important;
+  fill: var(--focus-color, #38bdf8) !important;
+}
+
+/* Tablet floating bar styling */
+@media screen and (min-width: 768px) {
+  .nav-mobile {
+    max-width: 580px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-radius: 16px 16px 0 0;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-bottom: none;
+    background: #090d16;
+    box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.6);
+  }
+
+  .nav-mobile ul {
+    border-top: none;
+    height: 68px;
+  }
+
+  .nav-mobile li {
+    font-size: 11px;
+    gap: 6px;
+  }
+
+  .nav-mobile li svg {
+    width: 20px;
+    height: 20px;
   }
 }

@@ -57,6 +57,7 @@ export class ListService {
       '596': 0,
       '597': 0,
       '598': 0,
+      '555': 0,
       TRAAY: 0,
       OTHER: 0,
     },

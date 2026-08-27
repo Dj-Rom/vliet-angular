@@ -1,7 +1,6 @@
-import { Injectable, signal } from '@angular/core';
-import { Router } from '@angular/router';
+import { Injectable, signal, computed } from '@angular/core';
+import { Router, NavigationEnd } from '@angular/router';
 import { AuthService } from '../services/auth.service';
-import { FirebaseClientService } from '../../firebase/firebase.service';
 
 @Injectable({ providedIn: 'root' })
 export class MobileNavigationService {
@@ -10,33 +9,33 @@ export class MobileNavigationService {
   /* ─────────────────────────── */
   menuOpen = signal<boolean>(false);
   isMobile = signal<boolean>(window.innerWidth < 768);
-  isLoggedIn = signal<boolean>(false);
-  user = signal<string | null>(null);
   currentActivePath = signal<string>('');
+
+  isLoggedIn = computed(() => this.authService.isAuthenticated());
+  user = computed(() => {
+    const email = this.authService.userEmail();
+    return email ? email.split('@')[0] : null;
+  });
 
   constructor(
     private authService: AuthService,
-    private fb: FirebaseClientService,
     private router: Router,
   ) {
-    this.initUser();
     this.setCurrentPath();
     this.listenResize();
+    this.listenNavigation();
   }
 
-  /* ─────────────────────────── */
-  /* INIT                        */
-  /* ─────────────────────────── */
-  private initUser(): void {
-    const email = this.authService.getUser()?.email;
-    this.user.set(email ? email.split('@')[0] : null);
-    this.isLoggedIn.set(!!email);
-
+  private setCurrentPath(): void {
+    this.currentActivePath.set(window.location.pathname);
   }
 
-   private  setCurrentPath(): void {
-  const path = window.location.pathname;
-    this.currentActivePath.set(path);
+  private listenNavigation(): void {
+    this.router.events.subscribe((event) => {
+      if (event instanceof NavigationEnd) {
+        this.currentActivePath.set(event.urlAfterRedirects || event.url);
+      }
+    });
   }
 
   private listenResize() {
@@ -49,8 +48,7 @@ export class MobileNavigationService {
   /* NAVIGATION                  */
   /* ─────────────────────────── */
   navigate(path: string): void {
-    path = path == 'app'? '/app/waybill-new': path;
-    this.isActive(path)
+    path = path === 'app' ? '/app/waybill-new' : path;
     this.currentActivePath.set(path);
     this.router.navigate([path]);
   }

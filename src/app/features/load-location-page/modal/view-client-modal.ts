@@ -65,40 +65,45 @@ export class ViewClientModal {
     this.isEdit = false;
   }
 
+
   save() {
     if (this.isAuth()) {
       if (this.item) {
         this.fb.updateSharedAddress(this.item?.id!, this.item).then(
           () => {
-            this.alert.show('success', 'Client saved successfully!');
+            this.alert.show('success', 'Klient został pomyślnie zapisany!');
             this.modalService.close();
             this.isEdit = false;
           },
           (error) => {
-            this.alert.show('error', `Failed to update address: ${error}`);
+            this.alert.show('error', `Nie udało się zaktualizować adresu: ${error}`);
           },
         );
       }
     }
   }
 
+
+
+
   protected CopyGPS(text = this.item!.gps) {
     try {
       navigator.clipboard.writeText(text);
-      this.alert.show('success', 'Copied!');
+      this.alert.show('success', 'Skopiowano!');
     } catch (error) {
-      this.alert.show('error', "Can't copy!");
+      this.alert.show('error', 'Nie można skopiować!');
     }
   }
 
   protected CopyLink(text = this.item!.google_link) {
     try {
       navigator.clipboard.writeText(text);
-      this.alert.show('success', 'Copied!');
+      this.alert.show('success', 'Skopiowano!');
     } catch (error) {
-      this.alert.show('error', "Can't copy!");
+      this.alert.show('error', 'Nie można skopiować!');
     }
   }
+
 
   protected async navigate() {
     const [lat, lon] = this.item!.gps.split(',').map((v) => v.trim());

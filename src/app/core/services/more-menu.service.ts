@@ -22,7 +22,7 @@ export class MoreMenuService {
     private router: Router,
     private fb: FirebaseClientService,
     private alert: AlertService,
-  ) {}
+  ) { }
 
   toggleWaybillMoreMenu() {
     this.isOpenWaybillMoreMenu.set(!this.isOpen());
@@ -51,10 +51,10 @@ export class MoreMenuService {
     const lists = this.listService.savedLists();
     const item: ListItem = lists[id];
     if (!item) return '';
-    let message = `Name: ${item.name}\nDate: ${item.date}\n\nValues:\n`;
+    let message = `${item.name} ${item.date}\nLoad:`;
     for (const key of Object.keys(item.value)) {
       if (item.value[key] > 0) {
-        message += `${key}: ${item.value[key]}\n`;
+        message += `\n${key}: ${item.value[key]}`;
       }
     }
     return message.trim();

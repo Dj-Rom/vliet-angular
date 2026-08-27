@@ -58,20 +58,19 @@ export const routes: Routes = [
         ],
       },
 
-      // Available Capacity
+      // Traffic Information (A2, A12, A30, A10)
       {
-        path: 'available-capacity',
+        path: 'traffic',
         loadComponent: () =>
-          import('./features/available-capacity-page/available-capacity').then(
-            (m) => m.AvailableCapacity,
+          import('./features/traffic-page/traffic').then(
+            (m) => m.TrafficComponent,
           ),
-        data: { title: 'Available Capacity' },
+        data: { title: 'Ruch drogowy & Korki' },
       },
       {
-        path: 'available-capacity-edit/:key',
-        loadComponent: () =>
-          import('./features/available-capacity-page/edit-page/edit-page').then((m) => m.EditPage),
-        data: { title: 'Available Capacity' },
+        path: 'available-capacity',
+        redirectTo: 'traffic',
+        pathMatch: 'full',
       },
 
       // Load Management

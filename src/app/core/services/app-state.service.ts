@@ -1,11 +1,9 @@
-import { Injectable, signal } from '@angular/core';
-import { FirebaseClientService } from '../../firebase/firebase.service';
+import { Injectable, computed } from '@angular/core';
 import { AuthService } from './auth.service';
 
 @Injectable({ providedIn: 'root' })
 export class AppStateService {
-  isLoggedIn = signal(false);
-  constructor(authService: AuthService) {
-    this.isLoggedIn.set(authService.isAuthenticated());
-  }
+  isLoggedIn = computed(() => this.authService.isAuthenticated());
+
+  constructor(private authService: AuthService) {}
 }

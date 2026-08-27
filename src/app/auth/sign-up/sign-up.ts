@@ -2,9 +2,8 @@ import { Component } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { NgIf } from '@angular/common';
 import { Router, RouterLink } from '@angular/router';
-import { FirebaseClientService } from '../../firebase/firebase.service';
+import { AuthService } from '../../core/services/auth.service';
 import { AlertService } from '../../core/services/alert.service';
-import { _Alert } from '../../shared/alert/alert';
 
 @Component({
   selector: 'app-sign-up',
@@ -19,7 +18,7 @@ export class SignUp {
   message = '';
 
   form = new FormGroup({
-    name: new FormControl('', [Validators.required, Validators.minLength(4)]),
+    name: new FormControl('', [Validators.required, Validators.minLength(3)]),
     email: new FormControl('', [Validators.required, Validators.email]),
     password: new FormControl('', [
       Validators.required,
@@ -29,7 +28,7 @@ export class SignUp {
   });
 
   constructor(
-    private fb: FirebaseClientService,
+    private authService: AuthService,
     private router: Router,
     private alert: AlertService,
   ) {}
@@ -50,19 +49,10 @@ export class SignUp {
     const { email, password, name } = this.form.value;
 
     try {
-      const user = await this.fb.signUp(email!, password!, name!);
-
-      if (user?.uid) {
-        await this.fb.saveUserData(user.uid, {
-          email: email,
-          createdAt: new Date().toISOString(),
-        });
-        this.alert.show('success', `✅ Registration successful:', ${user.uid}`);
-        setTimeout(() => this.router.navigate(['/']), 2000);
-      }
+      await this.authService.signUp(email!, password!, name!);
+      setTimeout(() => this.router.navigate(['/app/waybill-new']), 1000);
     } catch (error: any) {
-      this.alert.show('error', `❌ Registration failed: ${error}`);
-      this.message = error.message || 'Registration failed. Try again.';
+      this.message = error.message || 'Rejestracja nie powiodła się. Spróbuj ponownie.';
     } finally {
       this.loading = false;
     }

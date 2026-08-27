@@ -22,7 +22,7 @@
   </ul>
   <app-add-new-vehicle
     *ngIf="waybillsService.isOpenModalFormForAddNewVehicle()"
-    (close)="
+    (closeModal)="
       waybillsService.isOpenModalFormForAddNewVehicle.set(
         !waybillsService.isOpenModalFormForAddNewVehicle()
       )

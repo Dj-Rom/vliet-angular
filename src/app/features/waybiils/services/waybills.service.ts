@@ -1,11 +1,11 @@
 import { _WayBill } from '../../../../interfaces';
 import { FirebaseClientService } from '../../../firebase/firebase.service';
-import { Injectable, signal, computed, effect } from '@angular/core';
+import { Injectable, signal, computed, effect, OnDestroy } from '@angular/core';
 import { formatDateTime, safeDate } from '../../../helpers/formatDateTime';
 import { AlertService } from '../../../core/services/alert.service';
 
 @Injectable({ providedIn: 'root' })
-export class WaybillsService {
+export class WaybillsService implements OnDestroy {
   isReportOpen = signal<boolean>(false);
 
   readonly waybills = signal<_WayBill[]>([]);

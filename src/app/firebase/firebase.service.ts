@@ -1,5 +1,5 @@
 import { Injectable, signal } from '@angular/core';
-import { initializeApp } from 'firebase/app';
+import { initializeApp, getApps, getApp } from 'firebase/app';
 import {
   getAuth,
   createUserWithEmailAndPassword,
@@ -13,7 +13,9 @@ import {
   User,
 } from 'firebase/auth';
 import {
-  getFirestore,
+  initializeFirestore,
+  persistentLocalCache,
+  persistentMultipleTabManager,
   doc,
   setDoc,
   getDoc,
@@ -21,11 +23,14 @@ import {
   getDocs,
   updateDoc,
   deleteDoc,
+  Firestore,
 } from 'firebase/firestore';
 import { environment } from '../../environments/environment';
 import { _WayBill, _VehicleFleet } from '../../interfaces';
 import { AlertService } from '../core/services/alert.service';
-import { getPerformance } from "firebase/performance";
+import { AppCookieService } from '../core/services/cookie.service';
+import { getPerformance } from 'firebase/performance';
+
 export interface SharedAddress {
   id: string;
   company: string;
@@ -35,24 +40,61 @@ export interface SharedAddress {
   notes?: string;
 }
 
-// Init Firebase
-const app = initializeApp(environment.firebase);
-const auth = getAuth(app);
-const db = getFirestore(app);
-const perf = getPerformance(app);
+// Single initialized Firebase instances with IndexedDB offline persistence
+export const app = getApps().length ? getApp() : initializeApp(environment.firebase);
+export const auth = getAuth(app);
+
+let firestoreInstance: Firestore;
+try {
+  firestoreInstance = initializeFirestore(app, {
+    localCache: persistentLocalCache({
+      tabManager: persistentMultipleTabManager(),
+    }),
+  });
+} catch {
+  // If already initialized (e.g. during fast reloads / HMR)
+  firestoreInstance = (app as any)._firestore || initializeFirestore(app, {});
+}
+export const db = firestoreInstance;
+
+if (typeof window !== 'undefined') {
+  try {
+    getPerformance(app);
+  } catch {}
+}
+
 @Injectable({ providedIn: 'root' })
 export class FirebaseClientService {
-  private auth = auth;
-  private db = db;
+  public auth = auth;
+  public db = db;
   private user: User | null = null;
-  private uid: string | null = null;
   isLoading = signal(false);
 
-  constructor(private alert: AlertService) {
-    onAuthStateChanged(this.auth, (u) => (this.user = u));
-    if (this.getCookie('van-vliet')) {
-      this.uid = this.getCookie('van-vliet');
+  constructor(
+    private alert: AlertService,
+    private cookieService: AppCookieService,
+  ) {
+    this.user = this.auth.currentUser;
+    onAuthStateChanged(this.auth, (u) => {
+      this.user = u;
+    });
+  }
+
+  public getCurrentUid(): string | null {
+    if (this.auth.currentUser?.uid) return this.auth.currentUser.uid;
+    if (this.user?.uid) return this.user.uid;
+    const session = this.cookieService.getJson<{ uid: string }>('van-vliet-session');
+    if (session?.uid) return session.uid;
+    const legacyCookie = this.cookieService.getCookie('van-vliet');
+    if (legacyCookie) {
+      try {
+        const parsed = JSON.parse(legacyCookie);
+        return parsed?.uid || legacyCookie;
+      } catch {
+        return legacyCookie;
+      }
     }
+    return null;
   }
 
   // ===== Helper =====
@@ -66,11 +108,19 @@ export class FirebaseClientService {
   }
 
   private async hasAccess(): Promise<boolean> {
-    if (!this.user?.uid) return false;
-    const docSnap = await getDoc(doc(this.db, 'users', this.user.uid));
-    if (!docSnap.exists()) return false;
-    const data = docSnap.data();
-    return data?.['status'] === true;
+    const uid = this.getCurrentUid();
+    if (!uid) return false;
+    try {
+      const docSnap = await getDoc(doc(this.db, 'users', uid));
+      if (!docSnap.exists()) return false;
+      const data = docSnap.data();
+      return data?.['status'] === true;
+    } catch (e) {
+      // Offline fallback: check cached user session
+      const session = this.cookieService.getJson<{ status?: boolean }>('van-vliet-session');
+      if (session?.status !== undefined) return session.status;
+      return true;
+    }
   }
 
   // Automatically include createdAt
@@ -98,6 +148,7 @@ export class FirebaseClientService {
           waybills: {},
         }),
       );
+      this.user = cred.user;
       return cred.user;
     });
   }
@@ -106,8 +157,16 @@ export class FirebaseClientService {
     return this.withLoading(async () => {
       const cred = await signInWithEmailAndPassword(this.auth, email, password);
       this.user = cred.user;
-      if (rememberMe && this.user?.uid) {
-        this.setCookie('van-vliet', JSON.stringify(this.user), 7);
+      if (this.user?.uid) {
+        this.cookieService.setJson(
+          'van-vliet-session',
+          {
+            uid: this.user.uid,
+            email: this.user.email,
+            displayName: this.user.displayName,
+          },
+          rememberMe ? 30 : 7,
+        );
       }
       return cred.user;
     });
@@ -115,69 +174,78 @@ export class FirebaseClientService {
 
   async signOutUser(): Promise<void> {
     return this.withLoading(async () => {
-      await signOut(this.auth);
-      this.user = null;
-      this.deleteCookie('van-vliet');
+      try {
+        await signOut(this.auth);
+      } finally {
+        this.user = null;
+        this.cookieService.deleteCookie('van-vliet-session');
+        this.cookieService.deleteCookie('van-vliet');
+        this.cookieService.deleteCookie('van-vliet-email');
+      }
     });
   }
 
   async isLoggedIn(): Promise<boolean> {
-    return this.withLoading(
-      () =>
-        new Promise<boolean>((res) => {
-          const unsub = onAuthStateChanged(this.auth, (user) => {
-            res(!!user);
-            unsub();
-          });
-        }),
-    );
+    if (this.auth.currentUser) return true;
+    return new Promise<boolean>((res) => {
+      const unsub = onAuthStateChanged(this.auth, (user) => {
+        res(!!user);
+        unsub();
+      });
+    });
   }
 
-  currentUser() {
-    return this.auth.currentUser;
+  currentUser(): User | null {
+    return this.auth.currentUser || this.user;
   }
 
-  getUserEmail() {
-    return this.user?.email || null;
+  getUserEmail(): string | null {
+    return this.auth.currentUser?.email || this.user?.email || null;
   }
 
   // ================= PROFILE =================
 
   async updateUserName(fullName: string) {
-    if (!this.auth.currentUser) return;
+    const user = this.currentUser();
+    if (!user) return;
     return this.withLoading(async () => {
-      await updateProfile(this.auth.currentUser!, { displayName: fullName });
-      await updateDoc(doc(this.db, 'users', this.auth.currentUser!.uid), {
+      await updateProfile(user, { displayName: fullName });
+      await updateDoc(doc(this.db, 'users', user.uid), {
         'userData.fullName': fullName,
       });
     });
   }
 
   async updateUserEmail(email: string) {
-    if (!this.auth.currentUser) return;
+    const user = this.currentUser();
+    if (!user) return;
     return this.withLoading(async () => {
-      await updateEmail(this.auth.currentUser!, email);
-      await updateDoc(doc(this.db, 'users', this.auth.currentUser!.uid), {
+      await updateEmail(user, email);
+      await updateDoc(doc(this.db, 'users', user.uid), {
         'userData.email': email,
       });
     });
   }
 
   async updateUserPassword(newPassword: string) {
-    if (!this.auth.currentUser) return;
+    const user = this.currentUser();
+    if (!user) return;
     return this.withLoading(async () => {
-      await updatePassword(this.auth.currentUser!, newPassword);
+      await updatePassword(user, newPassword);
     });
   }
 
   async deleteUserAccount(): Promise<void> {
-    if (!this.auth.currentUser) return;
+    const user = this.currentUser();
+    if (!user) return;
     return this.withLoading(async () => {
-      await deleteDoc(doc(this.db, 'users', this.auth.currentUser!.uid));
-      await deleteUser(this.auth.currentUser!);
+      const uid = user.uid;
+      await deleteDoc(doc(this.db, 'users', uid));
+      await deleteUser(user);
       this.user = null;
-      this.deleteCookie('van-vliet');
-      this.deleteCookie('van-vliet-email');
+      this.cookieService.deleteCookie('van-vliet-session');
+      this.cookieService.deleteCookie('van-vliet');
+      this.cookieService.deleteCookie('van-vliet-email');
     });
   }
 
@@ -208,8 +276,13 @@ export class FirebaseClientService {
       return [];
     }
     return this.withLoading(async () => {
-      const snap = await getDocs(collection(this.db, 'shared_addresses'));
-      return snap.docs.map((d) => ({ id: d.id, ...d.data() }) as SharedAddress);
+      try {
+        const snap = await getDocs(collection(this.db, 'shared_addresses'));
+        return snap.docs.map((d) => ({ id: d.id, ...d.data() }) as SharedAddress);
+      } catch (e) {
+        console.warn('Error getting shared addresses:', e);
+        return [];
+      }
     });
   }
 
@@ -245,8 +318,13 @@ export class FirebaseClientService {
 
   async getVehicleFleet(): Promise<_VehicleFleet[]> {
     return this.withLoading(async () => {
-      const snap = await getDocs(collection(this.db, 'vehicle_fleet'));
-      return snap.docs.map((d) => ({ id: d.id, ...d.data() }) as _VehicleFleet);
+      try {
+        const snap = await getDocs(collection(this.db, 'vehicle_fleet'));
+        return snap.docs.map((d) => ({ id: d.id, ...d.data() }) as _VehicleFleet);
+      } catch (e) {
+        console.warn('Error getting vehicle fleet:', e);
+        return [];
+      }
     });
   }
 
@@ -275,8 +353,8 @@ export class FirebaseClientService {
   // ================= PACKAGE HISTORY =================
 
   async getPackageHistory(): Promise<_WayBill[]> {
-    if (!this.user?.uid) return [];
-    const uid = this.user.uid;
+    const uid = this.getCurrentUid();
+    if (!uid) return [];
     const access = await this.hasAccess();
     if (!access) {
       this.alert.show(
@@ -286,38 +364,43 @@ export class FirebaseClientService {
       return [];
     }
     return this.withLoading(async () => {
-      const snap = await getDocs(collection(this.db, uid, 'packageHistory'));
-      return snap.docs.map((d) => ({ id: d.id, ...d.data() }) as _WayBill);
+      try {
+        const snap = await getDocs(collection(this.db, 'users', uid, 'packageHistory'));
+        return snap.docs.map((d) => ({ id: d.id, ...d.data() }) as _WayBill);
+      } catch (e) {
+        console.warn('Error getting package history:', e);
+        return [];
+      }
     });
   }
 
   async addNewPackageList(data: any) {
-    if (!this.user?.uid) return;
-    const uid = this.user.uid;
+    const uid = this.getCurrentUid();
+    if (!uid) return;
     const access = await this.hasAccess();
     if (!access) {
       this.alert.show(
         'error',
         'Twój dostęp nie został jeszcze zatwierdzony, prosimy poczekać 24 godziny',
       );
-      return [];
+      return;
     }
     return this.withLoading(async () => {
-      const ref = doc(collection(this.db, uid, 'packageHistory'));
+      const ref = doc(collection(this.db, 'users', uid, 'packageHistory'));
       await setDoc(ref, this.addCreatedAt(data));
     });
   }
 
   async updatePackageHistory(id: string, data: any) {
-    if (!this.user?.uid) return;
-    const uid = this.user.uid;
+    const uid = this.getCurrentUid();
+    if (!uid) return;
     const access = await this.hasAccess();
     if (!access) {
       this.alert.show(
         'error',
         'Twój dostęp nie został jeszcze zatwierdzony, prosimy poczekać 24 godziny',
       );
-      return [];
+      return;
     }
     return this.withLoading(async () => {
       const cleanData = Object.fromEntries(
@@ -328,15 +411,15 @@ export class FirebaseClientService {
   }
 
   async deletePackageHistory(id: string) {
-    if (!this.user?.uid) return;
-    const uid = this.user.uid;
+    const uid = this.getCurrentUid();
+    if (!uid) return;
     const access = await this.hasAccess();
     if (!access) {
       this.alert.show(
         'error',
         'Twój dostęp nie został jeszcze zatwierdzony, prosimy poczekać 24 godziny',
       );
-      return [];
+      return;
     }
     return this.withLoading(async () => {
       await deleteDoc(doc(this.db, 'users', uid, 'packageHistory', id));
@@ -346,18 +429,23 @@ export class FirebaseClientService {
   // ================= WAYBILL HISTORY =================
 
   async getWillBillsHistory(): Promise<_WayBill[]> {
-    if (!this.user?.uid) return [];
-    const uid = this.user.uid;
+    const uid = this.getCurrentUid();
+    if (!uid) return [];
 
     return this.withLoading(async () => {
-      const snap = await getDocs(collection(this.db, 'users', uid, 'waybills'));
-      return snap.docs.map((d) => ({ id: d.id, ...d.data() }) as _WayBill);
+      try {
+        const snap = await getDocs(collection(this.db, 'users', uid, 'waybills'));
+        return snap.docs.map((d) => ({ id: d.id, ...d.data() }) as _WayBill);
+      } catch (e) {
+        console.warn('Error getting waybills history:', e);
+        return [];
+      }
     });
   }
 
   async addInfoForCurrentUser(data: any) {
-    if (!this.user?.uid) return;
-    const uid = this.user.uid;
+    const uid = this.getCurrentUid();
+    if (!uid) return;
 
     return this.withLoading(async () => {
       try {
@@ -370,27 +458,23 @@ export class FirebaseClientService {
   }
 
   async updateWayBillsHistory(id: string, data: any) {
-    if (!this.user?.uid) return;
-    const uid = this.user.uid;
+    const uid = this.getCurrentUid();
+    if (!uid) return;
 
     return this.withLoading(async () => {
       const cleanData = Object.fromEntries(
         Object.entries(data).filter(([_, v]) => v !== undefined),
       );
-
       await updateDoc(doc(this.db, 'users', uid, 'waybills', id), cleanData);
     });
   }
 
   async deleteWayBillHistory(id: string) {
-    if (!this.user?.uid) return;
-    const uid = this.user.uid;
-
-    const access = await this.hasAccess();
+    const uid = this.getCurrentUid();
+    if (!uid) return;
 
     return this.withLoading(async () => {
       try {
-        // Исправленный путь: коллекция waybills внутри пользователя
         await deleteDoc(doc(this.db, 'users', uid, 'waybills', id));
       } catch (error) {
         this.alert.show('error', `Błąd usuwania: ${error}`);
@@ -399,33 +483,28 @@ export class FirebaseClientService {
     });
   }
 
-  // ================= COOKIE =================
+  // ================= COOKIE COMPATIBILITY =================
 
   setCookie(name: string, value: string, days = 7) {
-    const d = new Date();
-    d.setTime(d.getTime() + days * 24 * 60 * 60 * 1000);
-    document.cookie = `${name}=${encodeURIComponent(value)};expires=${d.toUTCString()};path=/`;
+    this.cookieService.setCookie(name, value, days);
   }
 
   getCookie(name: string): string | null {
-    const nameEQ = name + '=';
-    const ca = document.cookie.split(';');
-    for (let c of ca) {
-      c = c.trim();
-      if (c.indexOf(nameEQ) === 0) return decodeURIComponent(c.substring(nameEQ.length));
-    }
-    return null;
+    return this.cookieService.getCookie(name);
   }
 
   deleteCookie(name: string) {
-    this.setCookie(name, '', -1);
+    this.cookieService.deleteCookie(name);
   }
 
   async isCookieUidValid(): Promise<boolean> {
-    const cookie = this.getCookie('van-vliet');
-    if (!cookie) return false;
-    const uid = JSON.parse(cookie);
-    const docSnap = await getDoc(doc(this.db, 'users', uid.uid));
-    return docSnap.exists();
+    const uid = this.getCurrentUid();
+    if (!uid) return false;
+    try {
+      const docSnap = await getDoc(doc(this.db, 'users', uid));
+      return docSnap.exists();
+    } catch {
+      return true; // Assume valid offline if we have uid
+    }
   }
 }

@@ -77,19 +77,19 @@ export class SwipeNavigationService {
 
     if (url.startsWith('/app/waybill-new')) {
       this.mobileNavigationService.navigate(
-        movingRight ? '/app/available-capacity' : '/app/load-location',
+        movingRight ? '/app/traffic' : '/app/load-location',
       );
       return;
     }
 
     if (url.startsWith('/app/load-management/all')) {
       if (!movingRight) {
-        this.mobileNavigationService.navigate('/app/available-capacity');
+        this.mobileNavigationService.navigate('/app/traffic');
       }
       return;
     }
 
-    if (url.startsWith('/app/available-capacity')) {
+    if (url.startsWith('/app/traffic') || url.startsWith('/app/available-capacity')) {
       this.mobileNavigationService.navigate(
         movingRight ? '/app/load-management/all' : '/app/waybill-new',
       );

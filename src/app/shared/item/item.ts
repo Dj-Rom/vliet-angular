@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { ListItem } from '../../core/services/load-calculator-services/load-calculator.service';
 import { LoadCalculatorPage } from '../../features/packaking-manager-page/layout/load-calculator-page';
 
@@ -6,12 +6,11 @@ import { LoadCalculatorPage } from '../../features/packaking-manager-page/layout
   selector: 'app-item',
   standalone: true,
   templateUrl: './item.html',
-  styleUrls: ['./item.css'], // poprawione
+  styleUrls: ['./item.css'],
 })
-export class Item implements OnInit {
+export class Item {
   @Input() title!: string;
   @Input() date!: string;
   @Input() item!: ListItem;
   constructor(protected loadCalc: LoadCalculatorPage) {}
-  ngOnInit() {}
 }

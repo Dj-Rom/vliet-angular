@@ -33,34 +33,28 @@ export class AddNewWaybillPage {
   }
 
   onOpenCalendarModal(timeType: string) {
-
-        this.addNewWaybillsService.isOpenTimeStartModal.set(false);
+    this.addNewWaybillsService.isOpenTimeStartModal.set(false);
     this.addNewWaybillsService.isOpenTimeEndModal.set(false);
-    timeType == 'start'
-      ? (this.addNewWaybillsService.isOpenCalendarStartModal.set(
-          !this.addNewWaybillsService.isOpenCalendarStartModal(),
-        ),
-        this.addNewWaybillsService.isOpenCalendarEndModal.set(false))
-      : (this.addNewWaybillsService.isOpenCalendarStartModal.set(false),
-        this.addNewWaybillsService.isOpenCalendarEndModal.set(
-          !this.addNewWaybillsService.isOpenCalendarEndModal(),
-        ));
+    if (timeType === 'start') {
+      this.addNewWaybillsService.isOpenCalendarStartModal.update((v) => !v);
+      this.addNewWaybillsService.isOpenCalendarEndModal.set(false);
+    } else {
+      this.addNewWaybillsService.isOpenCalendarStartModal.set(false);
+      this.addNewWaybillsService.isOpenCalendarEndModal.update((v) => !v);
+    }
   }
 
   onOpenTimeModal(timeType: string) {
-
     this.addNewWaybillsService.isOpenCalendarStartModal.set(false);
     this.addNewWaybillsService.isOpenCalendarEndModal.set(false);
 
-    timeType == 'start'
-      ? (this.addNewWaybillsService.isOpenTimeStartModal.set(
-          !this.addNewWaybillsService.isOpenTimeStartModal(),
-        ),
-        this.addNewWaybillsService.isOpenTimeEndModal.set(false))
-      : (this.addNewWaybillsService.isOpenTimeStartModal.set(false),
-        this.addNewWaybillsService.isOpenTimeEndModal.set(
-          !this.addNewWaybillsService.isOpenTimeEndModal(),
-        ));
+    if (timeType === 'start') {
+      this.addNewWaybillsService.isOpenTimeStartModal.update((v) => !v);
+      this.addNewWaybillsService.isOpenTimeEndModal.set(false);
+    } else {
+      this.addNewWaybillsService.isOpenTimeStartModal.set(false);
+      this.addNewWaybillsService.isOpenTimeEndModal.update((v) => !v);
+    }
   }
 
   addNewWaybills() {

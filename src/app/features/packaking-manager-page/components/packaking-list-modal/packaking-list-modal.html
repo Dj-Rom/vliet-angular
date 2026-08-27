@@ -2,6 +2,8 @@
 
   <div class="modal-inner">
 
+    <span class="btnSent" (click)="sendPackaging()" *ngIf="!isListEmpty"><img _ngcontent-ng-c3352190548=""
+        src="assets/svg/navi/Sent.svg" alt="ikona-wyślij"></span>
     <span class="btnClose" (click)="pMService.closeModalAndClear()">X</span>
 
 
@@ -15,17 +17,15 @@
       <div class="empty-message" *ngIf="isListEmpty">
         Ładunek jest pusty
       </div>
-<div class="list">
+      <div class="list">
 
-      <ng-container *ngFor="let item of pMService.list() | keyvalue" >
-        <div *ngIf="item.value !== 0"
-             (click)="pMService.isActive($event)"
-             class="item">
-          <span>{{ item.key }}</span>
-          <span>{{ item.value }}</span>
-        </div>
-      </ng-container>
-</div>
+        <ng-container *ngFor="let item of pMService.list() | keyvalue">
+          <div *ngIf="item.value !== 0" (click)="pMService.isActive($event)" class="item">
+            <span>{{ item.key }}</span>
+            <span>{{ item.value }}</span>
+          </div>
+        </ng-container>
+      </div>
 
     </div>
   </div>

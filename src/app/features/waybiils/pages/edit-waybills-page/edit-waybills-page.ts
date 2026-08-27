@@ -47,29 +47,25 @@ export class EditWaybillsPage implements OnInit {
   }
 
   onOpenCalendarModal(timeType: string) {
-    timeType === 'start'
-      ? (this.editWaybillService.isOpenEditCalendarStartModal.set(
-          !this.editWaybillService.isOpenEditCalendarStartModal(),
-        ),
-        this.editWaybillService.isOpenEditCalendarEndModal.set(false))
-      : (this.editWaybillService.isOpenEditCalendarEndModal.set(
-          !this.editWaybillService.isOpenEditCalendarEndModal(),
-        ),
-        this.editWaybillService.isOpenEditCalendarStartModal.set(false));
+    if (timeType === 'start') {
+      this.editWaybillService.isOpenEditCalendarStartModal.update((v) => !v);
+      this.editWaybillService.isOpenEditCalendarEndModal.set(false);
+    } else {
+      this.editWaybillService.isOpenEditCalendarEndModal.update((v) => !v);
+      this.editWaybillService.isOpenEditCalendarStartModal.set(false);
+    }
     this.editWaybillService.isOpenEditTimeStartModal.set(false);
     this.editWaybillService.isOpenEditTimeEndModal.set(false);
   }
 
   onOpenTimeModal(timeType: string) {
-    timeType === 'start'
-      ? (this.editWaybillService.isOpenEditTimeStartModal.set(
-          !this.editWaybillService.isOpenEditTimeStartModal(),
-        ),
-        this.editWaybillService.isOpenEditTimeEndModal.set(false))
-      : (this.editWaybillService.isOpenEditTimeEndModal.set(
-          !this.editWaybillService.isOpenEditTimeEndModal(),
-        ),
-        this.editWaybillService.isOpenEditTimeStartModal.set(false));
+    if (timeType === 'start') {
+      this.editWaybillService.isOpenEditTimeStartModal.update((v) => !v);
+      this.editWaybillService.isOpenEditTimeEndModal.set(false);
+    } else {
+      this.editWaybillService.isOpenEditTimeEndModal.update((v) => !v);
+      this.editWaybillService.isOpenEditTimeStartModal.set(false);
+    }
     this.editWaybillService.isOpenEditCalendarStartModal.set(false);
     this.editWaybillService.isOpenEditCalendarEndModal.set(false);
   }

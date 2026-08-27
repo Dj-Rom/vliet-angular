@@ -63,6 +63,7 @@ select,
 
   color: var(--text-primary);
 }
+
 select {
   height: 20px;
   width: 100px;
@@ -104,6 +105,7 @@ input:hover {
   outline: none;
   color: #fff;
 }
+
 .range-start,
 .range-end {
   background: #4f46e5;
@@ -115,6 +117,7 @@ input:hover {
   background: #4f46e5;
   gap: 0;
 }
+
 .weekdays {
   display: grid;
   grid-template-columns: repeat(7, 1fr);

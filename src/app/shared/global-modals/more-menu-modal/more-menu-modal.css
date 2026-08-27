@@ -7,7 +7,7 @@
   position: fixed;
   bottom: 0;
   left: 0;
-  z-index: 11;
+  z-index: 190;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -20,8 +20,9 @@
 
     width: 24px !important;
   }
-  .block-company-name {
-  }
+
+  .block-company-name {}
+
   .border {
     border-bottom: 1px solid rgba(42, 47, 54, 1);
   }
@@ -38,15 +39,18 @@
     gap: 8px;
     padding-top: 6px;
     padding-bottom: 6px;
+
     img {
       width: 16px;
       height: 16px;
       margin: 8px;
     }
   }
+
   span {
     color: var(--text-secondary-color);
   }
+
   button {
     border: none;
     background: none;

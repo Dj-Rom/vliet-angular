@@ -26,6 +26,7 @@ import { signal } from '@angular/core';
 import { AlertService } from './core/services/alert.service';
 import { UpdateService } from './core/services/update.service';
 import { SwipeComponent } from './helpers/swipe';
+import { UpdateModal } from './shared/global-modals/update-modal/update-modal';
 
 @Component({
   selector: 'app-root',
@@ -43,6 +44,7 @@ import { SwipeComponent } from './helpers/swipe';
     SpinnerComponent,
     _Alert,
     SwipeComponent,
+    UpdateModal,
   ],
   templateUrl: './app.html',
   styleUrls: ['./app.css'],
@@ -57,7 +59,7 @@ export class App {
     protected moreMenuService: MoreMenuService,
     protected router: Router,
     protected alert: AlertService,
-    private updateService: UpdateService,
+    public updateService: UpdateService,
   ) {
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationStart) {

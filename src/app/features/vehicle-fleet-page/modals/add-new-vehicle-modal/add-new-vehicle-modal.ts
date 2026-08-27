@@ -16,7 +16,7 @@ import { _VehicleFleet } from '../../../../../interfaces';
   styleUrls: ['./add-new-vehicle-modal.css'],
 })
 export class AddNewVehicleModal {
-  @Output() close = new EventEmitter<void>();
+  @Output() closeModal = new EventEmitter<void>();
   vehicleForm: FormGroup;
   isTrailer = false;
   vehicleFleet: _VehicleFleet[] = [];
@@ -79,7 +79,7 @@ export class AddNewVehicleModal {
 
       this.alertService.show('success', 'Pojazd dodany pomyślnie');
       this.vehicleForm.reset({ vehicleType: 'truck' });
-      this.close.emit();
+      this.closeModal.emit();
     } catch (err) {
       this.alertService.show('error', String(err));
     }
@@ -90,6 +90,6 @@ export class AddNewVehicleModal {
   /* ──────────────────────────── */
 
   back() {
-    this.close.emit();
+    this.closeModal.emit();
   }
 }

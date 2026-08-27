@@ -1,37 +1,38 @@
-<section style="display: flex; height: 300px; flex-direction: column; align-items: center">
+<section class="profile-section">
   <header class="header">
-    <span class="font400size16"> Ustawienia </span>
-    <img src="assets/svg/Logout.svg" (click)="logout()" />
+    <span class="font400size16">Ustawienia</span>
+    <img src="assets/svg/Logout.svg" (click)="logout()" alt="Wyloguj" title="Wyloguj" />
   </header>
+
   <main>
     <div class="item-profile" (click)="goToProfile()">
       <img src="assets/svg/person.svg" alt="icon person" />
-      <span>Profil</span>
+      <span>Profil ({{ displayName() || userEmail() }})</span>
       <img src="assets/svg/Arrow right.svg" alt="" />
     </div>
+
     <div class="item-profile">
-      <img src="assets/svg/Language.svg" alt="icon person" />
+      <img src="assets/svg/Language.svg" alt="icon language" />
       <span>Język</span>
       <img src="assets/svg/Arrow right.svg" alt="" />
     </div>
+
+    <!-- Check for Updates Item -->
+    <div class="item-profile update-item" (click)="checkUpdates()">
+      <span class="update-icon">🚀</span>
+      <div class="update-info">
+        <span class="update-title">Aktualizacje aplikacji</span>
+        <span class="update-sub">Wersja: v{{ updateService.currentVersion }} &bull; Kliknij, aby sprawdzić</span>
+      </div>
+      <span class="badge-status" [class.badge-has-update]="updateService.isUpdateAvailable()">
+        {{ updateService.isChecking() ? 'Sprawdzam...' : (updateService.isUpdateAvailable() ? 'Nowa wersja!' : 'Aktualna') }}
+      </span>
+    </div>
+
     <app-view-profile-modal *ngIf="profileService.isOpenModalName()"></app-view-profile-modal>
   </main>
-  <br />
-  <span
-    style="
-      position: absolute;
-      left: 50%;
-      transform: translate(-50%);
-      bottom: 78px;
-      color: red;
-      text-align: center;
-      margin: 0 auto;
-    "
-    >Version 1.3.2</span
-  >
-  <!--<label for="name">Name:</label>-->
-  <!--<input type="text" name="name" id="name" [readOnly]="isEditFullName" [value]="user?.displayName"> <span (click)="isEditFullName=!isEditFullName"><img src="assets/svg/edit.svg" /></span>-->
-  <!--<label for="email">Email:</label>-->
-  <!--<input type="text" name="email" id="email" [readOnly]="isEditEmail" [value]="user?.email"> <span (click)="isEditEmail=!isEditEmail"><img src="assets/svg/edit.svg" /></span>-->
-  <!--<span class="logout" (click)="logout()">Logout</span>-->
+
+  <footer class="profile-footer">
+    <span class="app-version-text">Van Vliet Transport &bull; Wersja {{ updateService.currentVersion }}</span>
+  </footer>
 </section>

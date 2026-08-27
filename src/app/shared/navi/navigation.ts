@@ -1,12 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, computed } from '@angular/core';
 import { Router } from '@angular/router';
-import { FirebaseClientService } from '../../firebase/firebase.service';
-import { NgIf } from '@angular/common';
-import { RouterLink } from '@angular/router';
-
 import { AuthService } from '../../core/services/auth.service';
 import { Mobile } from './mobile/mobile';
-import { AlertService } from '../../core/services/alert.service';
 
 @Component({
   selector: 'app-navigation',
@@ -17,20 +12,19 @@ import { AlertService } from '../../core/services/alert.service';
 })
 export class Navigation {
   menuOpen = false;
-  isMobile: boolean = window.innerWidth < 768;
-  isLoggedIn: any;
-  user: string | null | undefined = null;
+  isMobile: boolean = typeof window !== 'undefined' ? window.innerWidth < 768 : true;
+
+  user = computed(() => {
+    const email = this.authService.userEmail();
+    return email ? email.split('@')[0] : null;
+  });
+
+  isLoggedIn = computed(() => this.authService.isAuthenticated());
+
   constructor(
     private authService: AuthService,
-    private fb: FirebaseClientService,
     private router: Router,
-    private alert: AlertService,
-  ) {
-    this.user = this.authService.getUser()?.email;
-    this.isLoggedIn = this.authService.isLoggedIn();
-    this.user = this.user?.slice(0, this.user?.indexOf('@'));
-
-  }
+  ) {}
 
   toggleMenu(): void {
     this.menuOpen = !this.menuOpen;
@@ -41,14 +35,7 @@ export class Navigation {
   }
 
   async logout(): Promise<void> {
-    try {
-      this.closeMenu();
-      await this.fb.signOutUser();
-      this.alert.show('success', '🚪 Logged out');
-      this.isLoggedIn = false;
-      await this.router.navigate(['/auth/sing-in']);
-    } catch (error) {
-      this.alert.show('error', `Logout error:, ${error}`);
-    }
+    this.closeMenu();
+    await this.authService.logout();
   }
 }

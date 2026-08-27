@@ -89,7 +89,11 @@ export class TimePickerComponent implements AfterViewInit {
       this.snapToCenter(wheel, index);
     }, 100);
 
-    type == 'hour' ? (this.hourTimer = timer) : (this.minuteTimer = timer);
+    if (type === 'hour') {
+      this.hourTimer = timer;
+    } else {
+      this.minuteTimer = timer;
+    }
   }
 
   private snapToCenter(wheel: ElementRef<HTMLDivElement>, index: number): void {

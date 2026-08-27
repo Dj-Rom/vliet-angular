@@ -1,0 +1,194 @@
+<section class="traffic-container">
+  <!-- Header -->
+  <header class="traffic-header">
+    <div class="header-main">
+      <div class="title-area">
+        <h1>Ruch & Korki (Niemcy)</h1>
+        <span class="subtitle">Trasy: A2, A12, A30, A10 &bull; Źródło: ADAC / Autobahn Live</span>
+      </div>
+      <button class="btn-refresh" (click)="refresh()" [disabled]="trafficService.isLoading()" title="Odśwież dane">
+        <svg [class.spin]="trafficService.isLoading()" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M21.5 2v6h-6M2.5 22v-6h6M2 11.5a10 10 0 0 1 18.8-4.3M22 12.5a10 10 0 0 1-18.8 4.2"/>
+        </svg>
+        <span class="refresh-text">{{ trafficService.isLoading() ? 'Ładowanie...' : 'Odśwież' }}</span>
+      </button>
+    </div>
+
+    <div class="update-meta">
+      <span>Ostatnia aktualizacja: <strong>{{ formatLastUpdated(trafficService.lastUpdated()) }}</strong></span>
+      <button class="btn-adac-link" (click)="openAdac()">
+        <span>🌐 Otwórz w ADAC.de</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Highway Selector Tabs -->
+  <nav class="road-nav">
+    <div class="road-scroll">
+      <button
+        *ngFor="let r of roads"
+        class="road-btn"
+        [class.active]="trafficService.selectedRoad() === r.id"
+        (click)="selectRoad(r.id)"
+      >
+        <span class="road-badge" [class.badge-all]="r.id === 'ALL'">{{ r.label }}</span>
+        <span class="road-stats" *ngIf="r.id !== 'ALL' && trafficService.roadSummaries()[r.id]">
+          <span class="stat-warning" *ngIf="trafficService.roadSummaries()[r.id].warningCount > 0">
+            🚨 {{ trafficService.roadSummaries()[r.id].warningCount }}
+          </span>
+          <span class="stat-delay" *ngIf="trafficService.roadSummaries()[r.id].totalDelayMinutes > 0">
+            +{{ trafficService.roadSummaries()[r.id].totalDelayMinutes }}m
+          </span>
+          <span class="stat-clean" *ngIf="trafficService.roadSummaries()[r.id].warningCount === 0 && trafficService.roadSummaries()[r.id].closureCount === 0">
+            ✓
+          </span>
+        </span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Summary Statistics Strip -->
+  <div class="stats-strip">
+    <div class="stat-card stat-warnings" [class.has-alert]="trafficService.totalStats().totalWarnings > 0">
+      <div class="stat-num">🚨 {{ trafficService.totalStats().totalWarnings }}</div>
+      <div class="stat-lbl">Korki & Zatory</div>
+    </div>
+    <div class="stat-card stat-delays" [class.has-alert]="trafficService.totalStats().totalDelays > 0">
+      <div class="stat-num">⏱️ +{{ trafficService.totalStats().totalDelays }} min</div>
+      <div class="stat-lbl">Łączne opóźnienie</div>
+    </div>
+    <div class="stat-card stat-closures">
+      <div class="stat-num">⛔ {{ trafficService.totalStats().totalClosures }}</div>
+      <div class="stat-lbl">Zamknięcia dróg</div>
+    </div>
+    <div class="stat-card stat-roadworks">
+      <div class="stat-num">🚧 {{ trafficService.totalStats().totalRoadworks }}</div>
+      <div class="stat-lbl">Roboty drogowe</div>
+    </div>
+  </div>
+
+  <!-- Search & Category Filters -->
+  <div class="filters-panel">
+    <div class="search-box">
+      <svg class="search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <circle cx="11" cy="11" r="8"></circle>
+        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+      </svg>
+      <input
+        type="text"
+        [(ngModel)]="searchInputValue"
+        (input)="onSearchChange()"
+        placeholder="Szukaj miasta, węzła (np. Magdeburg, Berlin, Hannover)..."
+      />
+      <button *ngIf="searchInputValue" class="btn-clear-search" (click)="clearSearch()">✕</button>
+    </div>
+
+    <div class="category-chips">
+      <button
+        *ngFor="let cat of categories"
+        class="chip-btn"
+        [class.active]="trafficService.selectedCategory() === cat.id"
+        (click)="selectCategory(cat.id)"
+      >
+        <span class="chip-icon">{{ cat.icon }}</span>
+        <span>{{ cat.label }}</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Content / Incident Cards -->
+  <div class="traffic-content">
+    <!-- Loading State -->
+    <div *ngIf="trafficService.isLoading() && trafficService.items().length === 0" class="loading-state">
+      <div class="spinner-traffic"></div>
+      <p>Pobieranie aktualnych informacji o ruchu drogowym...</p>
+    </div>
+
+    <!-- Error State -->
+    <div *ngIf="trafficService.error() && trafficService.items().length === 0" class="error-banner">
+      <p>⚠️ {{ trafficService.error() }}</p>
+      <button class="btn-retry" (click)="refresh()">Spróbuj ponownie</button>
+    </div>
+
+    <!-- Empty State -->
+    <div *ngIf="!trafficService.isLoading() && trafficService.filteredItems().length === 0" class="empty-state">
+      <div class="empty-icon">🟢</div>
+      <h3>Brak utrudnień na wybranej trasie!</h3>
+      <p>Ruch odbywa się płynnie. Brak aktywnych zgłoszeń o korkach dla wybranego filtru.</p>
+      <button class="btn-empty-adac" (click)="openAdac()">Sprawdź bezpośrednio na ADAC.de</button>
+    </div>
+
+    <!-- Cards List -->
+    <div class="cards-list" *ngIf="trafficService.filteredItems().length > 0">
+      <article
+        *ngFor="let item of trafficService.filteredItems()"
+        class="incident-card"
+        [class.type-warning]="item.type === 'WARNING'"
+        [class.type-closure]="item.type === 'CLOSURE'"
+        [class.type-roadworks]="item.type === 'ROADWORKS'"
+      >
+        <!-- Card Top Bar -->
+        <div class="card-header">
+          <div class="card-badges">
+            <span class="badge-road">{{ item.road }}</span>
+            <span class="badge-type" [class.badge-warning]="item.type === 'WARNING'" [class.badge-closure]="item.type === 'CLOSURE'" [class.badge-roadworks]="item.type === 'ROADWORKS'">
+              <ng-container [ngSwitch]="item.type">
+                <span *ngSwitchCase="'WARNING'">🚨 UTRUDNIENIE / KOREK</span>
+                <span *ngSwitchCase="'CLOSURE'">⛔ ZAMKNIĘCIE TRASY</span>
+                <span *ngSwitchCase="'ROADWORKS'">🚧 ROBOTY DROGOWE</span>
+              </ng-container>
+            </span>
+          </div>
+
+          <div class="card-meta-right">
+            <span class="card-time" *ngIf="item.startTimestamp">{{ formatTime(item.startTimestamp) }}</span>
+          </div>
+        </div>
+
+        <!-- Delay / Speed Pill (for Warnings) -->
+        <div class="metrics-row" *ngIf="item.delayMinutes || item.averageSpeed">
+          <span class="pill-delay" *ngIf="item.delayMinutes">
+            ⏱️ <strong>+{{ item.delayMinutes }} min</strong> opóźnienia
+          </span>
+          <span class="pill-speed" *ngIf="item.averageSpeed">
+            🚗 Prędkość: <strong>{{ item.averageSpeed }} km/h</strong>
+          </span>
+          <span class="pill-blocked" *ngIf="item.isBlocked">
+            ⛔ Droga zablokowana
+          </span>
+        </div>
+
+        <!-- Direction Subtitle -->
+        <div class="card-direction" *ngIf="item.subtitle">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="9 18 15 12 9 6"></polyline>
+          </svg>
+          <strong>Kierunek:</strong> {{ item.subtitle }}
+        </div>
+
+        <!-- Title -->
+        <h3 class="card-title">{{ item.title }}</h3>
+
+        <!-- Description Details -->
+        <div class="card-description" *ngIf="item.description.length">
+          <p *ngFor="let desc of item.description">{{ desc }}</p>
+        </div>
+
+        <!-- Footer Actions -->
+        <div class="card-footer">
+          <button class="action-btn btn-maps" *ngIf="item.googleMapsUrl" (click)="openMaps(item)">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+              <circle cx="12" cy="10" r="3"></circle>
+            </svg>
+            <span>Pokaż na mapie</span>
+          </button>
+
+          <button class="action-btn btn-adac" (click)="openAdac(item.road)">
+            <span>🌐 ADAC {{ item.road }}</span>
+          </button>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
