@@ -6,7 +6,8 @@
   align-items: flex-end;
   width: 96vw;
   max-width: 600px;
-  margin: 24px 2vw 0 2vw;
+  margin: 29px 2vw 1px 3vw;
+
   .header-title {
     color: var(--text-primary);
     font-family: Inter;
@@ -24,6 +25,7 @@
     text-align: center;
   }
 }
+
 form {
   margin: 0 auto;
   display: flex;
@@ -37,6 +39,7 @@ form {
   color: red;
   margin-top: 2px;
 }
+
 main form {
   label {
     display: block;
@@ -57,6 +60,7 @@ main form {
     letter-spacing: 0%;
     color: rgba(155, 164, 174, 1);
   }
+
   input {
     height: 44px;
     gap: 8px;
@@ -86,6 +90,7 @@ main form {
     line-height: 24px;
     letter-spacing: 0%;
   }
+
   textarea {
     gap: 8px;
     angle: 0 deg;
@@ -113,6 +118,7 @@ main form {
     line-height: 24px;
     letter-spacing: 0%;
   }
+
   input:focus,
   input:active {
     border: none;

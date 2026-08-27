@@ -35,7 +35,8 @@
         <span class="update-sub">Wersja: v{{ updateService.currentVersion }} &bull; Kliknij, aby sprawdzić</span>
       </div>
       <span class="badge-status" [class.badge-has-update]="updateService.isUpdateAvailable()">
-        {{ updateService.isChecking() ? 'Sprawdzam...' : (updateService.isUpdateAvailable() ? 'Nowa wersja!' : 'Aktualna') }}
+        {{ updateService.isChecking() ? 'Sprawdzam...' : (updateService.isUpdateAvailable() ? 'Nowa wersja!' :
+        'Aktualna') }}
       </span>
     </div>
 
@@ -43,6 +44,6 @@
   </main>
 
   <footer class="profile-footer">
-    <span class="app-version-text">Van Vliet Transport &bull; Wersja {{ updateService.currentVersion }}</span>
+    <span class="app-version-text">Flowers transport &bull; Wersja {{ updateService.currentVersion }}</span>
   </footer>
 </section>

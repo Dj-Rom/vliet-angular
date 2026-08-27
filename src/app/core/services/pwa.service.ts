@@ -1,12 +1,15 @@
 import { Injectable, signal } from '@angular/core';
 
+export type PwaPlatform = 'ios-safari' | 'ios-other' | 'android' | 'desktop';
+
 @Injectable({ providedIn: 'root' })
 export class PwaService {
   private deferredPrompt: any = null;
 
   isInstallable = signal<boolean>(false);
   isInstalled = signal<boolean>(false);
-  isIos = signal<boolean>(false);
+  platform = signal<PwaPlatform>('android');
+  selectedPlatformTab = signal<PwaPlatform>('android');
   isOpenModal = signal<boolean>(false);
 
   constructor() {
@@ -16,7 +19,7 @@ export class PwaService {
   private init(): void {
     if (typeof window === 'undefined') return;
 
-    // Detect Standalone (already installed / opened as PWA)
+    // Detect Standalone (already installed / running as PWA)
     const isStandalone =
       window.matchMedia('(display-mode: standalone)').matches ||
       (window.navigator as any).standalone === true ||
@@ -24,13 +27,27 @@ export class PwaService {
 
     this.isInstalled.set(isStandalone);
 
-    // Detect iOS / iPadOS
+    // Detect OS & Browser
     const ua = window.navigator.userAgent.toLowerCase();
     const isApple =
       /iphone|ipad|ipod/.test(ua) ||
       (window.navigator.platform === 'MacIntel' && window.navigator.maxTouchPoints > 1);
 
-    this.isIos.set(isApple);
+    const isAndroid = /android/.test(ua);
+
+    if (isApple) {
+      // Check if Safari or other browser (Chrome CriOS, Firefox FxiOS, Opera OPiOS)
+      const isOtherBrowser = /crios|fxios|opios|edgios/.test(ua) || !/safari/.test(ua);
+      const plat: PwaPlatform = isOtherBrowser ? 'ios-other' : 'ios-safari';
+      this.platform.set(plat);
+      this.selectedPlatformTab.set('ios-safari');
+    } else if (isAndroid) {
+      this.platform.set('android');
+      this.selectedPlatformTab.set('android');
+    } else {
+      this.platform.set('desktop');
+      this.selectedPlatformTab.set('desktop');
+    }
 
     // Capture Android / Chrome PWA install prompt
     window.addEventListener('beforeinstallprompt', (e: any) => {
@@ -53,11 +70,10 @@ export class PwaService {
       this.deferredPrompt = null;
     });
 
-    // If iOS and not installed and not dismissed, show prompt
+    // If on iOS and not installed and not dismissed, show prompt with slight delay
     if (isApple && !isStandalone) {
       const dismissed = sessionStorage.getItem('pwa_prompt_dismissed');
       if (!dismissed) {
-        // Small delay to let app load
         setTimeout(() => {
           if (!this.isInstalled()) {
             this.isOpenModal.set(true);
@@ -68,7 +84,14 @@ export class PwaService {
   }
 
   openInstallPrompt(): void {
+    // Reset tab to detected platform when opening
+    const curr = this.platform();
+    this.selectedPlatformTab.set(curr === 'ios-other' ? 'ios-safari' : curr);
     this.isOpenModal.set(true);
+  }
+
+  setPlatformTab(tab: PwaPlatform): void {
+    this.selectedPlatformTab.set(tab);
   }
 
   closeModal(): void {

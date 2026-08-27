@@ -6,30 +6,144 @@
       <img src="icons/favicon-32x32.png" alt="Vliet Transport" class="pwa-icon" />
       <div>
         <h3 class="pwa-title">Zainstaluj Vliet Transport</h3>
-        <span class="pwa-sub">Szybki dostęp z ekranu telefonu</span>
+        <span class="pwa-sub">Działa offline i jak natywna aplikacja</span>
       </div>
     </div>
 
-    <!-- iOS Instructions -->
-    <div *ngIf="pwaService.isIos()" class="pwa-ios-instructions">
-      <p class="ios-step">
-        1. Stuknij ikonę Udostępnij <span class="ios-share-icon">⎋</span> w Safari.
-      </p>
-      <p class="ios-step">
-        2. Wybierz <strong>"Dodaj do ekranu początkowego"</strong> ➕.
-      </p>
-    </div>
-
-    <!-- Android / Desktop Install Button -->
-    <div *ngIf="!pwaService.isIos()" class="pwa-android-actions">
-      <button class="btn-install-pwa" (click)="install()">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-          <polyline points="7 10 12 15 17 10"></polyline>
-          <line x1="12" y1="15" x2="12" y2="3"></line>
-        </svg>
-        <span>Zainstaluj aplikację</span>
+    <!-- Platform Selector Tabs -->
+    <div class="pwa-platform-tabs">
+      <button
+        class="tab-btn"
+        [class.active]="pwaService.selectedPlatformTab() === 'ios-safari'"
+        (click)="setTab('ios-safari')"
+      >
+        🍏 iPhone / iOS
+      </button>
+      <button
+        class="tab-btn"
+        [class.active]="pwaService.selectedPlatformTab() === 'android'"
+        (click)="setTab('android')"
+      >
+        🤖 Android
+      </button>
+      <button
+        class="tab-btn"
+        [class.active]="pwaService.selectedPlatformTab() === 'desktop'"
+        (click)="setTab('desktop')"
+      >
+        💻 PC / Mac
       </button>
     </div>
+
+    <!-- ─────────────────────────────────────────── -->
+    <!-- 1. iOS Safari Instructions                  -->
+    <!-- ─────────────────────────────────────────── -->
+    <div *ngIf="pwaService.selectedPlatformTab() === 'ios-safari'" class="instructions-card">
+      <div class="card-hint">
+        <span class="hint-tag">Safari na iPhone / iPad</span>
+      </div>
+
+      <!-- Warning if on iOS but opened in Chrome/Firefox -->
+      <div *ngIf="pwaService.platform() === 'ios-other'" class="ios-browser-warning">
+        ⚠️ <strong>Używasz Chrome / innej przeglądarki na iPhone.</strong>
+        <p>System iOS pozwala na instalację PWA tylko w <strong>Safari</strong>.</p>
+        <button class="btn-copy-link" (click)="copyLink()">📋 Skopiuj link i otwórz w Safari</button>
+      </div>
+
+      <ol class="steps-list">
+        <li class="step-item">
+          <span class="step-num">1</span>
+          <div class="step-text">
+            Stuknij przycisk <strong>Udostępnij</strong> <span class="badge-icon">⎋</span> (kwadrat ze strzałką w górę na dolnym pasku Safari).
+          </div>
+        </li>
+        <li class="step-item">
+          <span class="step-num">2</span>
+          <div class="step-text">
+            Przewiń menu w dół i wybierz <strong>"Dodaj do ekranu początkowego"</strong> <span class="badge-icon">➕</span>.
+          </div>
+        </li>
+        <li class="step-item">
+          <span class="step-num">3</span>
+          <div class="step-text">
+            Kliknij <strong>"Dodaj"</strong> w prawym górnym rogu ekranu.
+          </div>
+        </li>
+      </ol>
+    </div>
+
+    <!-- ─────────────────────────────────────────── -->
+    <!-- 2. Android Instructions                     -->
+    <!-- ─────────────────────────────────────────── -->
+    <div *ngIf="pwaService.selectedPlatformTab() === 'android'" class="instructions-card">
+      <div class="card-hint">
+        <span class="hint-tag">Chrome / Samsung Internet na Androidzie</span>
+      </div>
+
+      <!-- Direct button if beforeinstallprompt is ready -->
+      <div *ngIf="pwaService.isInstallable()" class="action-wrap">
+        <button class="btn-install-primary" (click)="install()">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+            <polyline points="7 10 12 15 17 10"></polyline>
+            <line x1="12" y1="15" x2="12" y2="3"></line>
+          </svg>
+          <span>Zainstaluj aplikację teraz</span>
+        </button>
+      </div>
+
+      <ol class="steps-list">
+        <li class="step-item">
+          <span class="step-num">1</span>
+          <div class="step-text">
+            Stuknij menu <strong>trzy kropki</strong> <span class="badge-icon">⋮</span> w prawym górnym rogu przeglądarki Chrome.
+          </div>
+        </li>
+        <li class="step-item">
+          <span class="step-num">2</span>
+          <div class="step-text">
+            Wybierz <strong>"Zainstaluj aplikację"</strong> lub <strong>"Dodaj do ekranu głównego"</strong>.
+          </div>
+        </li>
+        <li class="step-item">
+          <span class="step-num">3</span>
+          <div class="step-text">
+            Potwierdź instalację klikając <strong>"Zainstaluj"</strong>.
+          </div>
+        </li>
+      </ol>
+    </div>
+
+    <!-- ─────────────────────────────────────────── -->
+    <!-- 3. Desktop Instructions                     -->
+    <!-- ─────────────────────────────────────────── -->
+    <div *ngIf="pwaService.selectedPlatformTab() === 'desktop'" class="instructions-card">
+      <div class="card-hint">
+        <span class="hint-tag">Chrome / Edge / Opera na komputerze</span>
+      </div>
+
+      <div *ngIf="pwaService.isInstallable()" class="action-wrap">
+        <button class="btn-install-primary" (click)="install()">
+          <span>Zainstaluj na komputerze</span>
+        </button>
+      </div>
+
+      <ol class="steps-list">
+        <li class="step-item">
+          <span class="step-num">1</span>
+          <div class="step-text">
+            Kliknij ikonę instalacji <span class="badge-icon">⊕</span> w prawym rogu paska adresu przeglądarki.
+          </div>
+        </li>
+        <li class="step-item">
+          <span class="step-num">2</span>
+          <div class="step-text">
+            Potwierdź instalację, aby dodać skrót do pulpitu i paska zadań.
+          </div>
+        </li>
+      </ol>
+    </div>
+
+    <button class="btn-dismiss" (click)="close()">Rozumiem, zamknij</button>
   </div>
 </div>
