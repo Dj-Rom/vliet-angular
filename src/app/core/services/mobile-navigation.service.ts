@@ -48,6 +48,8 @@ export class MobileNavigationService {
   /* NAVIGATION                  */
   /* ─────────────────────────── */
   navigate(path: string): void {
+
+
     path = path === 'app' ? '/app/waybill-new' : path;
     this.currentActivePath.set(path);
     this.router.navigate([path]);

@@ -29,6 +29,7 @@ import { environment } from '../../environments/environment';
 import { _WayBill, _VehicleFleet } from '../../interfaces';
 import { AlertService } from '../core/services/alert.service';
 import { AppCookieService } from '../core/services/cookie.service';
+import { LoadingService } from '../core/services/loading.service';
 import { getPerformance } from 'firebase/performance';
 
 export interface SharedAddress {
@@ -68,12 +69,16 @@ export class FirebaseClientService {
   public auth = auth;
   public db = db;
   private user: User | null = null;
-  isLoading = signal(false);
+
+  /** Backward-compat alias – reads from the global LoadingService */
+  readonly isLoading;
 
   constructor(
     private alert: AlertService,
     private cookieService: AppCookieService,
+    private loadingService: LoadingService,
   ) {
+    this.isLoading = this.loadingService.isLoading;
     this.user = this.auth.currentUser;
     onAuthStateChanged(this.auth, (u) => {
       this.user = u;
@@ -99,12 +104,7 @@ export class FirebaseClientService {
 
   // ===== Helper =====
   private async withLoading<T>(fn: () => Promise<T>): Promise<T> {
-    this.isLoading.set(true);
-    try {
-      return await fn();
-    } finally {
-      this.isLoading.set(false);
-    }
+    return this.loadingService.wrap(fn);
   }
 
   private async hasAccess(): Promise<boolean> {

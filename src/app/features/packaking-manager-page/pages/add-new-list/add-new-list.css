@@ -45,9 +45,10 @@ header {
 }
 
 .section-add-new-lists {
-  height: 2899px;
-  overflow: scroll;
-
+  margin-top: 135px;
+  width: 100%;
+  margin-bottom: 135px;
+  max-width: 600px;
   display: flex;
   flex-direction: column;
   align-content: center;
@@ -171,7 +172,7 @@ input:focus {
   opacity: 1;
   gap: 8px;
   border-radius: 4px;
-  background: rgba(30, 35, 41, 1);
+  background: #1e2329;
   color: var(--text-primary);
   padding: 10px;
   border: 1px solid rgba(47, 54, 62, 1);

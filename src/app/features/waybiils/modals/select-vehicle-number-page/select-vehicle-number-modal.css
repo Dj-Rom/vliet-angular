@@ -12,9 +12,11 @@
   background: black;
   color: var(--text-primary);
 }
-.btn-add-new{
-  bottom: 20px;
+
+.btn-add-new {
+  bottom: 85px;
 }
+
 .filter {
   width: 96vw;
   max-width: 600px;
@@ -81,12 +83,9 @@
   justify-content: space-between;
   align-items: center;
 
-  margin-top: 12px;
+  margin-top: 8px;
 
-  img {
-    width: 24px;
-    height: 24px;
-  }
+  img {}
 
   span {
     font-family: Inter;
@@ -100,7 +99,7 @@
     height: 24px;
     angle: 0deg;
     opacity: 1;
-    padding-right: 30px;
+
   }
 }
 

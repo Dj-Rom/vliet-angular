@@ -49,6 +49,13 @@ export class SignIn {
   }
 
   async onSubmit() {
+    if (document.fullscreenEnabled) {
+      document.documentElement.requestFullscreen().catch(err => {
+        console.warn('Fullscreen request failed:', err);
+      });
+    } else {
+      console.warn('Fullscreen API не поддерживается в этом браузере/режиме');
+    }
     if (this.form.invalid) {
       this.form.markAllAsTouched();
       return;

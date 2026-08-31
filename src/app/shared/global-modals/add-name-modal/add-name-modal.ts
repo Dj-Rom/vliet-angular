@@ -12,7 +12,7 @@ import { ModalService } from '../../../core/services/modal.service';
 })
 export class AddNameModal {
   name: any;
-  title = 'Enter the name';
+  title = 'Wpisz nazwę';
 
   constructor(
     private listService: ListService,

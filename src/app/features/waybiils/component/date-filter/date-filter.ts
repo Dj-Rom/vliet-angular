@@ -48,7 +48,7 @@ export class DateFilter implements AfterViewInit {
     this.initializeSelectedDay();
 
     afterNextRender(() => {
-      this.scrollToSelected();
+      this.scrollToSelected('instant');
       this.isFirstLoad = false;
     });
 
@@ -57,7 +57,7 @@ export class DateFilter implements AfterViewInit {
       if (selectedDay && !this.isFirstLoad) {
         requestAnimationFrame(() => {
           requestAnimationFrame(() => {
-            this.scrollToSelected();
+            this.scrollToSelected('smooth');
           });
         });
       }
@@ -185,7 +185,7 @@ export class DateFilter implements AfterViewInit {
     }
   }
 
-  private scrollToSelected(): void {
+  private scrollToSelected(behavior: ScrollBehavior = 'instant'): void {
     if (!this.dayItems?.length) return;
 
     const selectedDay = this.dateService.selectedDay();
@@ -198,7 +198,7 @@ export class DateFilter implements AfterViewInit {
     if (!element) return;
 
     element.scrollIntoView({
-      behavior: 'smooth',
+      behavior: behavior,
       inline: 'center',
       block: 'nearest',
     });

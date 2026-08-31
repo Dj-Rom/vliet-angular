@@ -8,26 +8,24 @@
   <main>
     <div class="item-waybill-info">
       <img src="assets/svg/load-calc-icons/Truck.svg" />
-      <span class="font400size12"
-        ><p class="truck-p">Ciężarówka</p>
+      <span class="font400size12">
+        <p class="truck-p">Ciągnik</p>
         {{ item.truck }}
-        <p>Przyczepa</p>
-        {{ item.trailer }}</span
-      >
+        <p>Naczepa</p>
+        {{ item.trailer }}
+      </span>
     </div>
     <div class="item-waybill-info">
       <img src="assets/svg/load-calc-icons/Calendar.svg" />
-      <span class="font400size12"
-        >{{ item.dataStart.toString().replace('T', ' ') }}
+      <span class="font400size12">{{ item.dataStart.toString().replace('T', ' ') }}
         <img src="assets/svg/load-calc-icons/ArrowRight.svg" />
-        {{ item.dataFinish.toString().replace('T', ' ') }}</span
-      >
+        {{ item.dataFinish.toString().replace('T', ' ') }}</span>
     </div>
     <div class="item-waybill-info">
       <img src="assets/svg/load-calc-icons/Schedule.svg" />
       <span class="font400size12">{{
         item.dataFinish ? item.tripTime + '(' + item.billableDays + ')' : ''
-      }}</span>
+        }}</span>
     </div>
     <div class="item-waybill-info">
       <img src="assets/svg/load-calc-icons/Comment.svg" />

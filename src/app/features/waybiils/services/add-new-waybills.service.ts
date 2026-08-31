@@ -100,6 +100,7 @@ export class AddNewWaybillsService {
         return this.alertService.show('error', 'Proszę wybrać datę i godzinę rozpoczęcia');
       }
       if (!vehicle.truck) {
+
         return this.alertService.show('error', 'Proszę wybrać ciężarówkę');
       }
       if (!date.dataFinish && this.waybillsService.waybills().some((w) => w.dataFinish === '')) {

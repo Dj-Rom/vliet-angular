@@ -1,5 +1,5 @@
 .time-picker {
-  z-index: 11;
+  z-index: 1111;
   background: #1c2228;
   padding: 20px;
   position: absolute;
@@ -7,7 +7,7 @@
   width: 96vw;
   max-width: 600px;
   margin: 0;
-  height: 308px;
+  height: 327px;
   angle: 0 deg;
   opacity: 1;
   gap: 16px;
@@ -19,7 +19,8 @@
   color: var(--text-primary);
   color: white;
   font-family: Inter, system-ui;
-  border: 1px solid rgba(47, 54, 62, 1);
+
+  border: 1px solid rgba(76, 141, 255, 1);
 }
 
 /* ---------- wheels ---------- */

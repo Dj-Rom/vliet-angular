@@ -1,17 +1,17 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { Waybiils } from './waybiils';
+import { WaybiilsPage } from './waybiils';
 
-describe('Waybiils', () => {
-  let component: Waybiils;
-  let fixture: ComponentFixture<Waybiils>;
+describe('WaybiilsPage', () => {
+  let component: WaybiilsPage;
+  let fixture: ComponentFixture<WaybiilsPage>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [Waybiils],
+      imports: [WaybiilsPage],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(Waybiils);
+    fixture = TestBed.createComponent(WaybiilsPage);
     component = fixture.componentInstance;
     await fixture.whenStable();
   });

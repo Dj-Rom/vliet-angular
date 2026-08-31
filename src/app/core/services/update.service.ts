@@ -14,7 +14,7 @@ export interface RemoteVersionInfo {
 
 @Injectable({ providedIn: 'root' })
 export class UpdateService implements OnDestroy {
-  readonly currentVersion = environment.appVersion || '2.0.2';
+  readonly currentVersion = environment.appVersion;
 
   isUpdateAvailable = signal<boolean>(false);
   isChecking = signal<boolean>(false);
@@ -39,6 +39,7 @@ export class UpdateService implements OnDestroy {
   /* ─────────────────────────── */
   private initServiceWorkerListener(): void {
     if (!this.swUpdate.isEnabled) {
+      console.log('[UpdateService] SW not enabled (dev mode or unsupported browser).');
       return;
     }
 
@@ -110,13 +111,13 @@ export class UpdateService implements OnDestroy {
     const cParts = current.split('.').map((p) => parseInt(p, 10) || 0);
 
     for (let i = 0; i < Math.max(rParts.length, cParts.length); i++) {
-      const r = rParts[i] || 0;
-      const c = cParts[i] || 0;
+      const r = rParts[i] ?? 0;
+      const c = cParts[i] ?? 0;
       if (r > c) return true;
       if (r < c) return false;
     }
 
-    return remote !== current;
+    return false; // equal
   }
 
   /* ─────────────────────────── */
@@ -158,38 +159,40 @@ export class UpdateService implements OnDestroy {
     }
   }
 
-  private async checkFirestoreVersionDirect(): Promise<void> {
+  private async checkFirestoreVersionDirect(): Promise<boolean> {
     try {
       const snap = await getDoc(doc(db, 'system', 'version'));
       if (snap.exists()) {
         const data = snap.data() as RemoteVersionInfo;
         if (data?.version) {
           this.handleRemoteVersionData(data);
+          return this.isNewerVersion(data.version.trim(), this.currentVersion);
         }
       }
-    } catch {}
+      return false;
+    } catch { }
+    return false;
   }
 
   /* ─────────────────────────── */
   /* PUBLIC ACTIONS              */
   /* ─────────────────────────── */
 
-  async checkForUpdateManual(): Promise<boolean> {
+  async checkForUpdateManual(): Promise<void> {
     this.isChecking.set(true);
     try {
-      const swFound = await this.checkServiceWorkerUpdate();
-      await this.checkFirestoreVersionDirect();
+      const [swFound, firestoreNewer] = await Promise.all([
+        this.checkServiceWorkerUpdate(),
+        this.checkFirestoreVersionDirect(),
+      ]);
 
-      if (this.isUpdateAvailable() || swFound) {
-        this.alert.show('success', `Dostępna jest nowa wersja (${this.remoteVersion()})!`);
-        return true;
+      if (swFound || firestoreNewer || this.isUpdateAvailable()) {
+        this.alert.show('success', `🆕 Dostępna nowa wersja (${this.remoteVersion()})!`);
       } else {
-        this.alert.show('success', `Aplikacja jest aktualna (wersja ${this.currentVersion}) 🟢`);
-        return false;
+        this.alert.show('success', `✅ Aplikacja jest aktualna — wersja ${this.currentVersion}`);
       }
-    } catch (err) {
+    } catch {
       this.alert.show('error', 'Nie udało się sprawdzić aktualizacji.');
-      return false;
     } finally {
       this.isChecking.set(false);
     }

@@ -9,7 +9,6 @@
   height: 100vh;
   display: flex;
   justify-content: flex-start;
-  align-items: center;
   flex-direction: column;
 }
 
@@ -34,7 +33,7 @@
 }
 
 .new-waybill-vehicle-input-group {
-  width: 96vw;
+
   max-width: 600px;
   margin: 8px 2vw 0 2vw;
   height: 44px;

@@ -4,27 +4,18 @@
       <img src="assets/svg/back.svg" />
     </button>
     <span class="font400size16">{{ this.listService.getCurrentCompanyName() }}</span>
-    <img
-      (click)="download()"
-      class="download-icon"
-      src="assets/svg/load-calc-icons/download-svg.svg"
-    />
+    <img (click)="download()" class="download-icon" src="assets/svg/load-calc-icons/download-svg.svg" />
     <img class="more" src="assets/svg/load-calc-icons/More-white.svg" (click)="openMenu()" />
   </div>
 
   <!-- Filter Input -->
   <div class="filterInput mt12">
     <img src="assets/svg/load-calc-icons/filter.svg" alt="filter" />
-    <input
-      #filterValue
-      type="text"
-      class="font400size16"
-      (input)="onFilterChange($event)"
-      [value]="listService.filterValue()"
-      placeholder="Szukaj"
-    />
+    <input #filterValue id="source" name="source" type="text" class="font400size16" (input)="onFilterChange($event)"
+      [value]="listService.filterValue()" placeholder="Szukaj" />
     <div style="width: 47px;    height: 19px; text-align: end">
-    <img *ngIf="filterValue.value.length>0"  src="assets/svg/load-calc-icons/closeItem.svg" alt="close" (click)="clearFilter()" />
+      <img *ngIf="filterValue.value.length>0" src="assets/svg/load-calc-icons/closeItem.svg" alt="close"
+        (click)="clearFilter()" />
     </div>
   </div>
 </header>

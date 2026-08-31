@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { NgIf } from '@angular/common';
 
@@ -15,10 +15,12 @@ import { _VehicleFleet } from '../../../../../interfaces';
   templateUrl: './add-new-vehicle-modal.html',
   styleUrls: ['./add-new-vehicle-modal.css'],
 })
-export class AddNewVehicleModal {
-  @Output() closeModal = new EventEmitter<void>();
+export class AddNewVehicleModal implements OnInit {
+  @Input() initialType: 'truck' | 'trailer' | '' = 'truck';
+  @Output() closeModal = new EventEmitter<string>();
   vehicleForm: FormGroup;
   isTrailer = false;
+  isSubmitting = false;
   vehicleFleet: _VehicleFleet[] = [];
 
   constructor(
@@ -36,6 +38,20 @@ export class AddNewVehicleModal {
     });
   }
 
+  ngOnInit() {
+    if (this.initialType === 'trailer') {
+      this.isTrailer = true;
+      this.vehicleForm.patchValue({
+        vehicleType: 'trailer',
+      });
+    } else {
+      this.isTrailer = false;
+      this.vehicleForm.patchValue({
+        vehicleType: 'truck',
+      });
+    }
+  }
+
   /* ──────────────────────────── */
   /* TYPE SWITCH                  */
   /* ──────────────────────────── */
@@ -49,11 +65,18 @@ export class AddNewVehicleModal {
   /* SUBMIT                       */
   /* ──────────────────────────── */
 
-  async onSubmit() {
+  async onSubmitAddNewVehicle() {
+    console.log('submit');
     if (this.vehicleForm.invalid) {
       this.alertService.show('error', 'Form invalid');
       return;
     }
+
+    if (this.isSubmitting) {
+      return;
+    }
+
+    this.isSubmitting = true;
 
     try {
       this.vehicleFleet = await this.vehicleFleetService.getVehicleFleet();
@@ -61,10 +84,19 @@ export class AddNewVehicleModal {
       const { vehicleType, vehicleBrand, vehicleTrailerBrand, vehicleNumber } =
         this.vehicleForm.value;
 
-      const normalizedNumber = vehicleNumber.toUpperCase();
+      const normalizedNumber = (vehicleNumber || '').trim().toUpperCase();
 
-      if (this.vehicleFleet.some((v) => v.vehicle_number === normalizedNumber)) {
-        this.alertService.show('error', 'Vehicle already exists');
+      if (!normalizedNumber) {
+        this.alertService.show('error', 'Proszę wpisać numer pojazdu');
+        return;
+      }
+
+      const vehicleExists = this.vehicleFleet.some(
+        (v) => (v.vehicle_number || '').trim().toUpperCase() === normalizedNumber,
+      );
+
+      if (vehicleExists) {
+        this.alertService.show('error', 'Pojazd o tym numerze już istnieje');
         return;
       }
 
@@ -78,10 +110,12 @@ export class AddNewVehicleModal {
       await this.addNewWaybillsService.refreshVehicles();
 
       this.alertService.show('success', 'Pojazd dodany pomyślnie');
-      this.vehicleForm.reset({ vehicleType: 'truck' });
-      this.closeModal.emit();
+      this.vehicleForm.reset({ vehicleType: this.isTrailer ? 'trailer' : 'truck' });
+      this.closeModal.emit(normalizedNumber);
     } catch (err) {
       this.alertService.show('error', String(err));
+    } finally {
+      this.isSubmitting = false;
     }
   }
 
@@ -90,6 +124,6 @@ export class AddNewVehicleModal {
   /* ──────────────────────────── */
 
   back() {
-    this.closeModal.emit();
+    this.closeModal.emit('');
   }
 }

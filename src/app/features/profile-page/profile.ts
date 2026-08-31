@@ -28,7 +28,7 @@ export class Profile {
     protected profileService: ProfileService,
     public updateService: UpdateService,
     public pwaService: PwaService,
-  ) {}
+  ) { }
 
   logout() {
     this.authService.logout();

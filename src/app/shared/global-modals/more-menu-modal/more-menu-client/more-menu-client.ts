@@ -20,19 +20,24 @@ export class MoreMenuClient {
     this.id = this.moreMenuService.id;
   }
 
-  async onDelete(id: string) {
+  async onDelete(id?: string) {
     try {
+      const targetId = id || this.id || this.moreMenuService.id;
       const isSure = await this.modalService.openSureModal();
 
       if (isSure) {
-        await this.moreMenuService.deleteWaybill(id);
+        await this.moreMenuService.deleteWaybill(targetId);
+      } else {
+        this.moreMenuService.closeClientMoreMenu();
       }
     } catch (error) {
-      this.alert.show('error', `Error:, ${error}`);
+      this.alert.show('error', `Błąd: ${error}`);
+      this.moreMenuService.closeClientMoreMenu();
     }
   }
 
-  protected editClient(id: string) {
-    this.moreMenuService.editClient(id);
+  protected editClient(id?: string) {
+    const targetId = id || this.id || this.moreMenuService.id;
+    this.moreMenuService.editClient(targetId);
   }
 }

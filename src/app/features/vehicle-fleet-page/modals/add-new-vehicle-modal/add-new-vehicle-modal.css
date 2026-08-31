@@ -11,6 +11,7 @@
   align-items: center;
   border: none;
   height: 100vh;
+
   form {
     display: flex;
     height: 100%;
@@ -20,23 +21,27 @@
     align-items: center;
     width: 100%;
   }
+
   .header {
     position: sticky;
     display: flex;
+    width: 96vw;
     top: 0;
     background: black;
     flex-direction: row;
     align-content: center;
     align-items: center;
-    width: 90%;
-    justify-content: space-between;
-    padding: 20px 0;
+    max-width: 600px;
+    justify-content: space-around;
+    padding: 25px 5px;
+
     span {
       text-align: center;
       width: 98%;
     }
   }
 }
+
 label {
   width: 96vw;
   max-width: 600px;
@@ -54,6 +59,7 @@ label {
   letter-spacing: 0%;
   color: rgba(155, 164, 174, 1);
 }
+
 select,
 input {
   width: 96vw;
@@ -76,6 +82,7 @@ input {
   color: white;
   padding-left: 12px;
 }
+
 .saveBtnBack {
   height: 80px !important;
 }

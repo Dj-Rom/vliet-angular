@@ -8,13 +8,13 @@ import { MoreMenuService } from '../../../core/services/more-menu.service';
 import { Location } from '@angular/common';
 import { ModalService } from '../../../core/services/modal.service';
 import { _Alert } from '../../../shared/alert/alert';
-import {PackakingModalService} from '../components/packaking-modal.service';
-import {PackakingListModal} from '../components/packaking-list-modal/packaking-list-modal';
+import { PackakingModalService } from '../components/packaking-modal.service';
+import { PackakingListModal } from '../components/packaking-list-modal/packaking-list-modal';
 
 @Component({
   selector: 'app-load-calculator-page',
   standalone: true,
-  imports: [RouterOutlet, FormsModule, NgIf, ],
+  imports: [RouterOutlet, FormsModule, NgIf,],
   templateUrl: './load-calculator-page.html',
   styleUrls: ['./load-calculator-page.css'],
 })

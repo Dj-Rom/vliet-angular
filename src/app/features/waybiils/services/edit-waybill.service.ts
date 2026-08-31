@@ -1,3 +1,4 @@
+
 import { computed, Injectable, signal } from '@angular/core';
 import { Location } from '@angular/common';
 import { FirebaseClientService } from '../../../firebase/firebase.service';
@@ -39,6 +40,7 @@ export class EditWaybillService {
     trailer: '',
   };
   bill: _WayBill | undefined;
+
   constructor(
     private fb: FirebaseClientService,
     private alertService: AlertService,
@@ -47,10 +49,12 @@ export class EditWaybillService {
   ) {
     this.init();
   }
+
   setCurrentSelectedVehicle(key: 'truck' | 'trailer' | '', value: string) {
     if (key === '') return;
     this.currentSelectedVehicle[key] = value;
   }
+
   dateFormat(date: any) {
     if (!date.date) return '';
     const d = date.date.split('-');
@@ -61,9 +65,12 @@ export class EditWaybillService {
     this.id.set(this.location.path().split('/')[4]);
     await this.getVehicleFleetAndWaybills();
     this.bill = await this.waybillsService.getWaybillById(this.id()!);
+
     if (this.bill == undefined) return;
+
     const start = this.splitDateTime(this.bill.dataStart);
     const finish = this.splitDateTime(this.bill?.dataFinish);
+
     this.currentDate.set({
       dataStart: this.dateFormat(start),
       timeStart: start.time,
@@ -82,6 +89,7 @@ export class EditWaybillService {
   // ===== FETCH DATA =====
   async getVehicleFleetAndWaybills() {
     this.listVehicle = await this.fb.getVehicleFleet();
+
     const filtered = computed(() =>
       this.waybillsService.waybills().filter((w) => w.id === this.id()),
     );
@@ -92,6 +100,7 @@ export class EditWaybillService {
     if (!value || !value.includes('T')) {
       return { date: '', time: '' };
     }
+
     const [date, time] = value.split('T');
     return { date, time };
   }
@@ -109,11 +118,13 @@ export class EditWaybillService {
   getCurrentSelectedVehicle(): _Vehicle {
     return this.currentSelectedVehicle;
   }
+
   formatForSaveDateFBDb(isStart: boolean) {
     return isStart
       ? this.mergeDateTime(this.currentDate().dataStart, this.currentDate().timeStart)
       : this.mergeDateTime(this.currentDate().dataFinish, this.currentDate().timeFinish);
   }
+
   // ===== SAVE =====
   saveInFB() {
     const current = this.getCurrentDate();
@@ -127,26 +138,30 @@ export class EditWaybillService {
     };
 
     if (!this.bill?.id) return;
+
     this.fb
       .updateWayBillsHistory(this.bill?.id, data)
       .then(() => {
-        this.alertService.show('success', 'Waybill saved successfully');
+        this.alertService.show('success', 'List przewozowy został pomyślnie zapisany');
         this.waybillsService.refresh();
         this.resetAll();
         this.location.back();
       })
       .catch(() => {
-        this.alertService.show('error', 'Error saving waybill');
+        this.alertService.show('error', 'Błąd podczas zapisywania listu przewozowego');
       });
   }
+
   resetAll() {
     this.currentSelectedVehicle = { trailer: '', truck: '' };
+
     this.currentDate.set({
       dataStart: this.dateFormat(this.splitDateTime(this.bill!.dataStart)),
       timeStart: this.splitDateTime(this.bill!.dataStart).time,
       dataFinish: '',
       timeFinish: '',
     });
+
     this.currentNotes.set('');
   }
 }

@@ -30,7 +30,7 @@
 .header {
   width: 96vw;
   max-width: 600px;
-  margin: 10px 2vw;
+  margin: 20px 2vw 0 2vw;
   height: 44px;
   padding: 31px 0;
   display: flex;
@@ -43,13 +43,10 @@
   align-items: center;
 
   span {
-    padding: 15px;
+    padding: 0;
   }
 
-  img {
-    width: 24px;
-    height: 24px;
-  }
+  img {}
 }
 
 .navi {}

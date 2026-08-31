@@ -5,40 +5,43 @@
     </button>
     <span class="font400size16">Dodawanie pojazdu</span>
   </header>
-  <form [formGroup]="vehicleForm" (ngSubmit)="onSubmit()">
+
+  <form [formGroup]="vehicleForm" (ngSubmit)="onSubmitAddNewVehicle()">
     <label for="type">Typ</label>
     <select formControlName="vehicleType" (change)="onTypeChange($event)" name="type">
-      <option value="trailer">TRAILER</option>
-      <option value="truck">TRUCK</option>
+      <option value="truck">Ciągnik</option>
+      <option value="trailer">Naczepa</option>
     </select>
+
     <br />
+
     <label for="marka">Marka</label>
+
     <select formControlName="vehicleBrand" *ngIf="!isTrailer" name="marka">
-      <option value="volvo">VOLVO</option>
+      <option value="volvo">Volvo</option>
       <option value="daf">DAF</option>
-      <option value="iveco">IVECO</option>
+      <option value="iveco">Iveco</option>
     </select>
+
     <select formControlName="vehicleTrailerBrand" *ngIf="isTrailer" name="marka-trailer">
       <option value="schmitz">SCHMITZ</option>
-      <option value="other">OTHER</option>
+      <option value="other">INNA</option>
     </select>
+
     <br />
-    <label for="number">Numer registraciny</label>
-    <input
-      type="text"
-      name="number"
-      placeholder="Wpisz numer pojazdu"
-      formControlName="vehicleNumber"
-      minlength="6"
-    />
-    <div
-      *ngIf="vehicleForm.get('vehicleNumber')?.touched && vehicleForm.get('vehicleNumber')?.invalid"
-      class="error"
-    >
-      Proszę wpisać numer! Na przykład: PZ1R741
+
+    <label for="number">Numer rejestracyjny</label>
+    <input type="text" name="number" placeholder="Wpisz numer rejestracyjny pojazdu" formControlName="vehicleNumber"
+      minlength="6" />
+
+    <div *ngIf="vehicleForm.get('vehicleNumber')?.touched && vehicleForm.get('vehicleNumber')?.invalid" class="error">
+      Proszę wpisać numer rejestracyjny! Na przykład: PZ1R741
     </div>
+
     <div class="saveBtnBack">
-      <button class="save-btn" type="submit">SAVE</button>
+      <button class="save-btn" type="submit" [disabled]="isSubmitting" (click)="onSubmitAddNewVehicle()">
+        {{ isSubmitting ? 'ZAPISYWANIE...' : 'ZAPISZ' }}
+      </button>
     </div>
   </form>
 </section>

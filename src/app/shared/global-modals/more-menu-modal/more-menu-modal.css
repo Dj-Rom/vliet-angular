@@ -1,18 +1,21 @@
 .more-menu {
   border-radius: 4px 4px 0 0;
   width: 100%;
-
   background: var(--bg-container);
   color: var(--text-primary);
   position: fixed;
   bottom: 0;
   left: 0;
   z-index: 190;
+  min-height: 249px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   padding-bottom: 30px;
+  contain: layout paint;       /* isolates reflow from parent document */
+  transform: translateZ(0);    /* promotes to GPU compositing layer */
+  will-change: transform;
 
   .close-more-menu {
     padding-left: 0 !important;
@@ -55,5 +58,11 @@
     border: none;
     background: none;
     color: var(--text-primary);
+    cursor: pointer;
+    transition: opacity 0.1s ease;
+  }
+
+  button:active {
+    opacity: 0.65;
   }
 }

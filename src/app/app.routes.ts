@@ -1,5 +1,6 @@
 import { Routes } from '@angular/router';
 import { AuthGuard } from './core/guard/authguard';
+import { StatusGuard } from './core/guard/status.guard';
 
 export const routes: Routes = [
   // Default → redirect to sign-in
@@ -123,12 +124,14 @@ export const routes: Routes = [
       // Load Locations
       {
         path: 'load-location',
+        canActivate: [StatusGuard],
         loadComponent: () =>
           import('./features/load-location-page/load-location').then((m) => m.LoadLocation),
         data: { title: 'Load Location' },
       },
       {
         path: 'load-location/add',
+        canActivate: [StatusGuard],
         loadComponent: () =>
           import('./features/load-location-page/pages/add-new-client-page/add-new-client-page').then(
             (m) => m.AddNewClientPage,
@@ -137,6 +140,7 @@ export const routes: Routes = [
       },
       {
         path: 'load-location/edit/:id',
+        canActivate: [StatusGuard],
         loadComponent: () =>
           import('./features/load-location-page/pages/edit-client-page/edit-client-page').then(
             (m) => m.EditClientPage,

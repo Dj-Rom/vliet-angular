@@ -16,7 +16,7 @@ export class AuthGuard implements CanActivate, CanActivateChild {
   constructor(
     private authService: AuthService,
     private router: Router,
-  ) {}
+  ) { }
 
   async canActivate(
     route?: ActivatedRouteSnapshot,
@@ -26,6 +26,7 @@ export class AuthGuard implements CanActivate, CanActivateChild {
       const isLoggedIn = await this.authService.isLoggedInAsync();
 
       if (isLoggedIn) {
+
         return true;
       }
 

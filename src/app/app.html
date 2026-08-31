@@ -1,24 +1,24 @@
-<!-- Global spinner overlay -->
-<app-spinner *ngIf="fb.isLoading()"></app-spinner>
+<!-- Global spinner overlay — shown for any loading (Firebase + router navigation) -->
+<app-spinner *ngIf="loading()"></app-spinner>
 <!---->
 <!-- Main content -->
-<div [style]="'display: flex; flex-direction: column; align-content: center; align-items: center;'">
+<div style="display: flex; flex-direction: column; align-items: center; width: 100%; min-height: 100vh;">
   <router-outlet (activate)="onActivate()" (deactivate)="onDeactivate()"></router-outlet>
 </div>
 
 <!-- Conditional modals and menus -->
-<app-navigation *ngIf=" !router.url.includes('auth')"></app-navigation>
+<app-navigation *ngIf="!router.url.includes('auth')"></app-navigation>
 <app-add-name-modal
   *ngIf="modalService.isNameModalOpen()"
-  style="position: absolute; z-index: 10; width: 100%;left: 0; height: 120vh; background: #060606"
+  style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: 1000; background: rgba(0, 0, 0, 0.75); display: flex; align-items: center; justify-content: center;"
 ></app-add-name-modal>
 <app-are-your-sure-modal
   *ngIf="modalService.isSureModalOpen()"
-  style="position: absolute; z-index: 10; width: 100%; height: 120vh; background: #060606"
+  style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: 1000; background: rgba(0, 0, 0, 0.75); display: flex; align-items: center; justify-content: center;"
 ></app-are-your-sure-modal>
 <app-available-capacity-modal
   *ngIf="modalService.isAvailableCapacityModalOpen()"
-  style="position: absolute; z-index: 10; width: 100%; height: 120vh; background: #060606"
+  style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: 1000; background: rgba(0, 0, 0, 0.75); display: flex; align-items: center; justify-content: center;"
 ></app-available-capacity-modal>
 
 <app-more-menu *ngIf="moreMenuService.isOpen()"></app-more-menu>

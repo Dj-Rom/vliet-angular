@@ -47,7 +47,7 @@
 .nav-mobile li svg {
   width: 18px;
   height: 18px;
-  transition: all 0.15s ease;
+  transition: stroke 0.15s ease, fill 0.15s ease;  /* only animated properties, no 'all' */
 }
 
 .nav-mobile li img {

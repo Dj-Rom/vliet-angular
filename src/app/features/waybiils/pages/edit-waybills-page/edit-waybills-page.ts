@@ -76,7 +76,7 @@ export class EditWaybillsPage implements OnInit {
     } else if (
       !!this.editWaybillService.getCurrentDate()().dataFinish &&
       new Date(formatToYYYYMMDD(this.editWaybillService.getCurrentDate()().dataFinish)) <
-        new Date(formatToYYYYMMDD(this.editWaybillService.getCurrentDate()().dataStart))
+      new Date(formatToYYYYMMDD(this.editWaybillService.getCurrentDate()().dataStart))
     ) {
       this.alert.show('error', 'Data końcowa nie może być wcześniejsza niż data początkowa.');
     } else if (

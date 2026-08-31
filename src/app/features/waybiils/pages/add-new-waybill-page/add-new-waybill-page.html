@@ -7,22 +7,20 @@
     <img src="assets/svg/load-calc-icons/closeItem-white.svg" />
   </button>
 </header>
-<app-select-vehicle-number-page
-  *ngIf="
+<app-select-vehicle-number-page *ngIf="
     addNewWaybillsService.isOpenTruckModalMenu() || addNewWaybillsService.isOpenTrailerModalMenu()
-  "
-></app-select-vehicle-number-page>
+  "></app-select-vehicle-number-page>
 <main class="main-new-waybill">
   <div class="new-waybill-vehicle">
     <span class="font500size14">Pojazd</span>
     <div class="new-waybill-vehicle-input-group">
       <div class="new-waybill-vehicle-input" (click)="onOpenTruckModalMenu()">
-        Ciężarówka
+        Ciągnik
         <p>{{ addNewWaybillsService.currentSelectedVehicle().truck }}</p>
         <img src="assets/svg/load-calc-icons/ArrowRight.svg" />
       </div>
       <div class="new-waybill-vehicle-input" (click)="onOpenTrailerModalMenu()">
-        Przyczepa
+        Naczepa
         <p>{{ addNewWaybillsService.currentSelectedVehicle().trailer }}</p>
         <img src="assets/svg/load-calc-icons/ArrowRight.svg" />
       </div>
@@ -34,13 +32,13 @@
       <div class="new-waybill-vehicle-input font600size16">
         Początek
         <div class="calendarBtnGroup">
-          <span (click)="onOpenCalendarModal('start')" [style]="addNewWaybillsService.isOpenCalendarStartModal()?'border: 1px solid rgba(76, 141, 255, 1)':'border: none'" class="date-input date-input-d font400size16"
-            >{{ this.addNewWaybillsService.currentDate().dataStart }}
+          <span (click)="onOpenCalendarModal('start')"
+            [style]="addNewWaybillsService.isOpenCalendarStartModal()?'border: 1px solid rgba(76, 141, 255, 1)':'border: none'"
+            class="date-input date-input-d font400size16">{{ this.addNewWaybillsService.currentDate().dataStart }}
           </span>
           <span (click)="onOpenTimeModal('start')"
-                [style]="addNewWaybillsService.isOpenTimeStartModal()?'border: 1px solid rgba(76, 141, 255, 1)':'border: none'"
-                class="date-input date-input-t"
-            >{{ this.addNewWaybillsService.currentDate().timeStart }}
+            [style]="addNewWaybillsService.isOpenTimeStartModal()?'border: 1px solid rgba(76, 141, 255, 1)':'border: none'"
+            class="date-input date-input-t">{{ this.addNewWaybillsService.currentDate().timeStart }}
           </span>
         </div>
       </div>
@@ -51,13 +49,12 @@
         Koniec
         <div class="calendarBtnGroup">
           <span (click)="onOpenCalendarModal('end')"
-                [style]="addNewWaybillsService.isOpenCalendarEndModal()?'border: 1px solid rgba(76, 141, 255, 1)':'border: none'"
-                class="date-input date-input-d"
-            >{{ this.addNewWaybillsService.currentDate().dataFinish }}
+            [style]="addNewWaybillsService.isOpenCalendarEndModal()?'border: 1px solid rgba(76, 141, 255, 1)':'border: none'"
+            class="date-input date-input-d">{{ this.addNewWaybillsService.currentDate().dataFinish }}
           </span>
           <span (click)="onOpenTimeModal('end')" class="date-input date-input-t"
-                [style]="addNewWaybillsService.isOpenTimeEndModal()?'border: 1px solid rgba(76, 141, 255, 1)':'border: none'"
-            >{{ this.addNewWaybillsService.currentDate().timeFinish }}
+            [style]="addNewWaybillsService.isOpenTimeEndModal()?'border: 1px solid rgba(76, 141, 255, 1)':'border: none'">{{
+            this.addNewWaybillsService.currentDate().timeFinish }}
           </span>
         </div>
       </div>

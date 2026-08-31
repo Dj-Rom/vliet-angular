@@ -2,28 +2,26 @@
   <button class="backBtn" (click)="back()">
     <img src="assets/svg/back.svg" />
   </button>
-  <span
-    ><div *ngIf="!this.editWaybillService.currentDate().dataFinish" class="current">Aktualny</div>
+  <span>
+    <div *ngIf="!this.editWaybillService.currentDate().dataFinish" class="current">Aktualny</div>
     Edytuj kartę drogową
   </span>
   <img src="assets/svg/close.svg" />
 </header>
-<app-select-vehicle-number-page
-  *ngIf="
+<app-select-vehicle-number-page *ngIf="
     editWaybillService.isOpenEditTruckModalMenu() || editWaybillService.isOpenEditTrailerModalMenu()
-  "
-></app-select-vehicle-number-page>
+  "></app-select-vehicle-number-page>
 <main class="main-new-waybill">
   <div class="new-waybill-vehicle">
     <span>Pojazd</span>
     <div class="new-waybill-vehicle-input-group">
       <div class="new-waybill-vehicle-input" (click)="onOpenTruckModalMenu()">
-        Ciężarówka
+        Ciągnik
         <p>{{ this.editWaybillService.getCurrentSelectedVehicle().truck }}</p>
         <img src="assets/svg/load-calc-icons/ArrowRight.svg" />
       </div>
       <div class="new-waybill-vehicle-input" (click)="onOpenTrailerModalMenu()">
-        Przyczepa
+        Naczepa
         <p>{{ this.editWaybillService.getCurrentSelectedVehicle().trailer }}</p>
         <img src="assets/svg/load-calc-icons/ArrowRight.svg" />
       </div>
@@ -35,11 +33,11 @@
       <div class="new-waybill-vehicle-input">
         Początek
         <div class="calendarBtnGroup">
-          <span (click)="onOpenCalendarModal('start')" class="date-input date-input-d"
-            >{{ this.editWaybillService.currentDate().dataStart }}
+          <span (click)="onOpenCalendarModal('start')" class="date-input date-input-d">{{
+            this.editWaybillService.currentDate().dataStart }}
           </span>
-          <span (click)="onOpenTimeModal('start')" class="date-input date-input-t"
-            >{{ this.editWaybillService.currentDate().timeStart }}
+          <span (click)="onOpenTimeModal('start')" class="date-input date-input-t">{{
+            this.editWaybillService.currentDate().timeStart }}
           </span>
         </div>
       </div>
@@ -49,11 +47,11 @@
       <div class="new-waybill-vehicle-input">
         Koniec
         <div class="calendarBtnGroup">
-          <span (click)="onOpenCalendarModal('end')" class="date-input date-input-d"
-            >{{ this.editWaybillService.currentDate().dataFinish }}
+          <span (click)="onOpenCalendarModal('end')" class="date-input date-input-d">{{
+            this.editWaybillService.currentDate().dataFinish }}
           </span>
-          <span (click)="onOpenTimeModal('end')" class="date-input date-input-t"
-            >{{ this.editWaybillService.currentDate().timeFinish }}
+          <span (click)="onOpenTimeModal('end')" class="date-input date-input-t">{{
+            this.editWaybillService.currentDate().timeFinish }}
           </span>
         </div>
       </div>

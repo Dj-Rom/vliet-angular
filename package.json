@@ -1,6 +1,6 @@
 {
   "name": "flowers-transport",
-  "version": "2.0.2",
+  "version": "2.1.6",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
@@ -9,7 +9,9 @@
     "test": "ng test",
     "lint": "ng lint",
     "build:gh": "ng build --base-href=/vliet-angular/",
-    "deploy": "npx ng build --base-href=/vliet-angular/ && npx angular-cli-ghpages --dir=dist/vliet-transport/browser"
+    "predeploy": "node scripts/bump-version.mjs",
+    "deploy": "npx ng build --base-href=/vliet-angular/ && npx angular-cli-ghpages --dir=dist/vliet-transport/browser",
+    "postdeploy": "node scripts/publish-version.mjs"
   },
   "prettier": {
     "printWidth": 100,

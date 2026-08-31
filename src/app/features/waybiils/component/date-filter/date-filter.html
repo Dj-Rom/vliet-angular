@@ -12,13 +12,8 @@
 
   <div class="scroll-container">
     <div class="days-wrapper">
-      <div
-        #dayItem
-        class="day-card"
-        *ngFor="let day of monthDays()"
-        [class.selected]="isSelected(day)"
-        (click)="selectDay(day)"
-      >
+      <div #dayItem class="day-card" *ngFor="let day of monthDays()" [class.selected]="isSelected(day)"
+        (click)="selectDay(day)">
         <div class="week font400size14">{{ day.weekday }}</div>
         <div class="day font400size16">{{ day.day }}</div>
       </div>
@@ -26,10 +21,7 @@
   </div>
 </section>
 <br />
-<span
-  *ngIf="this.dateService.selectedDay()"
-  (click)="viewAllDayItems()"
-  style="
+<span *ngIf="this.dateService.selectedDay()" (click)="viewAllDayItems()" style="
   font-family: Inter;
     display: block;
     text-align: end;
@@ -37,6 +29,4 @@
     color: var(--focus-color);
     max-width: 600px;
     width: 90vw;
-  "
-  >All</span
->
+  ">Wszystkie</span>

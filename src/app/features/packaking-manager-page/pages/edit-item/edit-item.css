@@ -13,10 +13,12 @@
 .edit-item-container {
   padding-bottom: 200px;
 }
+
 header {
   height: 50px;
   margin-top: 12px;
 }
+
 .client-input {
   position: absolute;
   top: 70px;
@@ -25,16 +27,19 @@ header {
   display: flex;
   flex-direction: column;
   align-items: center;
+
   h3 {
     width: 96vw;
     max-width: 600px;
     margin: 0px 2vw 0 2vw;
     color: var(--text-primary);
   }
+
   input {
     color: var(--text-primary);
   }
 }
+
 .header-add-new-list {
   position: absolute;
   top: 0;
@@ -46,6 +51,7 @@ header {
   gap: 8px;
   display: flex;
   justify-content: space-between;
+
   button {
     width: 44px;
     height: 44px;
@@ -53,6 +59,7 @@ header {
     border: none;
     color: var(--focus-color);
   }
+
   span {
     display: flex;
     align-items: center;
@@ -77,12 +84,13 @@ header {
   display: flex;
   justify-content: center;
   background: black;
-  z-index: 10;
+  z-index: 1000;
   margin: 0 auto;
   width: 100%;
   flex-direction: column;
   align-items: center;
 }
+
 p {
   background: rgba(155, 164, 174, 1);
   font-family: Inter;

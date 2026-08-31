@@ -24,6 +24,17 @@ export class ListService {
     this.saveSavedLists(lists);
   }
 
+  deleteSavedList(id: string): boolean {
+    const lists = this.readSavedLists();
+    if (lists[id]) {
+      delete lists[id];
+      localStorage.setItem(this.LISTS_KEY, JSON.stringify(lists));
+      this.listsVersion.update((v) => v + 1);
+      return true;
+    }
+    return false;
+  }
+
   /* ================= STATE ================= */
 
   editListId = signal('');
@@ -74,12 +85,19 @@ export class ListService {
 
   filteredList = computed<Record<string, number>>(() => {
     const all = this.list().value;
-    const filter = this.filterValue().toUpperCase();
+    const rawFilter = (this.filterValue() || '').trim();
 
-    if (!filter) return { ...all };
+    if (!rawFilter) return { ...all };
+
+    const filterUpper = rawFilter.toUpperCase();
+    const normalizedFilter = filterUpper.replace(/[\s\-_/]/g, '');
 
     return Object.keys(all)
-      .filter((k) => k.includes(filter))
+      .filter((k) => {
+        const keyUpper = k.toUpperCase();
+        const keyNormalized = keyUpper.replace(/[\s\-_/]/g, '');
+        return keyUpper.includes(filterUpper) || (normalizedFilter.length > 0 && keyNormalized.includes(normalizedFilter));
+      })
       .reduce((acc, k) => ({ ...acc, [k]: all[k] }), {} as Record<string, number>);
   });
 

@@ -14,12 +14,11 @@ export class PackakingModalService{
   getItemAndShowModal(title: string, date: string){
     this.isOpenModal.set(true);
     this.title.set(title);
+    this.date.set(date);
     const lists: any = JSON.parse(<string>localStorage.getItem('lists'));
     if (lists && lists[date]) {
       this.list.set(lists[date].value);
     }
-
-
   }
   isActive(event: MouseEvent): void {
     const el = event.currentTarget as HTMLElement;
@@ -28,6 +27,7 @@ export class PackakingModalService{
   closeModalAndClear(){
     this.title.set('');
     this.date.set('');
+    this.list.set([]);
     this.isOpenModal.set(false);
   }
 }

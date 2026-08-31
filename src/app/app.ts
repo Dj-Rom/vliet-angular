@@ -14,6 +14,7 @@ import { MoreMenuClient } from './shared/global-modals/more-menu-modal/more-menu
 import { PwaInstallModal } from './shared/pwa-istall-modal/pwa-install-modal';
 import { FirebaseClientService } from './firebase/firebase.service';
 import { SpinnerComponent } from './shared/spinner/spinner';
+import { LoadingService } from './core/services/loading.service';
 import {
   Router,
   NavigationStart,
@@ -22,7 +23,6 @@ import {
   NavigationError,
   RouterOutlet,
 } from '@angular/router';
-import { signal } from '@angular/core';
 import { AlertService } from './core/services/alert.service';
 import { UpdateService } from './core/services/update.service';
 import { SwipeComponent } from './helpers/swipe';
@@ -50,8 +50,9 @@ import { UpdateModal } from './shared/global-modals/update-modal/update-modal';
   styleUrls: ['./app.css'],
 })
 export class App {
-  loading = signal(false);
+  readonly loading;
   protected readonly title = 'vliet-transport';
+
   constructor(
     public appState: AppStateService,
     protected fb: FirebaseClientService,
@@ -60,26 +61,27 @@ export class App {
     protected router: Router,
     protected alert: AlertService,
     public updateService: UpdateService,
+    private loadingService: LoadingService,
   ) {
+    this.loading = this.loadingService.isLoading;
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationStart) {
-        this.loading.set(true);
+        this.loadingService.start();
       }
       if (
         event instanceof NavigationEnd ||
         event instanceof NavigationCancel ||
         event instanceof NavigationError
       ) {
-        this.loading.set(false);
+        this.loadingService.stop();
       }
     });
   }
 
   onActivate() {
-    this.loading.set(false);
+    // route resolved — loading already stopped by NavigationEnd
   }
 
-  onDeactivate() {
-    this.loading.set(false);
-  }
+  onDeactivate() {}
 }
+

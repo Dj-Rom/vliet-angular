@@ -1,17 +1,31 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { vi } from 'vitest';
+import { PwaInstallModal } from './pwa-install-modal';
 
-import { PwaIstallModal } from './pwa-istall-modal';
-
-describe('PwaIstallModal', () => {
-  let component: PwaIstallModal;
-  let fixture: ComponentFixture<PwaIstallModal>;
+describe('PwaInstallModal', () => {
+  let component: PwaInstallModal;
+  let fixture: ComponentFixture<PwaInstallModal>;
 
   beforeEach(async () => {
+    Object.defineProperty(window, 'matchMedia', {
+      writable: true,
+      value: vi.fn().mockImplementation(query => ({
+        matches: false,
+        media: query,
+        onchange: null,
+        addListener: vi.fn(),
+        removeListener: vi.fn(),
+        addEventListener: vi.fn(),
+        removeEventListener: vi.fn(),
+        dispatchEvent: vi.fn(),
+      })),
+    });
+
     await TestBed.configureTestingModule({
-      imports: [PwaIstallModal],
+      imports: [PwaInstallModal],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(PwaIstallModal);
+    fixture = TestBed.createComponent(PwaInstallModal);
     component = fixture.componentInstance;
     await fixture.whenStable();
   });

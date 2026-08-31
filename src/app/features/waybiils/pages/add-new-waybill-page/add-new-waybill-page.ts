@@ -22,7 +22,7 @@ export class AddNewWaybillPage {
     private alert: AlertService,
     private location: Location,
     private waybillsService: WaybillsService,
-  ) {}
+  ) { }
 
   onOpenTruckModalMenu() {
     this.addNewWaybillsService.isOpenTruckModalMenu.set(true);
@@ -61,7 +61,7 @@ export class AddNewWaybillPage {
     if (
       !!this.addNewWaybillsService.currentDate().dataFinish &&
       new Date(formatToYYYYMMDD(this.addNewWaybillsService.currentDate().dataStart)) >
-        new Date(formatToYYYYMMDD(this.addNewWaybillsService.currentDate().dataFinish))
+      new Date(formatToYYYYMMDD(this.addNewWaybillsService.currentDate().dataFinish))
     ) {
       return this.alert.show('error', 'Data rozpoczęcia jest późniejsza niż data zakończenia');
     }
@@ -75,14 +75,16 @@ export class AddNewWaybillPage {
       );
     }
 
-    if (this.addNewWaybillsService.currentSelectedVehicle().truck) {
-      this.addNewWaybillsService.saveInFB();
-      this.waybillsService.refresh();
-    } else if (!this.addNewWaybillsService.currentSelectedVehicle().truck) {
-      this.alert.show('error', 'Proszę wybrać ciężarówka');
-    } else if (!this.addNewWaybillsService.currentSelectedVehicle().trailer) {
-      this.alert.show('error', 'Proszę wybrać przyczepa');
+    if (!this.addNewWaybillsService.currentSelectedVehicle().truck) {
+      return this.alert.show('error', 'Proszę wybrać ciągnik');
     }
+
+    if (!this.addNewWaybillsService.currentSelectedVehicle().trailer) {
+      return this.alert.show('error', 'Proszę wybrać naczepę');
+    }
+
+    this.addNewWaybillsService.saveInFB();
+    this.waybillsService.refresh();
   }
 
   protected back() {

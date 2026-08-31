@@ -1,6 +1,6 @@
 <app-packaging-header></app-packaging-header>
 
-<section class="section-add-new-lists">
+<section class="section-add-new-lists" #listContainer>
   <div class="information" *ngIf="isOpenInformation()">
     <span (click)="isOpenInformation.set(false)">X</span>
     <img [src]="informationUrl()" width="350px" alt="loader" class="loader" />
@@ -9,23 +9,19 @@
   <div class="list-filtered-items" *ngFor="let item of filteredList() | keyvalue">
     <div class="section-add-new-list mt6">
       <div class="section-add-new-list-text">
-        <img
-          src="assets/svg/load-calc-icons/Info.svg"
-          alt="icon"
-          (click)="openInformation(item.key.toString())"
-        />
+        <img src="assets/svg/load-calc-icons/Info.svg" alt="icon" (click)="openInformation(item.key.toString())" />
         <span class="font600size16">{{ item.key }}</span>
       </div>
 
       <div class="section-add-new-list-buttons mt8">
         <button class="btn char" (click)="decrement(item.key.toString())">
-       -
+          -
         </button>
 
         <span class="inp font400size16">{{ item.value }}</span>
 
         <button class="btn char" (click)="increment(item.key.toString())">
-         +
+          +
         </button>
 
         <button class="btn-calculate btn" (click)="calculator(item.key.toString())">
@@ -40,5 +36,5 @@
   <button class="button saveBtn font600size16" (click)="save()">Zapisz</button>
 </div>
 
-<!-- Reset -->
-<button (click)="resetList()">Resetuj listę</button>
+<!-- Reset
+<button (click)="resetList()">Resetuj listę</button> -->

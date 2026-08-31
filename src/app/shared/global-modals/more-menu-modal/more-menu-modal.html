@@ -1,9 +1,9 @@
 <section class="more-menu">
   <img
     class="block close-more-menu"
-    src="assets\svg\load-calc-icons\closeItem.svg"
+    src="assets/svg/load-calc-icons/closeItem.svg"
     alt="zamknij więcej opcji"
-    (click)="this.moreMenuService.toggleMenu()"
+    (click)="this.moreMenuService.closeMenu()"
   />
 
   @if (window.location.pathname.includes('/app/load-management/add')) {
@@ -18,16 +18,22 @@
         <span class="font400size12">{{ date }}</span>
       </div>
     </div>
-    <button class="block font400size16 border" (click)="edit(date)">
+    <button class="block font400size16 border" (click)="edit()">
       <img src="assets/svg/navi/Edit.svg" alt="ikona-edytuj" />Edytuj
     </button>
   }
 
-  <button class="block font400size16 border" (click)="onSend(date)">
+  <button
+    class="block font400size16 border"
+    [disabled]="!hasItemsToSend()"
+    [style.opacity]="hasItemsToSend() ? '1' : '0.45'"
+    [style.cursor]="hasItemsToSend() ? 'pointer' : 'not-allowed'"
+    (click)="onSend()"
+  >
     <img src="assets/svg/navi/Sent.svg" alt="ikona-wyślij" />Wyślij
   </button>
 
-  <button class="block font400size16" (click)="onDelete(date)">
+  <button class="block font400size16" (click)="onDelete()">
     <img src="assets/svg/navi/Delete.svg" alt="ikona-usun" />Usuń
   </button>
 </section>

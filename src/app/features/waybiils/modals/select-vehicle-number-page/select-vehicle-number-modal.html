@@ -4,7 +4,7 @@
       <button class="backBtn" (click)="closeModal()">
         <img src="assets/svg/back.svg" />
       </button>
-      <span>{{ this.currentType }}</span>
+      <span>{{ this.currentType == "truck" ? "Wybierz ciągnik" : "Wybierz naczepę" }}</span>
       <span></span>
     </nav>
     <div class="filter">
@@ -14,27 +14,17 @@
     </div>
   </header>
   <ul>
-    @for (item of vehicleFleetFiltered; track item.id) {
-      <li (click)="selectNumber($event)">
-        <img src="assets/svg/load-calc-icons/Truck.svg" />{{ item.vehicle_number }}
-      </li>
+    @for (item of vehicleFleetFiltered(); track item.id || item.vehicle_number) {
+    <li (click)="selectNumber(item.vehicle_number)">
+      <img src="assets/svg/load-calc-icons/Truck.svg" />{{ item.vehicle_number }}
+    </li>
     }
   </ul>
-  <app-add-new-vehicle
-    *ngIf="waybillsService.isOpenModalFormForAddNewVehicle()"
-    (closeModal)="
-      waybillsService.isOpenModalFormForAddNewVehicle.set(
-        !waybillsService.isOpenModalFormForAddNewVehicle()
-      )
-    "
-  >
+  <app-add-new-vehicle *ngIf="waybillsService.isOpenModalFormForAddNewVehicle()" [initialType]="currentType"
+    (closeModal)="onNewVehicleAdded($event)">
   </app-add-new-vehicle>
 
-  <button
-    class="btn-add-new"
-    *ngIf="!waybillsService.isOpenModalFormForAddNewVehicle()"
-    (click)="addNewVehicle()"
-  >
+  <button class="btn-add-new" *ngIf="!waybillsService.isOpenModalFormForAddNewVehicle()" (click)="addNewVehicle()">
     <img src="assets/svg/load-calc-icons/add.svg" alt="Add new vehicle" />
   </button>
 </section>

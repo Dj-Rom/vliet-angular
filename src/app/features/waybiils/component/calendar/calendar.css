@@ -3,17 +3,18 @@
   width: 96vw;
   max-width: 600px;
   margin: 0px 2vw 0 2vw;
-  height: 408px;
+  height: 448px;
   angle: 0deg;
   opacity: 1;
   gap: 16px;
-  z-index: 11;
+  z-index: 1111;
   padding-top: 16px;
   padding-bottom: 12px;
   max-width: 99vw;
   background: rgba(30, 35, 41, 1);
   padding: 10px;
   color: var(--text-primary);
+  border: 1px solid rgba(76, 141, 255, 1);
 }
 
 .calendar-header {
@@ -159,8 +160,8 @@ input:hover {
   letter-spacing: 0%;
   text-align: center;
   vertical-align: bottom;
-
-  height: 40px;
+  width: 36px;
+  height: 36px;
   display: flex;
   align-items: center;
   justify-content: center;

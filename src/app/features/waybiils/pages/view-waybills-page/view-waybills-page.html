@@ -11,7 +11,7 @@
 
 <!-- Waybills list -->
 <table class="waybills-table">
-  <ng-container *ngFor="let bill of filteredWaybills()">
+  <ng-container *ngFor="let bill of filteredWaybills().sort()">
     <app-item-waybill [item]="bill"></app-item-waybill>
   </ng-container>
 </table>
@@ -21,14 +21,9 @@
   <img src="assets/svg/load-calc-icons/add.svg" alt="Add Waybill" />
 </button>
 <div *ngIf="waybillsService.isReportOpen()" class="report-modal">
-  <img
-    class="closeReport"
-    (click)="waybillsService.isReportOpen.set(false)"
-    src="assets/svg/load-calc-icons/closeItem.svg"
-    alt="close"
-  />
-  <app-calendar
-    style="
+  <img class="closeReport" (click)="waybillsService.isReportOpen.set(false)"
+    src="assets/svg/load-calc-icons/closeItem.svg" alt="close" />
+  <app-calendar style="
       display: flex;
 
       width: 96vw;
@@ -36,7 +31,5 @@
       margin: 0px 2vw 0 2vw;
       flex-direction: column;
       align-items: center;
-    "
-    [rangeAvailable]="true"
-  ></app-calendar>
+    " [rangeAvailable]="true"></app-calendar>
 </div>

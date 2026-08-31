@@ -10,10 +10,11 @@ import { Location, NgIf } from '@angular/common';
 import { FirebaseClientService, SharedAddress } from '../../../../firebase/firebase.service';
 import { AlertService } from '../../../../core/services/alert.service';
 import { ActivatedRoute } from '@angular/router';
-import { _Alert } from '../../../../shared/alert/alert';
+import { LoadLocationService } from '../../../../core/services/load-location.service';
 
 @Component({
   selector: 'app-edit-client-page',
+  standalone: true,
   imports: [FormsModule, NgIf, ReactiveFormsModule],
   templateUrl: './edit-client-page.html',
   styleUrls: [
@@ -51,6 +52,7 @@ export class EditClientPage implements OnInit {
     private fb: FirebaseClientService,
     private alert: AlertService,
     private route: ActivatedRoute,
+    private loadLocationService: LoadLocationService,
   ) {}
 
   async ngOnInit() {
@@ -72,7 +74,7 @@ export class EditClientPage implements OnInit {
         address: address.address,
         google_link: address.google_link,
         gps: address.gps,
-        notes: address.notes,
+        notes: address.notes || '',
       });
     } else {
       this.alert.show('error', 'Address not found');
@@ -90,18 +92,22 @@ export class EditClientPage implements OnInit {
       return;
     }
 
-    const { company, address, google_link, gps, notes } = this.form.value;
+    try {
+      const { company, address, google_link, gps, notes } = this.form.value;
 
-    // update instead of add
-    // await this.fb.updateAddress(this.id, {
-    //   company: company!,
-    //   address: address!,
-    //   google_link: google_link!,
-    //   gps: gps!,
-    //   notes: notes!
-    // });
+      await this.fb.updateSharedAddress(this.id, {
+        company: company!,
+        address: address!,
+        google_link: google_link!,
+        gps: gps!,
+        notes: notes || '',
+      });
 
-    this.alert.show('success', 'Client updated successfully');
-    this.back();
+      await this.loadLocationService.refresh();
+      this.alert.show('success', 'Klient zaktualizowany pomyślnie');
+      this.back();
+    } catch (err) {
+      this.alert.show('error', 'Błąd podczas aktualizacji: ' + String(err));
+    }
   }
 }

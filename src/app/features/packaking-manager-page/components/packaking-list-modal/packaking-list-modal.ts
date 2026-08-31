@@ -17,7 +17,7 @@ export class PackakingListModal {
   constructor(
     protected pMService: PackakingModalService,
     private moreMenuService: MoreMenuService
-  ) { }
+  ) {}
 
   get isListEmpty(): boolean {
     return Object.values(this.pMService.list()).every(v => v === 0);
