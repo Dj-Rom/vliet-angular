@@ -8,37 +8,28 @@
   <div class="filterInput">
     <img src="assets/svg/load-calc-icons/filter.svg" alt="filtr" />
 
-    <input
-      type="text"
-      class="font400size16"
-      [value]="loadLocationService.filterValue()"
-      (input)="loadLocationService.setFilter($any($event.target).value)"
-      placeholder="Szukaj"
-    />
+    <input type="text" class="font400size16" [value]="loadLocationService.filterValue()"
+      (input)="loadLocationService.setFilter($any($event.target).value)" placeholder="Szukaj" />
 
-    <img
-      src="assets/svg/load-calc-icons/closeItem.svg"
-      alt="wyczyść"
-      *ngIf="loadLocationService.filterValue().length >= 1"
-      (click)="loadLocationService.clearFilter()"
-    />
+
+    <svg *ngIf="loadLocationService.filterValue().length >= 1" (click)="loadLocationService.clearFilter()" width="24"
+      height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M6.4 19L5 17.6L10.6 12L5 6.4L6.4 5L12 10.6L17.6 5L19 6.4L13.4 12L19 17.6L17.6 19L12 13.4L6.4 19Z"
+        fill="#9BA4AE" />
+    </svg>
   </div>
 </header>
 
 <div class="groupCompanyBtn">
   @for (item of loadLocationService.filteredListAddress(); track item.id) {
-    <button [id]="item.id" class="companySelectBtn font400size16" (click)="modalService.open(item)">
-      {{ item.company }}
-    </button>
+  <button [id]="item.id" class="companySelectBtn font400size16" (click)="modalService.open(item)">
+    {{ item.company }}
+  </button>
   }
 </div>
 
 <br />
 
-<button
-  class="btn-add-new"
-  *ngIf="!modalService.isOpen$.value"
-  (click)="loadLocationService.changePage('add')"
->
+<button class="btn-add-new" *ngIf="!modalService.isOpen$.value" (click)="loadLocationService.changePage('add')">
   <img src="assets/svg/load-calc-icons/add.svg" />
 </button>

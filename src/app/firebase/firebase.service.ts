@@ -463,6 +463,27 @@ export class FirebaseClientService {
     });
   }
 
+  subscribeToWayBillsHistory(
+    callback: (waybills: _WayBill[]) => void,
+    onError?: (error: any) => void,
+  ): Unsubscribe {
+    const uid = this.getCurrentUid();
+    if (!uid) return () => {};
+
+    const colRef = collection(this.db, 'users', uid, 'waybills');
+    return onSnapshot(
+      colRef,
+      (snapshot) => {
+        const list = snapshot.docs.map((d) => ({ id: d.id, ...d.data() }) as _WayBill);
+        callback(list);
+      },
+      (err) => {
+        console.warn('Realtime sync error on waybills:', err);
+        if (onError) onError(err);
+      },
+    );
+  }
+
   async addInfoForCurrentUser(data: any) {
     const uid = this.getCurrentUid();
     if (!uid) return;

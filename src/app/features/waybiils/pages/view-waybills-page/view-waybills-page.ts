@@ -1,4 +1,4 @@
-import {Component, computed, OnInit, signal} from '@angular/core';
+import {Component, computed, OnInit, OnDestroy, signal} from '@angular/core';
 import {ItemWaybill} from '../../component/item-waybill/item-waybill';
 import {DateFilter} from '../../component/date-filter/date-filter';
 import {NgForOf, NgIf} from '@angular/common';
@@ -17,7 +17,7 @@ import {Router} from '@angular/router';
   templateUrl: './view-waybills-page.html',
   styleUrl: './view-waybills-page.css',
 })
-export class ViewWaybillsPage implements OnInit {
+export class ViewWaybillsPage implements OnInit, OnDestroy {
   vehicleFleetList: { trucks: any[]; trailers: any[] } = {trucks: [], trailers: []};
 
   selectedMonth = signal<number | null>(null);
@@ -103,13 +103,17 @@ export class ViewWaybillsPage implements OnInit {
 
   async ngOnInit() {
     try {
+      this.waybillsService.startRealtimeSync();
       await this.loadFleet();
-      await this.waybillsService.loadWaybills();
       this.selectedMonth.set(this.dateFilterService.currentSelectedMonth());
     } catch (err) {
       console.error(err);
       this.alert.show('error', 'Failed to load waybills or fleet');
     }
+  }
+
+  ngOnDestroy(): void {
+    this.waybillsService.stopRealtimeSync();
   }
 
   async loadFleet() {

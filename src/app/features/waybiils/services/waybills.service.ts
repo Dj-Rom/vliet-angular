@@ -12,19 +12,17 @@ export class WaybillsService implements OnDestroy {
   readonly isLoading = signal(false);
   readonly error = signal<string | null>(null);
   isOpenModalFormForAddNewVehicle = signal(false);
+  isLiveSyncing = signal(false);
 
   private readonly STORAGE_KEY = 'waybills_cache';
   private readonly TIMESTAMP_KEY = 'waybills_timestamp';
-  private readonly CHECK_INTERVAL = 3000000;
-
-  private backgroundCheckInterval?: number;
+  private unsubscribeSnapshot?: () => void;
 
   constructor(
     private fb: FirebaseClientService,
     private alert: AlertService,
   ) {
     this.initializeFromCache();
-    this.startBackgroundSync();
 
     effect(() => {
       const data = this.waybills();
@@ -40,14 +38,9 @@ export class WaybillsService implements OnDestroy {
       if (cached) {
         const data = JSON.parse(cached) as _WayBill[];
         this.waybills.set(data);
-
-        this.checkAndUpdateIfNeeded();
-      } else {
-        this.loadWaybills();
       }
     } catch (error) {
       console.error('❌ Error loading from cache:', error);
-      this.loadWaybills();
     }
   }
 
@@ -60,47 +53,47 @@ export class WaybillsService implements OnDestroy {
     }
   }
 
-  private async checkAndUpdateIfNeeded(): Promise<void> {
-    try {
-      const timestamp = localStorage.getItem(this.TIMESTAMP_KEY);
-      const now = Date.now();
-      const cacheAge = timestamp ? now - parseInt(timestamp) : Infinity;
+  /* ───────── REALTIME SYNC (onSnapshot) ───────── */
+  startRealtimeSync(): void {
+    if (this.unsubscribeSnapshot) return;
 
-      if (cacheAge > 5 * 60 * 1000) {
-        await this.loadWaybills();
-      }
-    } catch (error) {
-      console.error('❌ Error checking cache age:', error);
+    if (this.waybills().length === 0) {
+      this.isLoading.set(true);
     }
+
+    this.isLiveSyncing.set(true);
+    this.unsubscribeSnapshot = this.fb.subscribeToWayBillsHistory(
+      (freshData) => {
+        this.isLoading.set(false);
+        this.waybills.set(freshData);
+      },
+      (error) => {
+        console.warn('❌ Realtime waybills sync error:', error);
+        this.isLoading.set(false);
+        this.isLiveSyncing.set(false);
+      },
+    );
   }
 
-  private startBackgroundSync(): void {
-    this.backgroundCheckInterval = window.setInterval(() => {
-      this.checkForUpdates();
-    }, this.CHECK_INTERVAL);
+  stopRealtimeSync(): void {
+    if (this.unsubscribeSnapshot) {
+      this.unsubscribeSnapshot();
+      this.unsubscribeSnapshot = undefined;
+      this.isLiveSyncing.set(false);
+    }
   }
 
   async checkForUpdates(): Promise<void> {
-    try {
-      const freshData = await this.fb.getWillBillsHistory();
-      const currentData = this.waybills();
-
-      if (this.hasChanges(currentData, freshData)) {
-        this.waybills.set(freshData);
-        this.saveToCache(freshData);
-      }
-    } catch (error) {
-      console.error('❌ Background sync error:', error);
+    if (!this.unsubscribeSnapshot) {
+      await this.loadWaybills();
     }
   }
 
-  private hasChanges(current: _WayBill[], fresh: _WayBill[]): boolean {
-    if (current.length !== fresh.length) return true;
-
-    return JSON.stringify(current) !== JSON.stringify(fresh);
-  }
-
   async loadWaybills(): Promise<void> {
+    if (this.unsubscribeSnapshot && this.waybills().length > 0) {
+      return;
+    }
+
     this.isLoading.set(true);
     this.error.set(null);
 
@@ -189,9 +182,7 @@ export class WaybillsService implements OnDestroy {
   readonly trucksUsed = computed(() => Array.from(new Set(this.waybills().map((w) => w.truck))));
 
   ngOnDestroy(): void {
-    if (this.backgroundCheckInterval) {
-      clearInterval(this.backgroundCheckInterval);
-    }
+    this.stopRealtimeSync();
   }
 
   clearCache(): void {
