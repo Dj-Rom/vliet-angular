@@ -11,12 +11,12 @@ export class LoadLocationService implements OnDestroy {
   filteredListAddress = signal<SharedAddress[]>([]);
   isLoading = signal(false);
   filterValue = signal('');
+  isLiveSyncing = signal(false);
 
   /* ───────── CACHE CONFIG ───────── */
   private readonly STORAGE_KEY = 'shared_addresses_cache';
   private readonly TIMESTAMP_KEY = 'shared_addresses_timestamp';
-  private readonly CHECK_INTERVAL = 3000000;
-  private backgroundCheckInterval?: number;
+  private unsubscribeSnapshot?: () => void;
 
   constructor(
     private fb: FirebaseClientService,
@@ -36,17 +36,14 @@ export class LoadLocationService implements OnDestroy {
     });
   }
 
-  /* ───────── INIT ───────── */
+  /* ───────── INIT & LIFECYCLE ───────── */
   async init(): Promise<void> {
     this.loadFromCache();
-    await this.checkAndUpdateIfNeeded();
-    this.startBackgroundSync();
+    this.startRealtimeSync();
   }
 
   ngOnDestroy(): void {
-    if (this.backgroundCheckInterval) {
-      clearInterval(this.backgroundCheckInterval);
-    }
+    this.stopRealtimeSync();
   }
 
   /* ───────── CACHE ───────── */
@@ -79,7 +76,37 @@ export class LoadLocationService implements OnDestroy {
     localStorage.removeItem(this.TIMESTAMP_KEY);
   }
 
-  /* ───────── FIREBASE ───────── */
+  /* ───────── REALTIME SYNC (onSnapshot) ───────── */
+  startRealtimeSync(): void {
+    if (this.unsubscribeSnapshot) return;
+
+    if (this.listAddress().length === 0) {
+      this.isLoading.set(true);
+    }
+
+    this.isLiveSyncing.set(true);
+    this.unsubscribeSnapshot = this.fb.subscribeToSharedAddresses(
+      (addresses) => {
+        this.isLoading.set(false);
+        this.listAddress.set(addresses);
+      },
+      (error) => {
+        console.warn('Realtime subscription error:', error);
+        this.isLoading.set(false);
+        this.isLiveSyncing.set(false);
+      },
+    );
+  }
+
+  stopRealtimeSync(): void {
+    if (this.unsubscribeSnapshot) {
+      this.unsubscribeSnapshot();
+      this.unsubscribeSnapshot = undefined;
+      this.isLiveSyncing.set(false);
+    }
+  }
+
+  /* ───────── MANUAL REFRESH / COMPATIBILITY ───────── */
   async refresh(): Promise<void> {
     if (this.isLoading()) return;
 
@@ -87,39 +114,15 @@ export class LoadLocationService implements OnDestroy {
     try {
       const data = await this.fb.getSharedAddresses();
       this.listAddress.set(data);
-      this.filteredListAddress.set(data);
     } finally {
       this.isLoading.set(false);
     }
   }
 
-  private async checkAndUpdateIfNeeded(): Promise<void> {
-    const timestamp = localStorage.getItem(this.TIMESTAMP_KEY);
-    const age = timestamp ? Date.now() - +timestamp : Infinity;
-
-    if (age > 5 * 60 * 1000 || this.listAddress().length === 0) {
+  async checkForUpdates(): Promise<void> {
+    if (!this.unsubscribeSnapshot) {
       await this.refresh();
     }
-  }
-
-  /* ───────── BACKGROUND SYNC ───────── */
-  private startBackgroundSync(): void {
-    this.backgroundCheckInterval = window.setInterval(() => {
-      this.checkForUpdates();
-    }, this.CHECK_INTERVAL);
-  }
-
-  async checkForUpdates(): Promise<void> {
-    try {
-      const fresh = await this.fb.getSharedAddresses();
-      if (this.hasChanges(this.listAddress(), fresh)) {
-        this.listAddress.set(fresh);
-      }
-    } catch {}
-  }
-
-  private hasChanges(a: SharedAddress[], b: SharedAddress[]): boolean {
-    return a.length !== b.length || JSON.stringify(a) !== JSON.stringify(b);
   }
 
   /* ───────── FILTER ───────── */
@@ -142,6 +145,7 @@ export class LoadLocationService implements OnDestroy {
 
     this.filteredListAddress.set(data.filter((a) => a.company.toLowerCase().includes(filter)));
   }
+
   changePage(add: string): void {
     this.router.navigate(['app/load-location', add]);
   }

@@ -23,6 +23,8 @@ import {
   getDocs,
   updateDoc,
   deleteDoc,
+  onSnapshot,
+  Unsubscribe,
   Firestore,
 } from 'firebase/firestore';
 import { environment } from '../../environments/environment';
@@ -284,6 +286,24 @@ export class FirebaseClientService {
         return [];
       }
     });
+  }
+
+  subscribeToSharedAddresses(
+    callback: (addresses: SharedAddress[]) => void,
+    onError?: (error: any) => void,
+  ): Unsubscribe {
+    const colRef = collection(this.db, 'shared_addresses');
+    return onSnapshot(
+      colRef,
+      (snapshot) => {
+        const list = snapshot.docs.map((d) => ({ id: d.id, ...d.data() }) as SharedAddress);
+        callback(list);
+      },
+      (err) => {
+        console.warn('Realtime sync error on shared_addresses:', err);
+        if (onError) onError(err);
+      },
+    );
   }
 
   async addAddress(
