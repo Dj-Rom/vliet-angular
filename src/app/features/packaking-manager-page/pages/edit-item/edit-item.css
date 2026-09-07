@@ -40,6 +40,12 @@ header {
   }
 }
 
+.edit-item-container {
+  overflow: auto;
+  height: 90vh;
+  padding-top: 135px;
+}
+
 .header-add-new-list {
   position: absolute;
   top: 0;

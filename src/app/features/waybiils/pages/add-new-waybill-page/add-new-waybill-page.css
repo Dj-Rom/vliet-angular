@@ -5,19 +5,25 @@ p {
 }
 
 .header-new-waybill {
-  width: 96vw;
-  max-width: 600px;
-  margin: 0px 2vw 0 2vw;
+  width: 100%;
+  position: fixed;
+  top: env(safe-area-inset-top, 0px);
+  left: 50%;
+  transform: translate(-50%);
+  /* max-width: 600px; */
+  padding: 49px 16px 16px 16px;
   height: 44px;
   angle: 0deg;
   opacity: 1;
   gap: 8px;
-  padding-right: 6px;
-  padding-left: 6px;
+
   display: flex;
   align-items: flex-end;
   justify-content: space-between;
-  margin-top: 14px;
+
+  background: black;
+  z-index: 20;
+
 
   span {
     display: flex;
@@ -65,13 +71,16 @@ p {
 }
 
 .main-new-waybill {
+  position: relative;
+  top: 52px;
   width: 96vw;
   max-width: 600px;
-  margin: 0px 2vw 0 2vw;
-  height: 454px;
+  margin: 0px 2vw 200px 2vw;
+  /* height: 454px; */
   angle: 0deg;
   opacity: 1;
   gap: 16px;
+  overflow: auto;
 }
 
 .calendarBtnGroup {
@@ -136,6 +145,7 @@ p {
 
 .new-waybill-notes {
   height: 168px;
+  margin-bottom: 200px;
 }
 
 .new-waybill-date {
@@ -159,7 +169,7 @@ span {
 }
 
 textarea {
-  margin-top: 6px;
+  margin-top: 16px;
   width: 100%;
   height: 168px;
   border-radius: 8px;

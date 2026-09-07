@@ -1,10 +1,17 @@
 <header class="header-new-waybill">
   <button class="backBtn" (click)="back()">
-    <img src="assets/svg/back.svg" />
+    <svg width="12" height="20" viewBox="0 0 12 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M10 20L0 10L10 0L11.775 1.775L3.55 10L11.775 18.225L10 20Z" fill="white" />
+    </svg>
+
   </button>
   <span>Nowa karta drogowa</span>
   <button class="backBtn" (click)="closeAddNewWaybill()">
-    <img src="assets/svg/load-calc-icons/closeItem-white.svg" />
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M6.4 19L5 17.6L10.6 12L5 6.4L6.4 5L12 10.6L17.6 5L19 6.4L13.4 12L19 17.6L17.6 19L12 13.4L6.4 19Z"
+        fill="white" />
+    </svg>
+
   </button>
 </header>
 <app-select-vehicle-number-page *ngIf="
@@ -17,12 +24,22 @@
       <div class="new-waybill-vehicle-input" (click)="onOpenTruckModalMenu()">
         Ciągnik
         <p>{{ addNewWaybillsService.currentSelectedVehicle().truck }}</p>
-        <img src="assets/svg/load-calc-icons/ArrowRight.svg" />
+        <svg width="30" height="24" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path
+            d="M9.33317 12L8.39984 11.0333L10.7665 8.66667H2.6665V7.33333H10.7665L8.39984 4.96667L9.33317 4L13.3332 8L9.33317 12Z"
+            fill="white" />
+        </svg>
+
       </div>
       <div class="new-waybill-vehicle-input" (click)="onOpenTrailerModalMenu()">
         Naczepa
         <p>{{ addNewWaybillsService.currentSelectedVehicle().trailer }}</p>
-        <img src="assets/svg/load-calc-icons/ArrowRight.svg" />
+        <svg width="30" height="24" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path
+            d="M9.33317 12L8.39984 11.0333L10.7665 8.66667H2.6665V7.33333H10.7665L8.39984 4.96667L9.33317 4L13.3332 8L9.33317 12Z"
+            fill="white" />
+        </svg>
+
       </div>
     </div>
   </div>
@@ -69,6 +86,7 @@
     }}</textarea>
   </div>
 </main>
-<div class="saveBtnBack">
+<div class="saveBtnBack"
+  *ngIf="!addNewWaybillsService.isOpenTruckModalMenu() && !addNewWaybillsService.isOpenTrailerModalMenu() && !addNewWaybillsService.isOpenCalendarStartModal() && !addNewWaybillsService.isOpenCalendarEndModal() && !addNewWaybillsService.isOpenTimeStartModal() && !addNewWaybillsService.isOpenTimeEndModal()">
   <button class="save-btn font600size16" (click)="addNewWaybills()">Dodać</button>
 </div>

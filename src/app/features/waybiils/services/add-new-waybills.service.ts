@@ -37,17 +37,10 @@ export class AddNewWaybillsService {
   currentNotes = signal<string>('');
 
   /* ───────── DATE ───────── */
-  private now = new Date();
-  private dateFormat = {
-    data: `${('0' + this.now.getDate()).slice(-2)} ${MONTHS[this.now.getMonth()].slice(0, 3)} ${this.now.getFullYear()}`,
-    time: `${('0' + this.now.getHours()).slice(-2)}:${('0' + this.now.getMinutes()).slice(-2)}`,
-  };
-  currentDate = signal<WaybillDate>({
-    dataStart: this.dateFormat.data,
-    timeStart: this.dateFormat.time,
-    dataFinish: '',
-    timeFinish: '',
-  });
+  // защита от повторного/параллельного сохранения
+  private isSaving = false;
+
+  currentDate = signal<WaybillDate>(this.getCurrentWaybillDate());
 
   /* ───────── DATA ───────── */
   data: any;
@@ -62,58 +55,142 @@ export class AddNewWaybillsService {
   }
 
   /* ──────────────────────────── */
+  /* DATE HELPERS                 */
+  /* ──────────────────────────── */
+
+  /**
+   * Возвращает свежую дату/время старта (локальное время пользователя),
+   * вычисленное на момент вызова, а не "запечённое" при старте сервиса.
+   */
+  private getCurrentWaybillDate(): WaybillDate {
+    try {
+      const now = new Date();
+
+      if (isNaN(now.getTime())) {
+        throw new Error('Invalid Date instance');
+      }
+
+      const monthIndex = now.getMonth();
+      const monthName = MONTHS[monthIndex]?.slice(0, 3) ?? String(monthIndex + 1).padStart(2, '0');
+
+      const data = `${String(now.getDate()).padStart(2, '0')} ${monthName} ${now.getFullYear()}`;
+      const time = `${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}`;
+
+      return {
+        dataStart: data,
+        timeStart: time,
+        dataFinish: '',
+        timeFinish: '',
+      };
+    } catch (e) {
+      console.error('AddNewWaybillsService: getCurrentWaybillDate failed:', e);
+      return {
+        dataStart: '',
+        timeStart: '',
+        dataFinish: '',
+        timeFinish: '',
+      };
+    }
+  }
+
+  /* ──────────────────────────── */
   /* VEHICLE LIST                 */
   /* ──────────────────────────── */
   async refreshVehicles() {
-    const vehicles = await this.fb.getVehicleFleet();
-    this._vehicleList.set(vehicles);
-    await this.waybillsService.refresh();
+    try {
+      const vehicles = await this.fb.getVehicleFleet();
+      this._vehicleList.set(Array.isArray(vehicles) ? vehicles : []);
+      await this.waybillsService.refresh();
+    } catch (e) {
+      console.error('AddNewWaybillsService: refreshVehicles failed:', e);
+      this._vehicleList.set([]);
+      this.alertService.show('error', 'Nie udało się załadować listy pojazdów');
+    }
   }
 
   setCurrentSelectedVehicle(key: '' | 'trailer' | 'truck', value: string) {
-    this.currentSelectedVehicle.update((v) => ({ ...v, [key]: value }));
+    if (!key) {
+      console.warn('AddNewWaybillsService: setCurrentSelectedVehicle called with empty key');
+      return;
+    }
+    this.currentSelectedVehicle.update((v) => ({ ...v, [key]: value ?? '' }));
   }
 
   /* ──────────────────────────── */
   /* DATE HANDLING                */
   /* ──────────────────────────── */
   setCurrentDate(key: keyof WaybillDate, value: string) {
-    this.currentDate.update((d) => ({ ...d, [key]: value }));
+    if (!key) {
+      console.warn('AddNewWaybillsService: setCurrentDate called with empty key');
+      return;
+    }
+    this.currentDate.update((d) => ({ ...d, [key]: value ?? '' }));
   }
 
-  private formatForSave(isStart: boolean) {
-    const d = this.currentDate();
-    return isStart
-      ? mergeDateTime(d.dataStart, d.timeStart)
-      : mergeDateTime(d.dataFinish, d.timeFinish);
+  private formatForSave(isStart: boolean): string {
+    try {
+      const d = this.currentDate();
+      const result = isStart
+        ? mergeDateTime(d.dataStart, d.timeStart)
+        : mergeDateTime(d.dataFinish, d.timeFinish);
+
+      return result ?? '';
+    } catch (e) {
+      console.error('AddNewWaybillsService: formatForSave failed:', e);
+      return '';
+    }
   }
 
   /* ──────────────────────────── */
   /* SAVE WAYBILL                 */
   /* ──────────────────────────── */
   async saveInFB() {
+    // защита от двойного клика / параллельного вызова сохранения
+    if (this.isSaving) {
+      return;
+    }
+    this.isSaving = true;
+
     try {
       const date = this.currentDate();
       const vehicle = this.currentSelectedVehicle();
 
-      if (!date.dataStart || !date.timeStart) {
-        return this.alertService.show('error', 'Proszę wybrać datę i godzinę rozpoczęcia');
+      if (!date?.dataStart || !date?.timeStart) {
+        this.alertService.show('error', 'Proszę wybrać datę i godzinę rozpoczęcia');
+        return;
       }
-      if (!vehicle.truck) {
+      if (!vehicle?.truck) {
+        this.alertService.show('error', 'Proszę wybrać ciężarówkę');
+        return;
+      }
 
-        return this.alertService.show('error', 'Proszę wybrać ciężarówkę');
+      const existingWaybills = this.waybillsService.waybills();
+      if (!date.dataFinish && Array.isArray(existingWaybills) && existingWaybills.some((w) => w.dataFinish === '')) {
+        this.alertService.show('error', 'Masz już aktualną kartę drogową!');
+        return;
       }
-      if (!date.dataFinish && this.waybillsService.waybills().some((w) => w.dataFinish === '')) {
-        return this.alertService.show('error', 'Masz już aktualną kartę drogową!');
+
+      const canProceed = await this.waybillsService.checkIfWaybillExistAsync(date.dataStart);
+      if (!canProceed) return;
+
+      const formattedStart = this.formatForSave(true);
+      if (!formattedStart) {
+        this.alertService.show('error', 'Nieprawidłowa data lub godzina rozpoczęcia');
+        return;
       }
-      if (!this.waybillsService.checkIfWaybillExistAsync(date.dataStart)) return;
+
+      const formattedFinish = date.dataFinish ? this.formatForSave(false) : '';
+      if (date.dataFinish && !formattedFinish) {
+        this.alertService.show('error', 'Nieprawidłowa data lub godzina zakończenia');
+        return;
+      }
 
       this.data = {
-        dataStart: this.formatForSave(true),
-        dataFinish: date.dataFinish ? this.formatForSave(false) : '',
+        dataStart: formattedStart,
+        dataFinish: formattedFinish,
         truck: vehicle.truck,
-        trailer: vehicle.trailer,
-        notes: this.currentNotes(),
+        trailer: vehicle.trailer ?? '',
+        notes: this.currentNotes() ?? '',
       };
 
       await this.fb.addInfoForCurrentUser(this.data);
@@ -123,18 +200,30 @@ export class AddNewWaybillsService {
       await this.waybillsService.checkForUpdates();
       this.location.back();
     } catch (e) {
-      this.alertService.show('error', String(e));
+      console.error('AddNewWaybillsService: saveInFB failed:', e);
+      this.alertService.show('error', this.getErrorMessage(e));
+    } finally {
+      this.isSaving = false;
+    }
+  }
+
+  private getErrorMessage(error: unknown): string {
+    if (error instanceof Error) return error.message;
+    if (typeof error === 'string') return error;
+    try {
+      return JSON.stringify(error);
+    } catch {
+      return 'Nieznany błąd';
     }
   }
 
   resetAll() {
-    this.currentSelectedVehicle.set({ truck: '', trailer: '' });
-    this.currentDate.set({
-      dataStart: this.dateFormat.data,
-      timeStart: this.dateFormat.time,
-      dataFinish: '',
-      timeFinish: '',
-    });
-    this.currentNotes.set('');
+    try {
+      this.currentSelectedVehicle.set({ truck: '', trailer: '' });
+      this.currentDate.set(this.getCurrentWaybillDate());
+      this.currentNotes.set('');
+    } catch (e) {
+      console.error('AddNewWaybillsService: resetAll failed:', e);
+    }
   }
 }

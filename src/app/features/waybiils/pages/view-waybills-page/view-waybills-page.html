@@ -2,7 +2,12 @@
   <div class="header-waybill">
     <span class="total font400size12">łącznie: {{ totalTime() }}</span>
     <h3>Trasy</h3>
-    <img src="assets/svg/load-calc-icons/Report.svg" alt="Report" (click)="getReport()" />
+    <svg (click)="getReport()" width="24" height="24" viewBox="0 0 24 24" fill="none"
+      xmlns="http://www.w3.org/2000/svg">
+      <path
+        d="M7 17H9V12H7V17ZM15 17H17V7H15V17ZM11 17H13V14H11V17ZM11 12H13V10H11V12ZM5 21C4.45 21 3.97917 20.8042 3.5875 20.4125C3.19583 20.0208 3 19.55 3 19V5C3 4.45 3.19583 3.97917 3.5875 3.5875C3.97917 3.19583 4.45 3 5 3H19C19.55 3 20.0208 3.19583 20.4125 3.5875C20.8042 3.97917 21 4.45 21 5V19C21 19.55 20.8042 20.0208 20.4125 20.4125C20.0208 20.8042 19.55 21 19 21H5ZM5 19H19V5H5V19Z"
+        fill="white" />
+    </svg>
   </div>
 
   <!-- Date filter emits selected day -->
@@ -18,11 +23,18 @@
 
 <!-- Add new button -->
 <button class="btn-add-new" (click)="addNewWaybill()">
-  <img src="assets/svg/load-calc-icons/add.svg" alt="Add Waybill" />
+  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M11 13H5V11H11V5H13V11H19V13H13V19H11V13Z" fill="white" />
+  </svg>
 </button>
 <div *ngIf="waybillsService.isReportOpen()" class="report-modal">
-  <img class="closeReport" (click)="waybillsService.isReportOpen.set(false)"
-    src="assets/svg/load-calc-icons/closeItem.svg" alt="close" />
+
+  <svg class="closeReport" (click)="waybillsService.isReportOpen.set(false)" width="24" height="24" viewBox="0 0 24 24"
+    fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M6.4 19L5 17.6L10.6 12L5 6.4L6.4 5L12 10.6L17.6 5L19 6.4L13.4 12L19 17.6L17.6 19L12 13.4L6.4 19Z"
+      fill="#9BA4AE" />
+  </svg>
+
   <app-calendar style="
       display: flex;
 

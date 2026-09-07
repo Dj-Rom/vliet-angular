@@ -7,8 +7,9 @@
         <span class="subtitle">Trasy: A2, A12, A30, A10 &bull; Źródło: ADAC / Autobahn Live</span>
       </div>
       <button class="btn-refresh" (click)="refresh()" [disabled]="trafficService.isLoading()" title="Odśwież dane">
-        <svg [class.spin]="trafficService.isLoading()" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <path d="M21.5 2v6h-6M2.5 22v-6h6M2 11.5a10 10 0 0 1 18.8-4.3M22 12.5a10 10 0 0 1-18.8 4.2"/>
+        <svg [class.spin]="trafficService.isLoading()" width="18" height="18" viewBox="0 0 24 24" fill="none"
+          stroke="currentColor" stroke-width="2">
+          <path d="M21.5 2v6h-6M2.5 22v-6h6M2 11.5a10 10 0 0 1 18.8-4.3M22 12.5a10 10 0 0 1-18.8 4.2" />
         </svg>
         <span class="refresh-text">{{ trafficService.isLoading() ? 'Ładowanie...' : 'Odśwież' }}</span>
       </button>
@@ -25,12 +26,8 @@
   <!-- Highway Selector Tabs -->
   <nav class="road-nav">
     <div class="road-scroll">
-      <button
-        *ngFor="let r of roads"
-        class="road-btn"
-        [class.active]="trafficService.selectedRoad() === r.id"
-        (click)="selectRoad(r.id)"
-      >
+      <button *ngFor="let r of roads" class="road-btn" [class.active]="trafficService.selectedRoad() === r.id"
+        (click)="selectRoad(r.id)">
         <span class="road-badge" [class.badge-all]="r.id === 'ALL'">{{ r.label }}</span>
         <span class="road-stats" *ngIf="r.id !== 'ALL' && trafficService.roadSummaries()[r.id]">
           <span class="stat-warning" *ngIf="trafficService.roadSummaries()[r.id].warningCount > 0">
@@ -39,7 +36,8 @@
           <span class="stat-delay" *ngIf="trafficService.roadSummaries()[r.id].totalDelayMinutes > 0">
             +{{ trafficService.roadSummaries()[r.id].totalDelayMinutes }}m
           </span>
-          <span class="stat-clean" *ngIf="trafficService.roadSummaries()[r.id].warningCount === 0 && trafficService.roadSummaries()[r.id].closureCount === 0">
+          <span class="stat-clean"
+            *ngIf="trafficService.roadSummaries()[r.id].warningCount === 0 && trafficService.roadSummaries()[r.id].closureCount === 0">
             ✓
           </span>
         </span>
@@ -70,26 +68,19 @@
   <!-- Search & Category Filters -->
   <div class="filters-panel">
     <div class="search-box">
-      <svg class="search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <svg class="search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+        stroke-width="2">
         <circle cx="11" cy="11" r="8"></circle>
         <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
       </svg>
-      <input
-        type="text"
-        [(ngModel)]="searchInputValue"
-        (input)="onSearchChange()"
-        placeholder="Szukaj miasta, węzła (np. Magdeburg, Berlin, Hannover)..."
-      />
+      <input type="text" [(ngModel)]="searchInputValue" (input)="onSearchChange()"
+        placeholder="Szukaj miasta, węzła (np. Magdeburg, Berlin, Hannover)..." />
       <button *ngIf="searchInputValue" class="btn-clear-search" (click)="clearSearch()">✕</button>
     </div>
 
     <div class="category-chips">
-      <button
-        *ngFor="let cat of categories"
-        class="chip-btn"
-        [class.active]="trafficService.selectedCategory() === cat.id"
-        (click)="selectCategory(cat.id)"
-      >
+      <button *ngFor="let cat of categories" class="chip-btn"
+        [class.active]="trafficService.selectedCategory() === cat.id" (click)="selectCategory(cat.id)">
         <span class="chip-icon">{{ cat.icon }}</span>
         <span>{{ cat.label }}</span>
       </button>
@@ -120,18 +111,15 @@
 
     <!-- Cards List -->
     <div class="cards-list" *ngIf="trafficService.filteredItems().length > 0">
-      <article
-        *ngFor="let item of trafficService.filteredItems()"
-        class="incident-card"
-        [class.type-warning]="item.type === 'WARNING'"
-        [class.type-closure]="item.type === 'CLOSURE'"
-        [class.type-roadworks]="item.type === 'ROADWORKS'"
-      >
+      <article *ngFor="let item of trafficService.filteredItems()" class="incident-card"
+        [class.type-warning]="item.type === 'WARNING'" [class.type-closure]="item.type === 'CLOSURE'"
+        [class.type-roadworks]="item.type === 'ROADWORKS'">
         <!-- Card Top Bar -->
         <div class="card-header">
           <div class="card-badges">
             <span class="badge-road">{{ item.road }}</span>
-            <span class="badge-type" [class.badge-warning]="item.type === 'WARNING'" [class.badge-closure]="item.type === 'CLOSURE'" [class.badge-roadworks]="item.type === 'ROADWORKS'">
+            <span class="badge-type" [class.badge-warning]="item.type === 'WARNING'"
+              [class.badge-closure]="item.type === 'CLOSURE'" [class.badge-roadworks]="item.type === 'ROADWORKS'">
               <ng-container [ngSwitch]="item.type">
                 <span *ngSwitchCase="'WARNING'">🚨 UTRUDNIENIE / KOREK</span>
                 <span *ngSwitchCase="'CLOSURE'">⛔ ZAMKNIĘCIE TRASY</span>

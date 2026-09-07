@@ -36,6 +36,12 @@ export class SignIn {
   }
 
   private async checkIfAlreadyLoggedIn(): Promise<void> {
+    if (this.authService.isLoggedIn()) {
+      this.ngZone.run(() => {
+        this.naviService.navigate('app');
+      });
+      return;
+    }
     const isLogged = await this.authService.isLoggedInAsync();
     if (isLogged) {
       this.ngZone.run(() => {

@@ -1,6 +1,7 @@
 :host {
-
   width: 99vw;
+  overflow: auto;
+  height: 100vh;
 }
 
 .traffic-container {

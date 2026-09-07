@@ -107,6 +107,16 @@ header {
   }
 }
 
+.day-card.today:not(.selected) {
+  .day {
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    padding: 5px;
+    border: 1px solid rgba(76, 141, 255, 1);
+  }
+}
+
 .week {
   width: 32px;
   height: 20px;

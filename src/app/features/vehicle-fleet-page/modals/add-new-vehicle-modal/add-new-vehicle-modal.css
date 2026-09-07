@@ -1,6 +1,6 @@
 .add-new-vehicle {
   position: fixed;
-  top: 0;
+  top: env(safe-area-inset-top, 0px);
   width: 100%;
   max-width: 100%;
   background: black;
@@ -23,10 +23,10 @@
   }
 
   .header {
-    position: sticky;
+    position: fixed;
     display: flex;
     width: 96vw;
-    top: 0;
+    top: env(safe-area-inset-top, 0px);
     background: black;
     flex-direction: row;
     align-content: center;
@@ -69,7 +69,7 @@ input {
   gap: 6px;
   angle: 0 deg;
   opacity: 1;
-
+  border-radius: 0px;
   background: rgba(30, 35, 41, 1);
   border: 1px solid rgba(28, 31, 35, 1);
   font-family: Inter;
@@ -85,4 +85,5 @@ input {
 
 .saveBtnBack {
   height: 80px !important;
+  z-index: 200 !important;
 }

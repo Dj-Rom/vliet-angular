@@ -1,14 +1,15 @@
 .packaging-list-modal {
   position: fixed;
-  top: 10px;
+  top: env(safe-area-inset-top, 0px);
   left: 0;
+  height: 100vh;
   width: 100%;
   z-index: 1000;
   background: rgba(0, 0, 0, 0.55);
   display: flex;
   align-items: center;
   justify-content: center;
-  padding-bottom: 20px;
+
 
 }
 
@@ -48,6 +49,7 @@
 
 .packaging-list-modal>.modal-inner {
   margin: 5px;
+  height: 100vh;
   background: #0f1117;
   border: 0.5px solid #2a2d3a;
   border-radius: 12px;

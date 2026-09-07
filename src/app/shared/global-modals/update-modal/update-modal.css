@@ -151,6 +151,22 @@
   transform: translateY(-1px);
 }
 
+.btn-update-now:disabled {
+  opacity: 0.75;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+.spin-icon {
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
 .btn-update-later {
   background: transparent;
   color: #94a3b8;

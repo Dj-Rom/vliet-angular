@@ -1,14 +1,14 @@
-import {Component, computed, OnInit, OnDestroy, signal} from '@angular/core';
-import {ItemWaybill} from '../../component/item-waybill/item-waybill';
-import {DateFilter} from '../../component/date-filter/date-filter';
-import {NgForOf, NgIf} from '@angular/common';
-import {Calendar} from '../../component/calendar/calendar';
-import {_WayBill} from '../../../../../interfaces';
-import {VehicleFleetService} from '../../../../core/services/vehicle-fleet.service';
-import {WaybillsService} from '../../services/waybills.service';
-import {DateFilterService} from '../../services/date-filter.service';
-import {AlertService} from '../../../../core/services/alert.service';
-import {Router} from '@angular/router';
+import { Component, computed, OnInit, OnDestroy, signal } from '@angular/core';
+import { ItemWaybill } from '../../component/item-waybill/item-waybill';
+import { DateFilter } from '../../component/date-filter/date-filter';
+import { NgForOf, NgIf } from '@angular/common';
+import { Calendar } from '../../component/calendar/calendar';
+import { _WayBill } from '../../../../../interfaces';
+import { VehicleFleetService } from '../../../../core/services/vehicle-fleet.service';
+import { WaybillsService } from '../../services/waybills.service';
+import { DateFilterService } from '../../services/date-filter.service';
+import { AlertService } from '../../../../core/services/alert.service';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -18,7 +18,7 @@ import {Router} from '@angular/router';
   styleUrl: './view-waybills-page.css',
 })
 export class ViewWaybillsPage implements OnInit, OnDestroy {
-  vehicleFleetList: { trucks: any[]; trailers: any[] } = {trucks: [], trailers: []};
+  vehicleFleetList: { trucks: any[]; trailers: any[] } = { trucks: [], trailers: [] };
 
   selectedMonth = signal<number | null>(null);
 
@@ -33,7 +33,7 @@ export class ViewWaybillsPage implements OnInit, OnDestroy {
       const tripTime = `${hours}h ${minutes}m`;
       const billableDays = diffHrs <= 12 ? 0.5 : diffHrs <= 24 ? 1 : Math.ceil(diffHrs / 12) * 0.5;
       const month = start.getMonth();
-      return {...bill, tripTime, billableDays, month};
+      return { ...bill, tripTime, billableDays, month };
     }),
   );
 
@@ -84,7 +84,17 @@ export class ViewWaybillsPage implements OnInit, OnDestroy {
       .sort((a, b) => {
         const dateA = new Date(a.dataFinish || a.dataStart).getTime();
         const dateB = new Date(b.dataFinish || b.dataStart).getTime();
-        return dateA - dateB;
+
+        // защита от невалидных дат: элементы с некорректной датой уходят в конец списка
+        const validA = Number.isFinite(dateA);
+        const validB = Number.isFinite(dateB);
+
+        if (!validA && !validB) return 0;
+        if (!validA) return 1;
+        if (!validB) return -1;
+
+        // более новые — сверху (убывающий порядок)
+        return dateB - dateA;
       });
   });
 

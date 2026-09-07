@@ -1,4 +1,4 @@
-import { Component, ElementRef, ViewChild, signal, AfterViewInit } from '@angular/core';
+import { Component, ElementRef, ViewChild, signal, AfterViewInit, OnDestroy } from '@angular/core';
 import { NgForOf } from '@angular/common';
 import { AddNewWaybillsService } from '../../services/add-new-waybills.service';
 import { EditWaybillService } from '../../services/edit-waybill.service';
@@ -10,9 +10,9 @@ import { EditWaybillService } from '../../services/edit-waybill.service';
   styleUrls: ['./time-picker.css'],
   imports: [NgForOf],
 })
-export class TimePickerComponent implements AfterViewInit {
-  @ViewChild('hoursWheel') hoursWheel!: ElementRef<HTMLDivElement>;
-  @ViewChild('minutesWheel') minutesWheel!: ElementRef<HTMLDivElement>;
+export class TimePickerComponent implements AfterViewInit, OnDestroy {
+  @ViewChild('hoursWheel') hoursWheel?: ElementRef<HTMLDivElement>;
+  @ViewChild('minutesWheel') minutesWheel?: ElementRef<HTMLDivElement>;
 
   readonly paddingItems = 2;
   readonly itemHeight = 44;
@@ -42,10 +42,38 @@ export class TimePickerComponent implements AfterViewInit {
   constructor(
     private addNewWaybillsService: AddNewWaybillsService,
     private editWaybillService: EditWaybillService,
-  ) {}
+  ) {
+    let existingTime = '';
+    if (this.addNewWaybillsService.isOpenTimeStartModal()) {
+      existingTime = this.addNewWaybillsService.currentDate().timeStart;
+    } else if (this.addNewWaybillsService.isOpenTimeEndModal()) {
+      existingTime = this.addNewWaybillsService.currentDate().timeFinish;
+    } else if (this.editWaybillService.isOpenEditTimeStartModal()) {
+      existingTime = this.editWaybillService.currentDate().timeStart;
+    } else if (this.editWaybillService.isOpenEditTimeEndModal()) {
+      existingTime = this.editWaybillService.currentDate().timeFinish;
+    }
+
+    if (existingTime && existingTime.includes(':')) {
+      const parts = existingTime.split(':');
+      if (parts[0] !== undefined && parts[1] !== undefined) {
+        this.selectedHour.set(parts[0].padStart(2, '0'));
+        this.selectedMinute.set(parts[1].padStart(2, '0'));
+      }
+    }
+  }
 
   ngAfterViewInit(): void {
-    this.scrollToInitial();
+    try {
+      this.scrollToInitial();
+    } catch (e) {
+      console.error('TimePickerComponent: scrollToInitial failed:', e);
+    }
+  }
+
+  ngOnDestroy(): void {
+    if (this.hourTimer) clearTimeout(this.hourTimer);
+    if (this.minuteTimer) clearTimeout(this.minuteTimer);
   }
 
   // -------------------------
@@ -53,13 +81,27 @@ export class TimePickerComponent implements AfterViewInit {
   // -------------------------
 
   onHourScroll(): void {
-    this.handleScroll(this.hoursWheel, this.hours, this.selectedHour, 'hour');
-    this.updateTime();
+    try {
+      if (!this.hoursWheel) {
+        console.warn('TimePickerComponent: hoursWheel is not available');
+        return;
+      }
+      this.handleScroll(this.hoursWheel, this.hours, this.selectedHour, 'hour');
+    } catch (e) {
+      console.error('TimePickerComponent: onHourScroll failed:', e);
+    }
   }
 
   onMinuteScroll(): void {
-    this.handleScroll(this.minutesWheel, this.minutes, this.selectedMinute, 'minute');
-    this.updateTime();
+    try {
+      if (!this.minutesWheel) {
+        console.warn('TimePickerComponent: minutesWheel is not available');
+        return;
+      }
+      this.handleScroll(this.minutesWheel, this.minutes, this.selectedMinute, 'minute');
+    } catch (e) {
+      console.error('TimePickerComponent: onMinuteScroll failed:', e);
+    }
   }
 
   // -------------------------
@@ -72,21 +114,41 @@ export class TimePickerComponent implements AfterViewInit {
     valueSignal: { set: (v: string) => void },
     type: 'hour' | 'minute',
   ): void {
-    const el = wheel.nativeElement;
+    const el = wheel?.nativeElement;
+    if (!el) {
+      console.warn(`TimePickerComponent: handleScroll called with missing element (${type})`);
+      return;
+    }
+
+    if (!Array.isArray(list) || list.length <= this.paddingItems * 2) {
+      console.error(`TimePickerComponent: invalid list for ${type}`, list);
+      return;
+    }
 
     const rawIndex =
       Math.round((el.scrollTop + this.centerOffset) / this.itemHeight) - this.paddingItems;
 
     const maxIndex = list.length - this.paddingItems * 2 - 1;
-    const index = Math.max(0, Math.min(rawIndex, maxIndex));
+    const index = Math.max(0, Math.min(Number.isFinite(rawIndex) ? rawIndex : 0, maxIndex));
 
-    valueSignal.set(list[index + this.paddingItems]);
+    const value = list[index + this.paddingItems];
+
+    // padding-элементы — пустые строки, их нельзя выбирать как реальное значение
+    if (value) {
+      valueSignal.set(value);
+    } else {
+      console.warn(`TimePickerComponent: resolved empty value for ${type} at index ${index}, skipping`);
+    }
 
     const timerRef = type === 'hour' ? this.hourTimer : this.minuteTimer;
     if (timerRef) clearTimeout(timerRef);
 
     const timer = setTimeout(() => {
-      this.snapToCenter(wheel, index);
+      try {
+        this.snapToCenter(wheel, index);
+      } catch (e) {
+        console.error(`TimePickerComponent: snapToCenter failed for ${type}:`, e);
+      }
     }, 100);
 
     if (type === 'hour') {
@@ -97,7 +159,10 @@ export class TimePickerComponent implements AfterViewInit {
   }
 
   private snapToCenter(wheel: ElementRef<HTMLDivElement>, index: number): void {
-    wheel.nativeElement.scrollTo({
+    const el = wheel?.nativeElement;
+    if (!el) return;
+
+    el.scrollTo({
       top: (index + this.paddingItems) * this.itemHeight - this.centerOffset,
       behavior: 'smooth',
     });
@@ -108,9 +173,17 @@ export class TimePickerComponent implements AfterViewInit {
     this.scrollToValue(this.minutesWheel, this.minutes.indexOf(this.selectedMinute()));
   }
 
-  private scrollToValue(wheel: ElementRef<HTMLDivElement>, index: number): void {
-    wheel.nativeElement.scrollTop =
-      (index + this.paddingItems) * this.itemHeight - this.centerOffset;
+  private scrollToValue(wheel: ElementRef<HTMLDivElement> | undefined, index: number): void {
+    const el = wheel?.nativeElement;
+    if (!el) {
+      console.warn('TimePickerComponent: scrollToValue called with missing element');
+      return;
+    }
+
+    // indexOf вернёт -1, если значение не найдено в списке — тогда скроллим в начало (0)
+    const safeIndex = index >= 0 ? index : 0;
+
+    el.scrollTop = (safeIndex + this.paddingItems) * this.itemHeight - this.centerOffset;
   }
 
   // -------------------------
@@ -118,39 +191,79 @@ export class TimePickerComponent implements AfterViewInit {
   // -------------------------
 
   private updateTime(): void {
-    const time = `${this.selectedHour()}:${this.selectedMinute()}`;
+    try {
+      const hour = this.selectedHour();
+      const minute = this.selectedMinute();
 
-    // Add new waybill
-    this.addNewWaybillsService.setCurrentDate(
-      this.addNewWaybillsService.isOpenTimeStartModal() ? 'timeStart' : 'timeFinish',
-      time,
-    );
+      if (!hour || !minute) {
+        console.warn('TimePickerComponent: updateTime called with incomplete time', { hour, minute });
+        return;
+      }
 
-    // Edit waybill
-    if (this.editWaybillService.isOpenEditTimeStartModal()) {
-      this.editWaybillService.currentDate.set({
-        ...this.editWaybillService.currentDate(),
-        timeStart: time,
-      });
-    }
+      const time = `${hour}:${minute}`;
 
-    if (this.editWaybillService.isOpenEditTimeEndModal()) {
-      this.editWaybillService.currentDate.set({
-        ...this.editWaybillService.currentDate(),
-        timeFinish: time,
-      });
+      // Add new waybill
+      try {
+        this.addNewWaybillsService.setCurrentDate(
+          this.addNewWaybillsService.isOpenTimeStartModal() ? 'timeStart' : 'timeFinish',
+          time,
+        );
+      } catch (e) {
+        console.error('TimePickerComponent: failed to sync time with AddNewWaybillsService:', e);
+      }
+
+      // Edit waybill
+      try {
+        if (this.editWaybillService.isOpenEditTimeStartModal()) {
+          this.editWaybillService.currentDate.set({
+            ...this.editWaybillService.currentDate(),
+            timeStart: time,
+          });
+        }
+
+        if (this.editWaybillService.isOpenEditTimeEndModal()) {
+          this.editWaybillService.currentDate.set({
+            ...this.editWaybillService.currentDate(),
+            timeFinish: time,
+          });
+        }
+      } catch (e) {
+        console.error('TimePickerComponent: failed to sync time with EditWaybillService:', e);
+      }
+    } catch (e) {
+      console.error('TimePickerComponent: updateTime failed:', e);
     }
   }
 
-  save(): void {
-    this.updateTime();
+  close(): void {
     this.addNewWaybillsService.isOpenTimeStartModal.set(false);
     this.addNewWaybillsService.isOpenTimeEndModal.set(false);
     this.editWaybillService.isOpenEditTimeStartModal.set(false);
     this.editWaybillService.isOpenEditTimeEndModal.set(false);
   }
 
+  save(): void {
+    try {
+      this.updateTime();
+    } catch (e) {
+      console.error('TimePickerComponent: save -> updateTime failed:', e);
+    } finally {
+      try {
+        this.addNewWaybillsService.isOpenTimeStartModal.set(false);
+        this.addNewWaybillsService.isOpenTimeEndModal.set(false);
+        this.editWaybillService.isOpenEditTimeStartModal.set(false);
+        this.editWaybillService.isOpenEditTimeEndModal.set(false);
+      } catch (e) {
+        console.error('TimePickerComponent: failed to close modals in save():', e);
+      }
+    }
+  }
+
   private pad(n: number): string {
-    return n.toString().padStart(2, '0');
+    if (!Number.isFinite(n) || n < 0) {
+      console.warn('TimePickerComponent: pad received invalid number:', n);
+      return '00';
+    }
+    return Math.floor(n).toString().padStart(2, '0');
   }
 }

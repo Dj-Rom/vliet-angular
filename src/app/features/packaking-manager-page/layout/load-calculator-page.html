@@ -1,6 +1,6 @@
 <section class="calculator-section">
   @if (selectedPage.includes('all') || selectedPage.includes('today')) {
-    <span class="font400size16 mt24">Odbiór opakowań</span>
+  <div class="header-packaging"> <span class="font400size16 mt24">Odbiór opakowań</span>
     <nav class="navi font400size14 mt24" *ngIf="selectedPage !== 'add'">
       <ul class="navi-ul">
         <li id="all" (click)="changePage('all')" [class.active]="selectedPage === 'all'">
@@ -11,24 +11,30 @@
         </li>
       </ul>
     </nav>
+  </div>
   } @else if (selectedPage.includes('edit')) {
-    <span class="font400size16">Edytuj paczkę</span>
+  <span class="font400size16">Edytuj paczkę</span>
   } @else if (router.url.includes('calc')) {
-    <div class="header" (click)="changePage('calc')">
-      <button class="backBtn" (click)="location.back()">
-        <img src="assets/svg/back.svg" />
-      </button>
-      <span class="font400size16">Kalkulator</span>
-      <span></span>
-    </div>
+  <div class="header">
+    <button class="backBtn" (click)="$event.stopPropagation(); back()">
+      <svg width="12" height="20" viewBox="0 0 12 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M10 20L0 10L10 0L11.775 1.775L3.55 10L11.775 18.225L10 20Z" fill="white" />
+      </svg>
+
+    </button>
+    <span class="font400size16">Kalkulator</span>
+    <span></span>
+  </div>
   }
 
   <router-outlet class="mt24"> </router-outlet>
 
   @if (router.url.includes('calc') || router.url.includes('add')) {
   } @else {
-    <button class="btn-add-new" (click)="changePage('add')">
-      <img src="assets/svg/load-calc-icons/add.svg" />
-    </button>
+  <button class="btn-add-new" (click)="changePage('add')">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M11 13H5V11H11V5H13V11H19V13H13V19H11V13Z" fill="white" />
+    </svg>
+  </button>
   }
 </section>

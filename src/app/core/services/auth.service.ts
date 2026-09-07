@@ -87,10 +87,13 @@ export class AuthService {
       }
     });
 
-    // 3. Wait for Firebase auth to initialize from IndexedDB
+    // 3. Wait for Firebase auth to initialize from IndexedDB (with 2500ms timeout for instant cold start)
     try {
       if (typeof (this.auth as any).authStateReady === 'function') {
-        await this.auth.authStateReady();
+        await Promise.race([
+          this.auth.authStateReady(),
+          new Promise((resolve) => setTimeout(resolve, 2500)),
+        ]);
       }
     } catch (e) {
       console.warn('Auth state ready check completed with warning (offline mode):', e);
@@ -271,20 +274,12 @@ export class AuthService {
   }
 
   async isLoggedInAsync(): Promise<boolean> {
-    try {
-      if (typeof (this.auth as any).authStateReady === 'function') {
-        await this.auth.authStateReady();
-      }
-      if (this.auth.currentUser) {
-        this.currentUser.set(this.auth.currentUser);
-        this.isAuthenticated.set(true);
-        return true;
-      }
-    } catch (e) {
-      console.warn('isLoggedInAsync authStateReady check warning:', e);
+    // 1. If already authenticated in memory or current Firebase user exists
+    if (this.auth.currentUser || this.isAuthenticated()) {
+      return true;
     }
 
-    // Check cached session in cookie or localStorage (offline resilience)
+    // 2. Instant check from local cache / cookie (zero wait)
     const session = this.cookieService.getJson<UserSession>(this.SESSION_COOKIE_KEY);
     if (session?.uid) {
       this.sessionUser.set(session);
@@ -296,6 +291,23 @@ export class AuthService {
     if (legacy) {
       this.isAuthenticated.set(true);
       return true;
+    }
+
+    // 3. Wait for Firebase authStateReady with a 2000ms max timeout
+    try {
+      if (typeof (this.auth as any).authStateReady === 'function') {
+        await Promise.race([
+          this.auth.authStateReady(),
+          new Promise((resolve) => setTimeout(resolve, 2000)),
+        ]);
+      }
+      if (this.auth.currentUser) {
+        this.currentUser.set(this.auth.currentUser);
+        this.isAuthenticated.set(true);
+        return true;
+      }
+    } catch (e) {
+      console.warn('isLoggedInAsync authStateReady check warning:', e);
     }
 
     return this.isLoggedIn();

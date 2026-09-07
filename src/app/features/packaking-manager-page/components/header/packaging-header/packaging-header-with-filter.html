@@ -1,21 +1,47 @@
 <header>
   <div class="header-add-new-list font400size16">
     <button class="backBtn" (click)="back()">
-      <img src="assets/svg/back.svg" />
+      <svg width="12" height="20" viewBox="0 0 12 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M10 20L0 10L10 0L11.775 1.775L3.55 10L11.775 18.225L10 20Z" fill="white" />
+      </svg>
+
     </button>
     <span class="font400size16">{{ this.listService.getCurrentCompanyName() }}</span>
-    <img (click)="download()" class="download-icon" src="assets/svg/load-calc-icons/download-svg.svg" />
-    <img class="more" src="assets/svg/load-calc-icons/More-white.svg" (click)="openMenu()" />
+    <button>
+      <svg (click)="download()" width="44" height="44" viewBox="0 0 44 44" fill="none"
+        xmlns="http://www.w3.org/2000/svg">
+        <path
+          d="M21 26V17.85L18.4 20.45L17 19L22 14L27 19L25.6 20.45L23 17.85V26H21ZM16 30C15.45 30 14.9792 29.8042 14.5875 29.4125C14.1958 29.0208 14 28.55 14 28V25H16V28H28V25H30V28C30 28.55 29.8042 29.0208 29.4125 29.4125C29.0208 29.8042 28.55 30 28 30H16Z"
+          fill="white" />
+      </svg>
+
+    </button>
+    <button (click)="$event.stopPropagation(); openMenu()">
+      <svg width="30" height="44" viewBox="0 0 24 24" fill="none"
+        xmlns="http://www.w3.org/2000/svg">
+        <path
+          d="M12 20C11.45 20 10.9792 19.8042 10.5875 19.4125C10.1958 19.0208 10 18.55 10 18C10 17.45 10.1958 16.9792 10.5875 16.5875C10.9792 16.1958 11.45 16 12 16C12.55 16 13.0208 16.1958 13.4125 16.5875C13.8042 16.9792 14 17.45 14 18C14 18.55 13.8042 19.0208 13.4125 19.4125C13.0208 19.8042 12.55 20 12 20ZM12 14C11.45 14 10.9792 13.8042 10.5875 13.4125C10.1958 13.0208 10 12.55 10 12C10 11.45 10.1958 10.9792 10.5875 10.5875C10.9792 10.1958 11.45 10 12 10C12.55 10 13.0208 10.1958 13.4125 10.5875C13.8042 10.9792 14 11.45 14 12C14 12.55 13.8042 13.0208 13.4125 13.4125C13.0208 13.8042 12.55 14 12 14ZM12 8C11.45 8 10.9792 7.80417 10.5875 7.4125C10.1958 7.02083 10 6.55 10 6C10 5.45 10.1958 4.97917 10.5875 4.5875C10.9792 4.19583 11.45 4 12 4C12.55 4 13.0208 4.19583 13.4125 4.5875C13.8042 4.97917 14 5.45 14 6C14 6.55 13.8042 7.02083 13.4125 7.4125C13.0208 7.80417 12.55 8 12 8Z"
+          fill="rgba(255, 255, 255, 1)" />
+      </svg>
+    </button>
   </div>
 
   <!-- Filter Input -->
   <div class="filterInput mt12">
-    <img src="assets/svg/load-calc-icons/filter.svg" alt="filter" />
+    <div> <svg width="20" height="20" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path
+          d="M13.8333 15L8.58333 9.75C8.16667 10.0833 7.6875 10.3472 7.14583 10.5417C6.60417 10.7361 6.02778 10.8333 5.41667 10.8333C3.90278 10.8333 2.62153 10.309 1.57292 9.26042C0.524306 8.21181 0 6.93056 0 5.41667C0 3.90278 0.524306 2.62153 1.57292 1.57292C2.62153 0.524306 3.90278 0 5.41667 0C6.93056 0 8.21181 0.524306 9.26042 1.57292C10.309 2.62153 10.8333 3.90278 10.8333 5.41667C10.8333 6.02778 10.7361 6.60417 10.5417 7.14583C10.3472 7.6875 10.0833 8.16667 9.75 8.58333L15 13.8333L13.8333 15ZM5.41667 9.16667C6.45833 9.16667 7.34375 8.80208 8.07292 8.07292C8.80208 7.34375 9.16667 6.45833 9.16667 5.41667C9.16667 4.375 8.80208 3.48958 8.07292 2.76042C7.34375 2.03125 6.45833 1.66667 5.41667 1.66667C4.375 1.66667 3.48958 2.03125 2.76042 2.76042C2.03125 3.48958 1.66667 4.375 1.66667 5.41667C1.66667 6.45833 2.03125 7.34375 2.76042 8.07292C3.48958 8.80208 4.375 9.16667 5.41667 9.16667Z"
+          fill="#9BA4AE" />
+      </svg></div>
     <input #filterValue id="source" name="source" type="text" class="font400size16" (input)="onFilterChange($event)"
       [value]="listService.filterValue()" placeholder="Szukaj" />
-    <div style="width: 47px;    height: 19px; text-align: end">
-      <img *ngIf="filterValue.value.length>0" src="assets/svg/load-calc-icons/closeItem.svg" alt="close"
-        (click)="clearFilter()" />
+    <div>
+      <svg width="24" *ngIf="filterValue.value.length>0" (click)="clearFilter()" height="24" viewBox="0 0 24 24"
+        fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M6.4 19L5 17.6L10.6 12L5 6.4L6.4 5L12 10.6L17.6 5L19 6.4L13.4 12L19 17.6L17.6 19L12 13.4L6.4 19Z"
+          fill="#9BA4AE" />
+      </svg>
+
     </div>
   </div>
 </header>

@@ -1,7 +1,9 @@
-import { Injectable, signal } from '@angular/core';
+import { Injectable, OnDestroy, signal } from '@angular/core';
 import { Location } from '@angular/common';
 import { ListService, ListItem } from './load-calculator-services/load-calculator.service';
-import { Router } from '@angular/router';
+import { NavigationStart, Router } from '@angular/router';
+import { Subscription } from 'rxjs';
+import { filter } from 'rxjs/operators';
 import { FirebaseClientService } from '../../firebase/firebase.service';
 import { AlertService } from './alert.service';
 import { WaybillsService } from '../../features/waybiils/services/waybills.service';
@@ -11,13 +13,15 @@ import { AddLocationModalService } from './add-location-modal.service';
 @Injectable({
   providedIn: 'root',
 })
-export class MoreMenuService {
+export class MoreMenuService implements OnDestroy {
   isOpenClientMoreMenu = signal(false);
   isOpenWaybillMoreMenu = signal(false);
   isOpen = signal(false);
   title = '';
   date = '';
   id = '';
+
+  private routerSub: Subscription;
 
   constructor(
     private waybillService: WaybillsService,
@@ -28,7 +32,26 @@ export class MoreMenuService {
     private location: Location,
     private loadLocationService: LoadLocationService,
     private addLocationModalService: AddLocationModalService,
-  ) { }
+  ) {
+    // Закрываем все модалки/меню при любой смене маршрута,
+    // чтобы не оставалось открытых модалок при переходе на другую страницу
+    this.routerSub = this.router.events
+      .pipe(filter((event) => event instanceof NavigationStart))
+      .subscribe(() => {
+        this.closeAllModals();
+      });
+  }
+
+  ngOnDestroy(): void {
+    this.routerSub?.unsubscribe();
+  }
+
+  private closeAllModals() {
+    this.isOpen.set(false);
+    this.isOpenWaybillMoreMenu.set(false);
+    this.isOpenClientMoreMenu.set(false);
+    this.addLocationModalService.close();
+  }
 
   toggleWaybillMoreMenu() {
     this.isOpenWaybillMoreMenu.set(!this.isOpen());
@@ -59,7 +82,7 @@ export class MoreMenuService {
       const lists = this.listService.savedLists();
       const item: ListItem = lists[editId];
       if (item) {
-        let message = `${item.name} ${item.date}\n Załadowane:`;
+        let message = `${item.name} \n${item.date}\nZaładowane:`;
         for (const key of Object.keys(item.value || {})) {
           if (item.value[key] > 0) {
             message += `\n${key}: ${item.value[key]}`;
@@ -170,7 +193,7 @@ export class MoreMenuService {
   openMenu(title: string, date: string) {
     this.title = title;
     this.date = date;
-    this.toggleMenu();
+    this.isOpen.set(true);
   }
   openWaybillMoreMenu(id: string) {
     this.id = id;

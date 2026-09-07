@@ -14,7 +14,8 @@ describe('UpdateModal', () => {
     updateServiceMock = {
       applyUpdate: vi.fn(),
       dismissUpdate: vi.fn(),
-      isUpdateAvailable: signal(false)
+      isUpdateAvailable: signal(false),
+      isApplying: signal(false)
     };
 
     await TestBed.configureTestingModule({

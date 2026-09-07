@@ -2,7 +2,7 @@
 <app-spinner *ngIf="loading()"></app-spinner>
 <!---->
 <!-- Main content -->
-<div style="display: flex; flex-direction: column; align-items: center; width: 100%; min-height: 100vh;">
+<div style="display: flex; flex-direction: column; align-items: center; width: 100%; min-height: 100svh; padding-top: env(safe-area-inset-top, 0px);">
   <router-outlet (activate)="onActivate()" (deactivate)="onDeactivate()"></router-outlet>
 </div>
 

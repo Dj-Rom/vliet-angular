@@ -1,11 +1,13 @@
 .alert {
   position: absolute;
   display: flex;
-  top: 10px;
+  top: env(safe-area-inset-top, 10px);
   right: 50%;
   transform: translateX(50%);
-  width: 360px;
-  height: 144px;
+  max-width: 360px;
+  width: 96vw;
+  max-height: 144px;
+  height: auto;
   max-height: max-content;
   border-radius: 4px;
   border-width: 1px;
@@ -20,20 +22,24 @@
   align-items: center;
   justify-content: space-between;
 }
+
 .error {
   border: 1px solid var(--text-error-color);
   color: var(--text-error-color);
   background: rgba(42, 23, 26, 1);
+
   img {
     svg {
       fill: rgba(255, 94, 94, 1);
     }
   }
 }
+
 .success {
   background: rgba(23, 50, 34, 1);
   border: 1px solid rgba(74, 208, 127, 1);
   color: rgba(74, 208, 127, 1);
+
   img {
     svg {
       fill: rgba(74, 208, 127, 1);

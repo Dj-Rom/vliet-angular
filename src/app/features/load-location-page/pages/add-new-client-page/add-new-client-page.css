@@ -1,12 +1,22 @@
 .header {
-  padding-left: 5px;
+  width: 100%;
+  position: fixed;
+  top: env(safe-area-inset-top, 0px);
+  left: 50%;
+  transform: translate(-50%);
+  /* max-width: 600px; */
+  padding: 49px 16px 16px 16px;
+  height: 44px;
+  angle: 0deg;
+  opacity: 1;
+  gap: 8px;
+
   display: flex;
-  justify-content: space-between;
-  height: 24px;
   align-items: flex-end;
-  width: 96vw;
-  max-width: 600px;
-  margin: 29px 2vw 1px 3vw;
+  justify-content: space-between;
+
+  background: black;
+  z-index: 20;
 
   .header-title {
     color: var(--text-primary);
@@ -26,13 +36,23 @@
   }
 }
 
+main {
+  position: relative;
+  top: 42px;
+  overflow: auto;
+  height: 81vh;
+}
+
 form {
-  margin: 0 auto;
+
+  margin: 0 2px;
   display: flex;
   max-width: 95vw !important;
   flex-direction: column;
   align-content: center;
   align-items: center;
+  padding: 10px;
+  padding-bottom: 250px;
 }
 
 .error {
@@ -69,7 +89,7 @@ main form {
     padding-top: 10px;
     padding-right: 12px;
     padding-bottom: 10px;
-    padding-left: 16px;
+    padding-left: 6px;
     border-radius: 4px;
     border-width: 1px;
     background: rgba(30, 35, 41, 1);

@@ -70,12 +70,40 @@ export class App {
       }
       if (
         event instanceof NavigationEnd ||
-        event instanceof NavigationCancel ||
-        event instanceof NavigationError
+        event instanceof NavigationCancel
       ) {
         this.loadingService.stop();
       }
+      if (event instanceof NavigationError) {
+        this.loadingService.stop();
+        this.handleNavigationError(event.error);
+      }
     });
+  }
+
+  private handleNavigationError(error: any): void {
+    const errorMsg = (
+      error?.message ||
+      error?.stack ||
+      error?.toString() ||
+      ''
+    ).toLowerCase();
+
+    const isChunkError =
+      errorMsg.includes('failed to fetch dynamically imported module') ||
+      errorMsg.includes('loading chunk') ||
+      errorMsg.includes('chunkloaderror') ||
+      errorMsg.includes('importing a module script failed');
+
+    if (isChunkError && typeof window !== 'undefined') {
+      const lastReload = sessionStorage.getItem('vliet_chunk_reload_ts');
+      const now = Date.now();
+      if (!lastReload || now - parseInt(lastReload, 10) > 15000) {
+        sessionStorage.setItem('vliet_chunk_reload_ts', now.toString());
+        console.warn('[App] Navigation chunk error, reloading latest bundle...');
+        window.location.reload();
+      }
+    }
   }
 
   onActivate() {

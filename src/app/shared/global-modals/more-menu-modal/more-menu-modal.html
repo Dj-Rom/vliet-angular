@@ -1,39 +1,62 @@
 <section class="more-menu">
-  <img
-    class="block close-more-menu"
-    src="assets/svg/load-calc-icons/closeItem.svg"
-    alt="zamknij więcej opcji"
-    (click)="this.moreMenuService.closeMenu()"
-  />
 
-  @if (window.location.pathname.includes('/app/load-management/add')) {
-    <button class="block font400size16 border" (click)="changeFileName()">
-      <img src="assets/svg/load-calc-icons/Edit_pencl.svg" alt="ikona" />Zmień nazwę pliku
-    </button>
+  <svg width="24" class="block close-more-menu" (click)="this.moreMenuService.closeMenu()" height="24"
+    viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M6.4 19L5 17.6L10.6 12L5 6.4L6.4 5L12 10.6L17.6 5L19 6.4L13.4 12L19 17.6L17.6 19L12 13.4L6.4 19Z"
+      fill="#9BA4AE" />
+  </svg>
+
+
+  @if (window.location.pathname.includes('/app/load-management/add') ||
+  window.location.pathname.includes('/app/load-management/edit')) {
+  <button class="block font400size16 border" (click)="changeFileName()">
+    <div> <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path
+          d="M4.16667 15.8333H5.35417L13.5 7.6875L12.3125 6.5L4.16667 14.6458V15.8333ZM2.5 17.5V13.9583L13.5 2.97917C13.6667 2.82639 13.8507 2.70833 14.0521 2.625C14.2535 2.54167 14.4653 2.5 14.6875 2.5C14.9097 2.5 15.125 2.54167 15.3333 2.625C15.5417 2.70833 15.7222 2.83333 15.875 3L17.0208 4.16667C17.1875 4.31944 17.309 4.5 17.3854 4.70833C17.4618 4.91667 17.5 5.125 17.5 5.33333C17.5 5.55556 17.4618 5.76736 17.3854 5.96875C17.309 6.17014 17.1875 6.35417 17.0208 6.52083L6.04167 17.5H2.5ZM12.8958 7.10417L12.3125 6.5L13.5 7.6875L12.8958 7.10417Z"
+          fill="#9BA4AE" />
+      </svg></div>
+    Zmień nazwę pliku
+  </button>
   } @else {
-    <div class="block border block-company-name">
-      <img src="assets/svg/load-calc-icons/LocationAway.svg" alt="ikona" />
-      <div class="block-company-name">
-        <h5 class="font400size16">{{ title }}</h5>
-        <span class="font400size12">{{ date }}</span>
-      </div>
+  <div class="block border block-company-name">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path
+        d="M2 21V9L10 3L15.375 7.05C14.9583 7.1 14.5667 7.19583 14.2 7.3375C13.8333 7.47917 13.4833 7.66667 13.15 7.9L10 5.5L4 10V19H8V21H2ZM10 21V19.1C10 18.75 10.0875 18.4208 10.2625 18.1125C10.4375 17.8042 10.675 17.5583 10.975 17.375C11.7417 16.925 12.5458 16.5833 13.3875 16.35C14.2292 16.1167 15.1 16 16 16C16.9 16 17.7708 16.1167 18.6125 16.35C19.4542 16.5833 20.2583 16.925 21.025 17.375C21.325 17.5583 21.5625 17.8042 21.7375 18.1125C21.9125 18.4208 22 18.75 22 19.1V21H10ZM12.15 19H19.85C19.2667 18.6667 18.65 18.4167 18 18.25C17.35 18.0833 16.6833 18 16 18C15.3167 18 14.65 18.0833 14 18.25C13.35 18.4167 12.7333 18.6667 12.15 19ZM16 15C15.1667 15 14.4583 14.7083 13.875 14.125C13.2917 13.5417 13 12.8333 13 12C13 11.1667 13.2917 10.4583 13.875 9.875C14.4583 9.29167 15.1667 9 16 9C16.8333 9 17.5417 9.29167 18.125 9.875C18.7083 10.4583 19 11.1667 19 12C19 12.8333 18.7083 13.5417 18.125 14.125C17.5417 14.7083 16.8333 15 16 15ZM16 13C16.2833 13 16.5208 12.9042 16.7125 12.7125C16.9042 12.5208 17 12.2833 17 12C17 11.7167 16.9042 11.4792 16.7125 11.2875C16.5208 11.0958 16.2833 11 16 11C15.7167 11 15.4792 11.0958 15.2875 11.2875C15.0958 11.4792 15 11.7167 15 12C15 12.2833 15.0958 12.5208 15.2875 12.7125C15.4792 12.9042 15.7167 13 16 13Z"
+        fill="#9BA4AE" />
+    </svg>
+
+    <div class="block-company-name">
+      <h5 class="font400size16">{{ title }}</h5>
+      <span class="font400size12">{{ date }}</span>
     </div>
-    <button class="block font400size16 border" (click)="edit()">
-      <img src="assets/svg/navi/Edit.svg" alt="ikona-edytuj" />Edytuj
-    </button>
+  </div>
+  <button class="block font400size16 border" (click)="edit()">
+    <div> <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path
+          d="M5 19H6.425L16.2 9.225L14.775 7.8L5 17.575V19ZM3 21V16.75L16.2 3.575C16.4 3.39167 16.6208 3.25 16.8625 3.15C17.1042 3.05 17.3583 3 17.625 3C17.8917 3 18.15 3.05 18.4 3.15C18.65 3.25 18.8667 3.4 19.05 3.6L20.425 5C20.625 5.18333 20.7708 5.4 20.8625 5.65C20.9542 5.9 21 6.15 21 6.4C21 6.66667 20.9542 6.92083 20.8625 7.1625C20.7708 7.40417 20.625 7.625 20.425 7.825L7.25 21H3ZM15.475 8.525L14.775 7.8L16.2 9.225L15.475 8.525Z"
+          fill="#9BA4AE" />
+      </svg></div>
+    Edytuj
+  </button>
   }
 
-  <button
-    class="block font400size16 border"
-    [disabled]="!hasItemsToSend()"
-    [style.opacity]="hasItemsToSend() ? '1' : '0.45'"
-    [style.cursor]="hasItemsToSend() ? 'pointer' : 'not-allowed'"
-    (click)="onSend()"
-  >
-    <img src="assets/svg/navi/Sent.svg" alt="ikona-wyślij" />Wyślij
+  <button class="block font400size16 border" [disabled]="!hasItemsToSend()"
+    [style.opacity]="hasItemsToSend() ? '1' : '0.45'" [style.cursor]="hasItemsToSend() ? 'pointer' : 'not-allowed'"
+    (click)="onSend()">
+    <div> <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path
+          d="M7 12V3.85L4.4 6.45L3 5L8 0L13 5L11.6 6.45L9 3.85V12H7ZM2 16C1.45 16 0.979167 15.8042 0.5875 15.4125C0.195833 15.0208 0 14.55 0 14V11H2V14H14V11H16V14C16 14.55 15.8042 15.0208 15.4125 15.4125C15.0208 15.8042 14.55 16 14 16H2Z"
+          fill="#9BA4AE" />
+      </svg></div>
+    Wyślij
   </button>
 
   <button class="block font400size16" (click)="onDelete()">
-    <img src="assets/svg/navi/Delete.svg" alt="ikona-usun" />Usuń
+    <div> <svg width="16" height="18" viewBox="0 0 16 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path
+          d="M3 18C2.45 18 1.97917 17.8042 1.5875 17.4125C1.19583 17.0208 1 16.55 1 16V3H0V1H5V0H11V1H16V3H15V16C15 16.55 14.8042 17.0208 14.4125 17.4125C14.0208 17.8042 13.55 18 13 18H3ZM13 3H3V16H13V3ZM5 14H7V5H5V14ZM9 14H11V5H9V14Z"
+          fill="#9BA4AE" />
+      </svg></div>
+    Usuń
   </button>
 </section>

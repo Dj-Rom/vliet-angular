@@ -1,10 +1,24 @@
 <section class="more-menu">
-  <img class="block close-more-menu" src="assets\svg\load-calc-icons\closeItem.svg" alt="close more menu"
-    (click)="this.moreMenuService.closeWaybillMoreMenu()" />
+  <svg class="block close-more-menu" (click)="this.moreMenuService.closeWaybillMoreMenu()" width="24" height="24"
+    viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M6.4 19L5 17.6L10.6 12L5 6.4L6.4 5L12 10.6L17.6 5L19 6.4L13.4 12L19 17.6L17.6 19L12 13.4L6.4 19Z"
+      fill="#9BA4AE" />
+  </svg>
+
   <button class="block font400size16 border" (click)="editWaybill(id)">
-    <img src="assets/svg/navi/Edit.svg" alt="icon-edit" />Edytuj
+    <div> <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path
+          d="M5 19H6.425L16.2 9.225L14.775 7.8L5 17.575V19ZM3 21V16.75L16.2 3.575C16.4 3.39167 16.6208 3.25 16.8625 3.15C17.1042 3.05 17.3583 3 17.625 3C17.8917 3 18.15 3.05 18.4 3.15C18.65 3.25 18.8667 3.4 19.05 3.6L20.425 5C20.625 5.18333 20.7708 5.4 20.8625 5.65C20.9542 5.9 21 6.15 21 6.4C21 6.66667 20.9542 6.92083 20.8625 7.1625C20.7708 7.40417 20.625 7.625 20.425 7.825L7.25 21H3ZM15.475 8.525L14.775 7.8L16.2 9.225L15.475 8.525Z"
+          fill="#9BA4AE" />
+      </svg></div>
+    Edytuj
   </button>
   <button class="block font400size16" (click)="onDelete(id)">
-    <img src="assets/svg/navi/Delete.svg" alt="icon-delete" />Usuń
+    <div> <svg width="16" height="18" viewBox="0 0 16 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path
+          d="M3 18C2.45 18 1.97917 17.8042 1.5875 17.4125C1.19583 17.0208 1 16.55 1 16V3H0V1H5V0H11V1H16V3H15V16C15 16.55 14.8042 17.0208 14.4125 17.4125C14.0208 17.8042 13.55 18 13 18H3ZM13 3H3V16H13V3ZM5 14H7V5H5V14ZM9 14H11V5H9V14Z"
+          fill="#9BA4AE" />
+      </svg></div>
+    Usuń
   </button>
 </section>

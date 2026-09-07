@@ -96,17 +96,20 @@ export class DateFilter implements AfterViewInit {
   }
 
   private initializeSelectedDay(): void {
-    const loaded = this.loadFromCache();
+    const today = new Date();
+    this.date = today;
+    this.dateService.currentSelectedMonth.set(today.getMonth());
+    this.dateService.currentSelectedYear.set(today.getFullYear());
 
-    if (!loaded) {
-      const currentDay =
-        this.monthDays().find(
-          (d) =>
-            d.date.getDate() === this.date.getDate() &&
-            d.date.getMonth() === this.date.getMonth() &&
-            d.date.getFullYear() === this.date.getFullYear(),
-        ) ?? this.monthDays()[0];
+    const currentDay =
+      this.monthDays().find(
+        (d) =>
+          d.date.getDate() === today.getDate() &&
+          d.date.getMonth() === today.getMonth() &&
+          d.date.getFullYear() === today.getFullYear(),
+      ) ?? this.monthDays()[0];
 
+    if (currentDay) {
       this.selectDay(currentDay);
     }
   }
@@ -225,6 +228,15 @@ export class DateFilter implements AfterViewInit {
 
   isSelected(day: MonthDay): boolean {
     return this.dateService.selectedDay() === day;
+  }
+
+  isToday(day: MonthDay): boolean {
+    const today = new Date();
+    return (
+      day.date.getDate() === today.getDate() &&
+      day.date.getMonth() === today.getMonth() &&
+      day.date.getFullYear() === today.getFullYear()
+    );
   }
 
   backMonth(): void {

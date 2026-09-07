@@ -1,9 +1,15 @@
 .listItems {
-  height: 71vh;
+  height: auto;
+  min-height: 85vw;
+  max-height: 89vh;
   overflow: auto;
   overflow-x: hidden;
-  padding-bottom: 20px;
+  padding-bottom: 220px;
+  position: relative;
+  top: 126px;
+
 }
+
 p {
   color: rgba(155, 164, 174, 1);
   font-family: Inter;

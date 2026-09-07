@@ -12,10 +12,10 @@ export class AlertService {
   getMessage = () => this.messageSignal();
   getType = () => this.typeSignal();
 
-  constructor() {}
+  constructor() { }
 
   /** Show alert with automatic hide */
-  show(type: 'success' | 'error', message: string, duration = 3000) {
+  show(type: 'success' | 'error', message: string, duration = 2000) {
     this.typeSignal.set(type);
     this.messageSignal.set(message);
     this.showSignal.set(true);

@@ -1,5 +1,8 @@
 .calendar {
   position: absolute;
+  top: 140px;
+  transform: translate(-50%);
+  left: 50%;
   width: 96vw;
   max-width: 600px;
   margin: 0px 2vw 0 2vw;
@@ -15,6 +18,25 @@
   padding: 10px;
   color: var(--text-primary);
   border: 1px solid rgba(76, 141, 255, 1);
+  box-shadow: 0 0 0 100vmax rgba(0, 0, 0, 0.8);
+}
+
+.close-btn {
+  position: absolute;
+  top: -44px;
+  right: 10px;
+  background: none;
+  border: none;
+  padding: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 10;
+}
+
+.close-btn:active svg path {
+  fill: #ffffff;
 }
 
 .calendar-header {
@@ -31,6 +53,18 @@
   color: #8b95a5;
   font-size: 35px;
   cursor: pointer;
+}
+
+.select-wrapper {
+  margin-left: 6vw;
+}
+
+.arrow {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .selectors {
@@ -67,7 +101,7 @@ select,
 
 select {
   height: 20px;
-  width: 100px;
+  width: auto;
   border: none;
   background: rgba(30, 35, 41, 1);
   font-family: Inter;
@@ -107,88 +141,143 @@ input:hover {
   color: #fff;
 }
 
-.range-start,
-.range-end {
-  background: #4f46e5;
-  color: white;
-  border-radius: 50%;
-}
-
-.in-range {
-  background: #4f46e5;
-  gap: 0;
-}
-
 .weekdays {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
-  font-size: 12px;
+  font-size: 13px;
   color: #8b95a5;
-  margin-bottom: 6px;
+  margin-bottom: 8px;
   text-align: center;
-  font-family: Inter;
-  font-weight: 400;
-  font-style: Regular;
-  font-size: 14px;
-  leading-trim: NONE;
+  font-family: Inter, sans-serif;
+  font-weight: 500;
   line-height: 20px;
-  letter-spacing: 0%;
-  text-align: center;
-  color: rgba(155, 164, 174, 1);
 }
 
 .days {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
-  gap: 6px;
-  font-family: Inter;
-  font-weight: 400;
-  font-style: Regular;
-  font-size: 16px;
-  leading-trim: NONE;
-  line-height: 24px;
-  letter-spacing: 0%;
-  text-align: center;
-  vertical-align: bottom;
-  line-height: 20px;
-  letter-spacing: 0%;
-  text-align: center;
+  row-gap: 4px;
+  column-gap: 0;
+  font-family: Inter, sans-serif;
+  font-size: 15px;
   color: var(--text-primary);
+  user-select: none;
 }
 
 .day {
-  letter-spacing: 0%;
-  text-align: center;
-  vertical-align: bottom;
-  width: 36px;
-  height: 36px;
+  width: 100%;
+  height: 38px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  cursor: pointer;
+  box-sizing: border-box;
+  font-weight: 500;
+}
+
+.day-content {
+  width: 32px;
+  height: 32px;
   display: flex;
   align-items: center;
   justify-content: center;
   border-radius: 50%;
-  cursor: pointer;
+  position: relative;
+  z-index: 2;
+  transition: background-color 0.15s ease, transform 0.1s ease;
 }
 
-.day:hover {
-  background: rgba(255, 255, 255, 0.06);
+.day:hover:not(.range-start):not(.range-end):not(.in-range):not(.selected) .day-content {
+  background: rgba(255, 255, 255, 0.12);
 }
 
 .day.muted {
-  color: #555;
+  color: #64748b;
+  opacity: 0.5;
 }
 
-.arrow {
-  width: 40px;
-  height: 40px;
+.day.today:not(.selected):not(.range-start):not(.range-end):not(.in-range) .day-content {
+  border: 1px solid rgba(47, 124, 255, 0.8);
 }
 
-.day.selected {
-  border-radius: 50%;
-
+/* Single date selection (for normal waybills) */
+.day.selected .day-content {
+  background: rgba(76, 141, 255, 1);
+  ;
+  color: #ffffff;
+  font-weight: 600;
   border: 1px solid rgba(47, 124, 255, 0.9);
-  background: #2f7cff;
-  backdrop-filter: blur(6px);
+  box-shadow: 0 0 10px rgba(47, 124, 255, 0.4);
 }
+
+/* Range selection: continuous unified line */
+.day.range-start,
+.day.in-range,
+.day.range-end {
+  background: rgba(76, 141, 255, 1);
+  ;
+  color: #ffffff;
+}
+
+.day.range-start {
+  border-top-left-radius: 19px;
+  border-bottom-left-radius: 19px;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.day.in-range {
+  border-radius: 0;
+}
+
+.day.range-end {
+  border-top-right-radius: 19px;
+  border-bottom-right-radius: 19px;
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+/* Single day in range mode (or only start date picked so far) */
+.day.range-single,
+.day.range-start.range-end {
+  border-radius: 19px !important;
+}
+
+/* Week row boundary wrapping */
+/* If in-range falls on Sunday (7th day of row), round its right edge */
+.day.in-range:nth-child(7n) {
+  border-top-right-radius: 19px;
+  border-bottom-right-radius: 19px;
+}
+
+/* If range-start falls on Sunday, round both sides */
+.day.range-start:nth-child(7n) {
+  border-radius: 19px !important;
+}
+
+/* If in-range falls on Monday (1st day of row), round its left edge */
+.day.in-range:nth-child(7n + 1) {
+  border-top-left-radius: 19px;
+  border-bottom-left-radius: 19px;
+}
+
+/* If range-end falls on Monday, round both sides */
+.day.range-end:nth-child(7n + 1) {
+  border-radius: 19px !important;
+}
+
+/* Distinct start and end badges */
+.day.range-start .day-content,
+.day.range-end .day-content {
+  font-weight: 700;
+
+
+}
+
+.day.range-start:hover,
+.day.in-range:hover,
+.day.range-end:hover {}
 
 .save-btn {
   margin-top: 20px;

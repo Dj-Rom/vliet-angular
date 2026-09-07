@@ -181,12 +181,14 @@ input:focus {
 
   border: 1px solid rgba(47, 54, 62, 1);
 }
-.char{
+
+.char {
   padding: 0px 13px 2px 13px;
   font-size: 30px;
   width: auto;
   height: auto;
 }
+
 .addBtn {
   font-size: 24px;
 }
@@ -194,10 +196,12 @@ input:focus {
 .decrBtn {
   padding-bottom: 7px !important;
 }
+
 .download-icon {
   width: 44px;
   height: 44px;
 }
+
 .inp {
   width: 189px;
   height: 44px;
@@ -278,7 +282,7 @@ input:focus {
   height: 100vh;
   position: fixed;
 
-  top: 0;
+  top: env(safe-area-inset-top, 0px);
   background: rgba(0, 0, 0, 0.8);
 }
 
@@ -302,6 +306,7 @@ input:focus {
 }
 
 @media screen and (max-width: 371px) {
+
   .section-add-new-list,
   .header,
   .header-add-new-list,
@@ -322,8 +327,7 @@ input:focus {
     width: 72vw !important;
   }
 
-  .saveBtn {
-  }
+  .saveBtn {}
 
   .section-add-new-list-buttons,
   .section-add-new-list-text {

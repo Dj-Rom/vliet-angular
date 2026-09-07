@@ -43,13 +43,18 @@ export class LoadCalculatorPage {
 
 
   }
+
   openMenu(title: string, date: string) {
+
     this.menuTitle = title;
     this.menuDate = date;
 
     this.moreMenuService.openMenu(title, date);
   }
 
+  protected back() {
+    this.location.back();
+  }
   changePage(page: string) {
     this.selectedPage = page;
     this.router.navigate(['app/load-management', page]);

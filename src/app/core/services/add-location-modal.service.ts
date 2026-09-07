@@ -17,6 +17,6 @@ export class AddLocationModalService {
   close() {
     this.isOpen$.next(false);
     this.client$.next(null);
-    document.body.style.overflow = 'auto';
+    document.body.style.overflow = 'hidden';
   }
 }

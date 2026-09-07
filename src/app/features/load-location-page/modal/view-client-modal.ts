@@ -62,6 +62,7 @@ export class ViewClientModal {
 
   back() {
     this.modalService.close();
+    this.moreMenuService.closeClientMoreMenu()
     this.isEdit = false;
   }
 

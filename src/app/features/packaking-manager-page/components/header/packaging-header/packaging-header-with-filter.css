@@ -1,7 +1,8 @@
 :host {
+  position: -webkit-sticky;
   position: fixed;
   z-index: 105;
-  top: 0;
+  top: env(safe-area-inset-top, 0px);
   left: 0;
   width: 100%;
   background: black;
@@ -11,9 +12,11 @@
 
 header {
   width: 100%;
-  height: 132px;
+  height: auto;
+  min-height: 132px;
   max-width: 600px;
   padding-top: 18px;
+  padding-bottom: 8px;
   background: black;
   display: flex;
   flex-direction: column;

@@ -1,12 +1,20 @@
 <header class="header-new-waybill">
   <button class="backBtn" (click)="back()">
-    <img src="assets/svg/back.svg" />
+    <svg width="12" height="20" viewBox="0 0 12 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M10 20L0 10L10 0L11.775 1.775L3.55 10L11.775 18.225L10 20Z" fill="white" />
+    </svg>
+
   </button>
   <span>
     <div *ngIf="!this.editWaybillService.currentDate().dataFinish" class="current">Aktualny</div>
     Edytuj kartę drogową
   </span>
-  <img src="assets/svg/close.svg" />
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2"
+    stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+    <line x1="18" y1="6" x2="6" y2="18" />
+    <line x1="6" y1="6" x2="18" y2="18" />
+  </svg>
+
 </header>
 <app-select-vehicle-number-page *ngIf="
     editWaybillService.isOpenEditTruckModalMenu() || editWaybillService.isOpenEditTrailerModalMenu()
@@ -18,12 +26,22 @@
       <div class="new-waybill-vehicle-input" (click)="onOpenTruckModalMenu()">
         Ciągnik
         <p>{{ this.editWaybillService.getCurrentSelectedVehicle().truck }}</p>
-        <img src="assets/svg/load-calc-icons/ArrowRight.svg" />
+        <svg width="30" height="24" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path
+            d="M9.33317 12L8.39984 11.0333L10.7665 8.66667H2.6665V7.33333H10.7665L8.39984 4.96667L9.33317 4L13.3332 8L9.33317 12Z"
+            fill="white" />
+        </svg>
+
       </div>
       <div class="new-waybill-vehicle-input" (click)="onOpenTrailerModalMenu()">
         Naczepa
         <p>{{ this.editWaybillService.getCurrentSelectedVehicle().trailer }}</p>
-        <img src="assets/svg/load-calc-icons/ArrowRight.svg" />
+        <svg width="30" height="24" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path
+            d="M9.33317 12L8.39984 11.0333L10.7665 8.66667H2.6665V7.33333H10.7665L8.39984 4.96667L9.33317 4L13.3332 8L9.33317 12Z"
+            fill="white" />
+        </svg>
+
       </div>
     </div>
   </div>
@@ -67,5 +85,7 @@
   </div>
 </main>
 <div class="saveBtnBack">
-  <button class="save-btn" (click)="addNewWaybills()">Zmienić</button>
+  <button
+    *ngIf=" !this.editWaybillService.isOpenEditCalendarStartModal() && !this.editWaybillService.isOpenEditCalendarEndModal() && !this.editWaybillService.isOpenEditTimeStartModal() && !this.editWaybillService.isOpenEditTimeEndModal()"
+    class="save-btn" (click)="addNewWaybills()">Zmienić</button>
 </div>

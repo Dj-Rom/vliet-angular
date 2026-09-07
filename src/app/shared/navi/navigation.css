@@ -6,6 +6,7 @@ h2 {
   margin: 80px 20px 0 20px;
   color: var(--ligth-color);
 }
+
 .nav {
   position: absolute;
   left: 0;
@@ -75,6 +76,7 @@ h2 {
   .burger {
     display: block;
   }
+
   .content {
     margin: 20px;
   }
@@ -82,7 +84,7 @@ h2 {
   .nav {
     position: fixed;
     left: -80vw;
-    top: 0;
+    top: env(safe-area-inset-top, 0px);
     width: 80vw;
     opacity: 0.87;
     transition:

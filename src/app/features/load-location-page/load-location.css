@@ -1,3 +1,7 @@
+:host {
+  height: 95vh;
+}
+
 h3 {
   display: block;
 
@@ -11,20 +15,27 @@ h3 {
   text-align: center;
   color: var(--text-primary);
 }
+
 .active {
   font-weight: 600;
   background: rgba(76, 141, 255, 1);
 }
+
 .active {
   font-weight: 600;
   background: rgba(76, 141, 255, 1);
 }
+
 header {
   background: black;
-  position: sticky;
-  top: 0;
+  position: fixed;
+  top: env(safe-area-inset-top, 0px);
+  left: 50%;
+  transform: translate(-50%);
   padding: 24px 0 10px 0;
+  z-index: 10;
 }
+
 .btnAdd {
   position: fixed;
   width: 56px;
@@ -38,6 +49,7 @@ header {
   border-radius: 50% !important;
   background: var(--button-primary-bg) !important;
 }
+
 .saveBtnBack {
   position: fixed;
   bottom: 0px;
@@ -73,6 +85,7 @@ header {
   flex-direction: row;
   align-content: center;
   justify-content: space-between;
+
   input {
     width: 95%;
     font-family: Inter;
@@ -86,27 +99,35 @@ header {
     background: rgba(30, 35, 41, 1);
     border: none;
   }
+
   input:focus,
   input:active {
     outline: none;
     border: none;
   }
+
   input::placeholder {
     color: rgba(110, 119, 129, 1);
   }
 }
 
 .groupCompanyBtn {
-  margin-top: 24px;
+
   display: flex;
+  position: relative;
+  top: 118px;
+  overflow: auto;
+  height: calc(100vh - 109px);
   flex-direction: column;
-  margin-bottom: 100px;
+  margin-top: 20px;
+  padding-bottom: 130px;
 }
+
 .companySelectBtn {
   width: 96vw;
   max-width: 600px;
   margin: 6px 2vw 6px 2vw;
-  height: 64px;
+  min-height: 64px;
   gap: 8px;
   angle: 0 deg;
   opacity: 1;

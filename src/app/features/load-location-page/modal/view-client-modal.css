@@ -1,6 +1,6 @@
 .backgroundForMobileModal {
   position: fixed;
-  top: 0;
+  top: env(safe-area-inset-top, 0px);
   left: 0;
   width: 100%;
   height: 100%;
@@ -10,26 +10,38 @@
 
 .modal-window {
   overflow: auto;
-  position: fixed;
-  top: 0;
-  left: 50%;
-  transform: translate(-50%);
-  width: 100%;
+  height: 67vh;
+
+  width: 100vw;
   padding: 1rem;
 
   background: black;
   display: flex;
   flex-direction: column;
   z-index: 1;
-  height: calc(100vh - 225px);
+
   z-index: 120;
 }
 
 header {
-  display: flex;
-  justify-content: flex-start;
-  align-items: flex-end;
+  width: 100%;
+  position: fixed;
+  top: env(safe-area-inset-top, 0px);
+  left: 50%;
+  transform: translate(-50%);
+  /* max-width: 600px; */
+  padding: 49px 16px 16px 16px;
   height: 44px;
+  angle: 0deg;
+  opacity: 1;
+  gap: 8px;
+
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+
+  background: black;
+  z-index: 20;
 
   span {
     font-family: Inter;
@@ -44,6 +56,12 @@ header {
     color: var(--text-primary);
     text-align: center;
   }
+}
+
+main {
+  position: relative;
+  top: 42px;
+
 }
 
 .saveBtnBack {

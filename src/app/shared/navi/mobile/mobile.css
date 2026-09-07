@@ -6,9 +6,9 @@
   z-index: 100;
   text-align: center;
   background: #000000;
-  padding-bottom: env(safe-area-inset-bottom, 4px);
-  transform: translateZ(0);
-  will-change: transform;
+  /* padding-bottom: env(safe-area-inset-bottom, 4px); */
+  /* transform: translateZ(0);
+  will-change: transform; */
 }
 
 .nav-mobile ul {
@@ -47,7 +47,8 @@
 .nav-mobile li svg {
   width: 18px;
   height: 18px;
-  transition: stroke 0.15s ease, fill 0.15s ease;  /* only animated properties, no 'all' */
+  transition: stroke 0.15s ease, fill 0.15s ease;
+  /* only animated properties, no 'all' */
 }
 
 .nav-mobile li img {
@@ -66,7 +67,7 @@
 
 .active svg {
   stroke: var(--focus-color, #38bdf8) !important;
-  fill: var(--focus-color, #38bdf8) !important;
+  /* fill: var(--focus-color, #38bdf8) !important; */
 }
 
 /* Tablet floating bar styling */

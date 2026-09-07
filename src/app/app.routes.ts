@@ -1,10 +1,19 @@
 import { Routes } from '@angular/router';
+import { inject } from '@angular/core';
 import { AuthGuard } from './core/guard/authguard';
 import { StatusGuard } from './core/guard/status.guard';
+import { AuthService } from './core/services/auth.service';
 
 export const routes: Routes = [
-  // Default → redirect to sign-in
-  { path: '', redirectTo: '/auth/sign-in', pathMatch: 'full' },
+  // Default → smart redirect directly to app if already logged in, otherwise sign-in
+  {
+    path: '',
+    pathMatch: 'full',
+    redirectTo: () => {
+      const auth = inject(AuthService);
+      return auth.isLoggedIn() ? '/app/waybill-new' : '/auth/sign-in';
+    },
+  },
 
   // Authentication routes
   {

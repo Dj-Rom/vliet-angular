@@ -1,18 +1,28 @@
 <section class="calendar-header-filter mt24">
   <header>
     <div class="month-switcher">
-      <img (click)="backMonth()" src="assets/svg/back.svg" alt="" />
+      <svg (click)="backMonth()" width="12" height="20" viewBox="0 0 12 20" fill="none"
+        xmlns="http://www.w3.org/2000/svg">
+        <path d="M10 20L0 10L10 0L11.775 1.775L3.55 10L11.775 18.225L10 20Z" fill="white" />
+      </svg>
+
       <span class="mmyyTitle font500size16">
         {{ dateService.MONTHS[dateService.currentSelectedMonth()]?.name }}
         {{ dateService.currentSelectedYear() }}
       </span>
-      <img (click)="nextMonth()" src="assets/svg/next.svg" alt="" />
+      <svg width="12" (click)="nextMonth()" height="20" viewBox="0 0 12 20" fill="none"
+        xmlns="http://www.w3.org/2000/svg">
+        <path d="M1.775 20L0 18.225L8.225 10L0 1.775L1.775 0L11.775 10L1.775 20Z" fill="white" />
+      </svg>
+
     </div>
   </header>
 
   <div class="scroll-container">
     <div class="days-wrapper">
-      <div #dayItem class="day-card" *ngFor="let day of monthDays()" [class.selected]="isSelected(day)"
+      <div #dayItem class="day-card" *ngFor="let day of monthDays()"
+        [class.selected]="isSelected(day)"
+        [class.today]="isToday(day)"
         (click)="selectDay(day)">
         <div class="week font400size14">{{ day.weekday }}</div>
         <div class="day font400size16">{{ day.day }}</div>

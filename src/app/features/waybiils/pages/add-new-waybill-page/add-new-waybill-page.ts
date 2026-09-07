@@ -79,9 +79,6 @@ export class AddNewWaybillPage {
       return this.alert.show('error', 'Proszę wybrać ciągnik');
     }
 
-    if (!this.addNewWaybillsService.currentSelectedVehicle().trailer) {
-      return this.alert.show('error', 'Proszę wybrać naczepę');
-    }
 
     this.addNewWaybillsService.saveInFB();
     this.waybillsService.refresh();

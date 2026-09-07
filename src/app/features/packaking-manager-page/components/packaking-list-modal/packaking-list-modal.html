@@ -2,9 +2,20 @@
 
   <div class="modal-inner">
 
-    <span class="btnSent" (click)="sendPackaging()" *ngIf="!isListEmpty"><img _ngcontent-ng-c3352190548=""
-        src="assets/svg/navi/Sent.svg" alt="ikona-wyślij"></span>
-    <span class="btnClose" (click)="pMService.closeModalAndClear()">X</span>
+    <span class="btnSent" (click)="sendPackaging()" *ngIf="!isListEmpty"><svg width="16" height="16" viewBox="0 0 16 16"
+        fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path
+          d="M7 12V3.85L4.4 6.45L3 5L8 0L13 5L11.6 6.45L9 3.85V12H7ZM2 16C1.45 16 0.979167 15.8042 0.5875 15.4125C0.195833 15.0208 0 14.55 0 14V11H2V14H14V11H16V14C16 14.55 15.8042 15.0208 15.4125 15.4125C15.0208 15.8042 14.55 16 14 16H2Z"
+          fill="#9BA4AE" />
+      </svg>
+    </span>
+    <span class="btnClose" (click)="pMService.closeModalAndClear()"><svg xmlns="http://www.w3.org/2000/svg" width="24"
+        height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+        viewBox="0 0 24 24">
+        <line x1="18" y1="6" x2="6" y2="18" />
+        <line x1="6" y1="6" x2="18" y2="18" />
+      </svg>
+    </span>
 
 
 

@@ -68,6 +68,40 @@ export class Calendar {
     private editWaybill: EditWaybillService,
     private reportService: ReportService,
   ) {
+    let existingDateStr = '';
+    if (this.addNewWaybillsService.isOpenCalendarStartModal()) {
+      existingDateStr = this.addNewWaybillsService.currentDate().dataStart;
+    } else if (this.addNewWaybillsService.isOpenCalendarEndModal()) {
+      existingDateStr = this.addNewWaybillsService.currentDate().dataFinish;
+    } else if (this.editWaybill.isOpenEditCalendarStartModal()) {
+      existingDateStr = this.editWaybill.currentDate().dataStart;
+    } else if (this.editWaybill.isOpenEditCalendarEndModal()) {
+      existingDateStr = this.editWaybill.currentDate().dataFinish;
+    }
+
+    if (existingDateStr) {
+      const parsed = this.parseDateString(existingDateStr);
+      if (parsed) {
+        this.selectedDate.set(parsed);
+        this.currentMonth.set(parsed.getMonth());
+        this.currentYear.set(parsed.getFullYear());
+      }
+    }
+  }
+
+  private parseDateString(str: string): Date | null {
+    if (!str) return null;
+    const parts = str.trim().split(' ');
+    if (parts.length === 3) {
+      const day = parseInt(parts[0], 10);
+      const monthPrefix = parts[1].toLowerCase();
+      const year = parseInt(parts[2], 10);
+      const monthIndex = MONTHS.findIndex((m) => m.toLowerCase().startsWith(monthPrefix));
+      if (!isNaN(day) && monthIndex !== -1 && !isNaN(year)) {
+        return new Date(year, monthIndex, day);
+      }
+    }
+    return null;
   }
 
   /* ---------- CALENDAR ---------- */
@@ -137,12 +171,17 @@ export class Calendar {
 
   /* ---------- HELPERS ---------- */
 
+  private toMidnight(d: Date): number {
+    return new Date(d.getFullYear(), d.getMonth(), d.getDate()).getTime();
+  }
+
   isToday(d: Date): boolean {
-    return d.toDateString() === this.today.toDateString();
+    return this.toMidnight(d) === this.toMidnight(this.today);
   }
 
   isSelected(d: Date): boolean {
-    return this.selectedDate()?.toDateString() === d.toDateString();
+    const selected = this.selectedDate();
+    return !!selected && this.toMidnight(selected) === this.toMidnight(d);
   }
 
   formatDate(date: Date): string {
@@ -155,17 +194,31 @@ export class Calendar {
   /* ---------- RANGE ---------- */
 
   isRangeStart(d: Date): boolean {
-    return this.rangeStart()?.toDateString() === d.toDateString();
+    const start = this.rangeStart();
+    return !!start && this.toMidnight(start) === this.toMidnight(d);
   }
 
   isRangeEnd(d: Date): boolean {
-    return this.rangeEnd()?.toDateString() === d.toDateString();
+    const end = this.rangeEnd();
+    return !!end && this.toMidnight(end) === this.toMidnight(d);
+  }
+
+  isRangeSingle(d: Date): boolean {
+    const start = this.rangeStart();
+    if (!start) return false;
+    const startMs = this.toMidnight(start);
+    const dMs = this.toMidnight(d);
+    if (startMs !== dMs) return false;
+    const end = this.rangeEnd();
+    return !end || startMs === this.toMidnight(end);
   }
 
   isInRange(d: Date): boolean {
     const start = this.rangeStart();
     const end = this.rangeEnd();
-    return !!start && !!end && d > start && d < end;
+    if (!start || !end) return false;
+    const dMs = this.toMidnight(d);
+    return dMs > this.toMidnight(start) && dMs < this.toMidnight(end);
   }
 
   /* ---------- SELECTION ---------- */
@@ -181,7 +234,7 @@ export class Calendar {
       }
 
       if (!this.rangeEnd()) {
-        if (date < this.rangeStart()!) {
+        if (this.toMidnight(date) < this.toMidnight(this.rangeStart()!)) {
           this.rangeStart.set(date);
         } else {
           this.rangeEnd.set(date);
@@ -195,34 +248,20 @@ export class Calendar {
     }
 
     this.selectedDate.set(date);
-
-    if (this.addNewWaybillsService.isOpenCalendarStartModal()) {
-      this.addNewWaybillsService.setCurrentDate('dataStart', this.formatDate(date));
-    }
-
-    if (this.addNewWaybillsService.isOpenCalendarEndModal()) {
-      this.addNewWaybillsService.setCurrentDate('dataFinish', this.formatDate(date));
-    }
-
-    if (this.editWaybill.isOpenEditCalendarStartModal()) {
-      this.editWaybill.currentDate.set({
-        ...this.editWaybill.currentDate(),
-        dataStart: this.formatDate(date),
-      });
-    }
-
-    if (this.editWaybill.isOpenEditCalendarEndModal()) {
-      this.editWaybill.currentDate.set({
-        ...this.editWaybill.currentDate(),
-        dataFinish: this.formatDate(date),
-      });
-    }
   }
 
   generateReport(start: Date, finish: Date): void {
     const all = this.waybillsService.waybills();
     const filtered = this.reportService.filterByRange(all, start, finish);
     this.reportRows = this.reportService.buildTableData(filtered);
+    this.waybillsService.isReportOpen.set(false);
+  }
+
+  close(): void {
+    this.addNewWaybillsService.isOpenCalendarStartModal.set(false);
+    this.addNewWaybillsService.isOpenCalendarEndModal.set(false);
+    this.editWaybill.isOpenEditCalendarStartModal.set(false);
+    this.editWaybill.isOpenEditCalendarEndModal.set(false);
     this.waybillsService.isReportOpen.set(false);
   }
 
@@ -238,6 +277,31 @@ export class Calendar {
 
       this.generateReport(start, end);
       this.pdf.createReport(this.reportRows, start, end);
+    } else {
+      const date = this.selectedDate();
+      if (date) {
+        if (this.addNewWaybillsService.isOpenCalendarStartModal()) {
+          this.addNewWaybillsService.setCurrentDate('dataStart', this.formatDate(date));
+        }
+
+        if (this.addNewWaybillsService.isOpenCalendarEndModal()) {
+          this.addNewWaybillsService.setCurrentDate('dataFinish', this.formatDate(date));
+        }
+
+        if (this.editWaybill.isOpenEditCalendarStartModal()) {
+          this.editWaybill.currentDate.set({
+            ...this.editWaybill.currentDate(),
+            dataStart: this.formatDate(date),
+          });
+        }
+
+        if (this.editWaybill.isOpenEditCalendarEndModal()) {
+          this.editWaybill.currentDate.set({
+            ...this.editWaybill.currentDate(),
+            dataFinish: this.formatDate(date),
+          });
+        }
+      }
     }
 
     this.addNewWaybillsService.isOpenCalendarStartModal.set(false);

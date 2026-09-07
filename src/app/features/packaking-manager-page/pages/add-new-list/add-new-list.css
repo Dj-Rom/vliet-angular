@@ -1,3 +1,10 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
 .section-add-new-list {
   max-width: 600px;
   display: flex;
@@ -17,13 +24,16 @@
 }
 
 header {
+  position: -webkit-sticky;
   position: sticky;
-  display: flex;
   top: 0;
+  z-index: 50;
+  display: flex;
   background: black;
   flex-direction: column;
   align-content: center;
   align-items: center;
+  width: 100%;
 }
 
 .information {
@@ -37,6 +47,7 @@ header {
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  z-index: 3333;
 
   span {
     transform: translate(40vw, -20px);
@@ -45,11 +56,13 @@ header {
 }
 
 .section-add-new-lists {
-  margin-top: 135px;
+  margin-top: 148px;
   width: 100%;
-  margin-bottom: 135px;
+  padding-bottom: 236px;
   max-width: 600px;
   display: flex;
+  overflow: auto;
+  height: 90vh;
   flex-direction: column;
   align-content: center;
   align-items: center;
@@ -71,7 +84,7 @@ input {
   padding-top: 10px;
   padding-right: 12px;
   padding-bottom: 10px;
-  padding-left: 16px;
+  padding-left: 6px;
 }
 
 input:focus {
@@ -128,12 +141,13 @@ input:focus {
 
 .filterInput {
   display: flex;
-  justify-content: center;
+  justify-content: space-around;
   align-items: center;
   width: 96vw;
   max-width: 600px;
   height: 44px;
   angle: 0deg;
+  padding: 0 10px;
   opacity: 1;
   gap: 6px;
   background: var(--bg-input);
@@ -141,7 +155,7 @@ input:focus {
   border-radius: 4px;
 
   img {
-    margin-left: 10px;
+
     width: 20px;
     height: 20px;
   }
@@ -149,7 +163,7 @@ input:focus {
   input {
     color: var(--text-primary);
     border: none;
-    width: 72vw;
+    width: calc(94vw - 14px - 44px);
     height: 24px;
     angle: 0deg;
     opacity: 1;
@@ -281,7 +295,7 @@ input:focus {
   height: 100vh;
   position: fixed;
 
-  top: 0;
+  top: env(safe-area-inset-top, 0px);
   background: rgba(0, 0, 0, 0.8);
 }
 
@@ -320,9 +334,7 @@ input:focus {
     padding-top: 10px;
   }
 
-  input {
-    width: 72vw !important;
-  }
+  input {}
 
   .saveBtn {}
 
