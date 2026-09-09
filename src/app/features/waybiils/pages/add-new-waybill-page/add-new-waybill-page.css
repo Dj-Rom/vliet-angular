@@ -157,7 +157,7 @@ p {
 }
 
 span {
-  margin-top: 16px;
+  /* margin-top: 16px; */
   font-family: Inter;
   font-weight: 500;
   font-style: Medium;

@@ -1,8 +1,8 @@
 <app-add-location-modal [style]="'display: flex;justify-content: center;'">
 </app-add-location-modal>
 
-<header>
-  <h3 class="h3 font600size16">Firmy:</h3>
+<div class="load-location-header">
+  <div class="h3 font600size16">Firmy:</div>
   <br />
 
   <div class="filterInput">
@@ -22,7 +22,7 @@
         fill="#9BA4AE" />
     </svg>
   </div>
-</header>
+</div>
 
 <div class="groupCompanyBtn" *ngIf="!modalService.isOpen$.value">
   @for (item of loadLocationService.filteredListAddress(); track item.id) {

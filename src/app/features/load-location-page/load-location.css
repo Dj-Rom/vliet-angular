@@ -2,7 +2,8 @@
   height: 95vh;
 }
 
-h3 {
+h3,
+.h3 {
   display: block;
 
   width: 96vw;
@@ -26,7 +27,8 @@ h3 {
   background: rgba(76, 141, 255, 1);
 }
 
-header {
+header,
+.load-location-header {
   background: black;
   position: fixed;
   top: env(safe-area-inset-top, 0px);

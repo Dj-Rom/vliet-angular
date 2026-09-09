@@ -1,5 +1,9 @@
 @import url('../shared-auth.css');
 
+:host {
+  height: 100vh;
+}
+
 .auth-registration {
   top: 120px;
   width: 100%;

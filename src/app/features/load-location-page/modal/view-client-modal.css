@@ -23,7 +23,8 @@
   z-index: 120;
 }
 
-header {
+header,
+.header {
   width: 100%;
   position: fixed;
   top: env(safe-area-inset-top, 0px);
@@ -58,10 +59,10 @@ header {
   }
 }
 
-main {
+main,
+.modal-main {
   position: relative;
   top: 42px;
-
 }
 
 .saveBtnBack {
@@ -90,6 +91,21 @@ main {
   border-radius: 0 0 8px 8px;
 }
 
+.new-waybill-vehicle-input .client-field-value {
+  text-align: end;
+  width: 80vw;
+  display: block;
+  margin: 0;
+  padding: 0;
+  color: var(--text-primary);
+}
+
+.loading-state {
+  color: var(--text-primary);
+  text-align: center;
+  margin-top: 50px;
+}
+
 @media screen and (max-width: 640px) {
 
   .modal-window table th,
@@ -108,7 +124,8 @@ main {
 }
 
 @media screen and (max-width: 462px) {
-  p {
+  p,
+  .client-field-value {
     margin-right: -3px;
     font-size: 3.17vw !important;
   }

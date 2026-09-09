@@ -1,5 +1,9 @@
 @import url('../shared-auth.css');
 
+:host {
+  height: 100vh;
+}
+
 .app-login {
   top: 120px;
   width: 100%;
@@ -10,10 +14,12 @@
   align-items: center;
   z-index: 5;
   background: black;
+
   span {
     display: inline-block;
   }
 }
+
 .form-login {
   width: 96vw;
   max-width: 600px;
@@ -24,6 +30,7 @@
   top: 270px;
   left: 16px;
   gap: 56px;
+
   input {
     margin-top: 6px;
     width: 96%;
@@ -31,15 +38,18 @@
     border: 1px solid var(--dark-color-b);
     color: var(--primary-color);
   }
+
   input::placeholder {
     color: var(--tertiary-color);
   }
+
   input:focus,
   input:active {
     outline: none;
     border: 1px solid rgba(76, 141, 255, 1);
   }
 }
+
 label {
   width: 96%;
   margin: 16px 2vw 0 2vw;
@@ -51,6 +61,7 @@ label {
   display: flex;
   justify-content: space-between;
 }
+
 .remember-me {
   display: flex;
   justify-content: flex-start;
@@ -71,6 +82,7 @@ label {
     background-color: var(--button-primary-color);
     color: var(--primary-color);
   }
+
   .rm:checked::after {
     content: '';
     width: 5px;
@@ -86,11 +98,13 @@ label {
 .sing-up {
   color: var(--primary-color);
   text-align: center;
+
   .auth-link {
     color: var(--focus-color);
     text-decoration-line: none;
   }
 }
+
 .forgot-password {
   color: var(--focus-color);
   width: 120px;

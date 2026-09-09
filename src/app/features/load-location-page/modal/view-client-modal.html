@@ -1,6 +1,6 @@
-<section class="modal-window" *ngIf="isOpen">
+<div class="modal-window" role="dialog" aria-modal="true" aria-label="Klient" *ngIf="isOpen">
   <ng-container *ngIf="item; else loading">
-    <header class="header">
+    <div class="header">
       <button class="backBtn" (click)="back()">
         <svg width="12" height="20" viewBox="0 0 12 20" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path d="M10 20L0 10L10 0L11.775 1.775L3.55 10L11.775 18.225L10 20Z" fill="white" />
@@ -17,49 +17,49 @@
       </svg>
 
 
-    </header>
-    <main class="mt24">
+    </div>
+    <div class="modal-main mt24">
       <div class="new-waybill-vehicle-input-group">
         <div class="new-waybill-vehicle-input">
           Firma
-          <p class="font600size16" (mousedown)="startPress($event)" (mouseup)="endPress()" (mouseleave)="endPress()"
+          <div class="client-field-value font600size16" (mousedown)="startPress($event)" (mouseup)="endPress()" (mouseleave)="endPress()"
             (touchstart)="startPress($event)" (touchend)="endPress()">
             {{ item!.company.toUpperCase() }}
-          </p>
+          </div>
         </div>
         <div class="new-waybill-vehicle-input">
           Address
-          <p (mousedown)="startPress($event)" (mouseup)="endPress()" (mouseleave)="endPress()"
+          <div class="client-field-value" (mousedown)="startPress($event)" (mouseup)="endPress()" (mouseleave)="endPress()"
             (touchstart)="startPress($event)" (touchend)="endPress()">
             {{ item!.address }}
-          </p>
+          </div>
         </div>
         <div class="new-waybill-vehicle-input">
           Link
-          <p (mousedown)="startPress($event)" (mouseup)="endPress()" (mouseleave)="endPress()"
+          <div class="client-field-value" (mousedown)="startPress($event)" (mouseup)="endPress()" (mouseleave)="endPress()"
             (touchstart)="startPress($event)" (touchend)="endPress()">
             {{ item!.google_link }}
-          </p>
+          </div>
         </div>
         <div class="new-waybill-vehicle-input">
           GPS
-          <p (mousedown)="startPress($event)" (mouseup)="endPress()" (mouseleave)="endPress()"
+          <div class="client-field-value" (mousedown)="startPress($event)" (mouseup)="endPress()" (mouseleave)="endPress()"
             (touchstart)="startPress($event)" (touchend)="endPress()">
             {{ item!.gps }}
-          </p>
+          </div>
         </div>
       </div>
       <div class="new-waybill-notes">
         <span class="font500size14">Notatki</span>
         <textarea #textArea>{{ item!.notes }}</textarea>
       </div>
-    </main>
+    </div>
   </ng-container>
 
   <ng-template #loading>
-    <p>Ładowanie danych klienta...</p>
+    <div class="loading-state">Ładowanie danych klienta...</div>
   </ng-template>
-</section>
+</div>
 <div class="saveBtnBack" *ngIf="isOpen">
   <button class="save-btn font400size14" (click)="navigate()">Nawigacja</button>
   <button class="save-btn font400size14" (click)="CopyLink()">Kopiuj Link</button>
