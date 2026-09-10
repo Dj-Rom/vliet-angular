@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ListService } from '../../../core/services/load-calculator-services/load-calculator.service';
 import { Router } from '@angular/router';
@@ -11,7 +11,9 @@ import { ModalService } from '../../../core/services/modal.service';
   templateUrl: './add-name-modal.html',
   styleUrls: ['./add-name-modal.css'],
 })
-export class AddNameModal implements OnInit {
+export class AddNameModal implements OnInit, AfterViewInit {
+  @ViewChild('nameInput', { static: false }) nameInput?: ElementRef<HTMLInputElement>;
+
   name: string = '';
   title = 'Wpisz nazwę';
 
@@ -25,6 +27,29 @@ export class AddNameModal implements OnInit {
 
   ngOnInit() {
     this.name = this.cleanName(this.listService.getCurrentCompanyName());
+  }
+
+  ngAfterViewInit() {
+    this.focusInput();
+  }
+
+  private focusInput() {
+    setTimeout(() => {
+      const el = this.nameInput?.nativeElement;
+      if (el) {
+        el.focus();
+        if (this.name) {
+          el.setSelectionRange(this.name.length, this.name.length);
+        }
+      }
+    }, 50);
+
+    setTimeout(() => {
+      const el = this.nameInput?.nativeElement;
+      if (el && document.activeElement !== el) {
+        el.focus();
+      }
+    }, 150);
   }
 
   private cleanName(raw: string): string {
