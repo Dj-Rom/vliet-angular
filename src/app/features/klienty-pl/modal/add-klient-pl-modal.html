@@ -1,0 +1,90 @@
+<div class="modal-backdrop" *ngIf="isOpen" (click)="close()"></div>
+
+<div class="modal-window" role="dialog" aria-modal="true" aria-label="Dodaj nowego klienta PL" *ngIf="isOpen">
+  <!-- Header -->
+  <div class="header">
+    <button class="backBtn" (click)="close()" aria-label="Anuluj">
+      <svg width="12" height="20" viewBox="0 0 12 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M10 20L0 10L10 0L11.775 1.775L3.55 10L11.775 18.225L10 20Z" fill="white" />
+      </svg>
+    </button>
+
+    <div class="header-title">
+      <span class="font600size16">Nowy klient PL</span>
+    </div>
+
+    <div class="header-spacer"></div>
+  </div>
+
+  <!-- Main Form -->
+  <div class="modal-main form-container">
+    <div class="form-group">
+      <label class="form-label">Nazwa klienta / Firma *</label>
+      <input type="text" [(ngModel)]="klient" class="form-input" placeholder="np. KWIATY POLSKIE SP. Z O.O." />
+    </div>
+
+    <div class="form-row-2col">
+      <div class="form-group">
+        <label class="form-label">Kod klienta</label>
+        <input type="text" [(ngModel)]="kod_klienta" class="form-input" placeholder="np. DMA-287" />
+      </div>
+      <div class="form-group">
+        <label class="form-label">Numer</label>
+        <input type="text" [(ngModel)]="numer" class="form-input" placeholder="np. 287" />
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="form-label">Numer telefonu</label>
+      <input type="tel" [(ngModel)]="telefon" class="form-input" placeholder="np. 602 653 773" />
+    </div>
+
+    <div class="form-group">
+      <label class="form-label">Adres dostawy</label>
+      <input type="text" [(ngModel)]="adres" class="form-input" placeholder="np. ul. Kasztanowa 14 Chojnice 89-600" />
+    </div>
+
+    <!-- GPS Coordinates Box -->
+    <div class="form-group gps-box">
+      <div class="gps-title-row">
+        <label class="form-label">Współrzędne GPS</label>
+        <button type="button" class="btn-capture-gps" (click)="captureGps()" [disabled]="isGettingGps()">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"></circle>
+            <line x1="22" y1="12" x2="18" y2="12"></line>
+            <line x1="6" y1="12" x2="2" y2="12"></line>
+            <line x1="12" y1="6" x2="12" y2="2"></line>
+            <line x1="12" y1="22" x2="12" y2="18"></line>
+          </svg>
+          <span>{{ isGettingGps() ? 'Pobieranie...' : 'Pobierz z urządzenia' }}</span>
+        </button>
+      </div>
+
+      <div class="form-row-2col">
+        <div>
+          <span class="sub-label">Szerokość (Lat):</span>
+          <input type="number" step="0.000001" [(ngModel)]="lat" class="form-input" placeholder="np. 52.229676" />
+        </div>
+        <div>
+          <span class="sub-label">Długość (Lng):</span>
+          <input type="number" step="0.000001" [(ngModel)]="lng" class="form-input" placeholder="np. 21.012229" />
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="form-label">Uwagi / Notatki</label>
+      <textarea [(ngModel)]="uwagi" rows="3" class="form-textarea" placeholder="Dodatkowe informacje dla kierowcy..."></textarea>
+    </div>
+  </div>
+
+  <!-- Footer Actions -->
+  <div class="modal-footer">
+    <button class="footer-btn cancel-btn" (click)="close()" [disabled]="isSaving()">
+      Anuluj
+    </button>
+    <button class="footer-btn save-btn" (click)="save()" [disabled]="isSaving()">
+      {{ isSaving() ? 'Zapisywanie...' : 'Zapisz klienta w Firebase' }}
+    </button>
+  </div>
+</div>

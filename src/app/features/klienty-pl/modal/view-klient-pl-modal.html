@@ -11,15 +11,23 @@
       </button>
 
       <div class="header-title">
-        <span class="font600size16">Klient PL</span>
-        <span *ngIf="item.kod_klienta" class="badge-code">{{ item.kod_klienta }}</span>
+        <span class="font600size16">{{ isEditing() ? 'Edycja klienta' : 'Klient PL' }}</span>
+        <span *ngIf="item.kod_klienta && !isEditing()" class="badge-code">{{ item.kod_klienta }}</span>
       </div>
 
-      <div class="header-spacer"></div>
+      <button *ngIf="!isEditing()" class="btn-edit-header" (click)="startEdit()" aria-label="Edytuj">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+          <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+        </svg>
+        <span>Edytuj</span>
+      </button>
+
+      <div *ngIf="isEditing()" class="header-spacer"></div>
     </div>
 
-    <!-- Main Content -->
-    <div class="modal-main">
+    <!-- VIEW MODE -->
+    <div class="modal-main" *ngIf="!isEditing()">
       <!-- Quick Action Bar -->
       <div class="quick-actions-bar">
         <!-- Call Button -->
@@ -29,7 +37,7 @@
           (click)="call()"
           [title]="item.telefon ? 'Zadzwoń: ' + item.telefon : 'Brak telefonu'"
         >
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
           </svg>
           <span>Zadzwoń</span>
@@ -42,7 +50,7 @@
           (click)="sendSms()"
           [title]="item.telefon ? 'Wyślij SMS o dostawie za 30 min' : 'Brak telefonu'"
         >
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
           </svg>
           <span>SMS (30 min)</span>
@@ -54,11 +62,53 @@
           [disabled]="!item.adres && !item.gps?.lat"
           (click)="navigate()"
         >
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <polygon points="3 11 22 2 13 21 11 13 3 11"></polygon>
           </svg>
           <span>Nawiguj</span>
         </button>
+      </div>
+
+      <!-- GPS Coordinates Box (Highlighted) -->
+      <div class="gps-feature-card" [class.has-gps]="item.gps?.lat && item.gps?.lng">
+        <div class="gps-card-header">
+          <div class="gps-label">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#F59E0B" stroke-width="2">
+              <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+              <circle cx="12" cy="10" r="3"></circle>
+            </svg>
+            <span class="font600size14">Koordynaty GPS</span>
+          </div>
+
+          <button
+            class="btn-capture-gps"
+            (click)="captureCurrentGps()"
+            [disabled]="isGettingGps()"
+          >
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="10"></circle>
+              <line x1="22" y1="12" x2="18" y2="12"></line>
+              <line x1="6" y1="12" x2="2" y2="12"></line>
+              <line x1="12" y1="6" x2="12" y2="2"></line>
+              <line x1="12" y1="22" x2="12" y2="18"></line>
+            </svg>
+            <span>{{ isGettingGps() ? 'Pobieranie...' : (item.gps?.lat ? 'Zaktualizuj moją pozycją' : 'Zapisz moją pozycję GPS') }}</span>
+          </button>
+        </div>
+
+        <div class="gps-coords-display" *ngIf="item.gps?.lat && item.gps?.lng; else noGps">
+          <span class="coords-value">{{ item.gps?.lat }}, {{ item.gps?.lng }}</span>
+          <div class="gps-quick-buttons">
+            <button class="btn-gps-action" (click)="copyGps()">Kopiuj GPS</button>
+            <button class="btn-gps-action" (click)="navigate()">Nawiguj (GPS)</button>
+          </div>
+        </div>
+
+        <ng-template #noGps>
+          <div class="no-gps-msg font400size13">
+            Brak zapisanych koordynatów. Będąc na miejscu kliknij <b>"Zapisz moją pozycję GPS"</b>.
+          </div>
+        </ng-template>
       </div>
 
       <!-- SMS Template Preview / Edit Drawer -->
@@ -143,19 +193,6 @@
           </div>
         </div>
 
-        <!-- GPS Coordinates if available -->
-        <div class="detail-field-card" *ngIf="item.gps?.lat && item.gps?.lng">
-          <div class="field-label-row">
-            <span class="field-label">Współrzędne GPS</span>
-            <button class="copy-small-btn" (click)="copyGps()" title="Kopiuj GPS">
-              Kopiuj
-            </button>
-          </div>
-          <div class="field-value font400size14 gps-val">
-            {{ item.gps?.lat }}, {{ item.gps?.lng }}
-          </div>
-        </div>
-
         <!-- Notes / Remarks -->
         <div class="detail-field-card" *ngIf="item.uwagi">
           <div class="field-label">Uwagi / Notatki</div>
@@ -166,8 +203,68 @@
       </div>
     </div>
 
-    <!-- Bottom Actions Bar -->
-    <div class="modal-footer">
+    <!-- EDIT MODE -->
+    <div class="modal-main edit-form-container" *ngIf="isEditing()">
+      <div class="edit-group">
+        <label class="edit-label">Klient / Nazwa firmy</label>
+        <input type="text" [(ngModel)]="editKlient" class="edit-input" placeholder="np. MAREK BALCEREWICZ" />
+      </div>
+
+      <div class="edit-row-2col">
+        <div class="edit-group">
+          <label class="edit-label">Kod klienta</label>
+          <input type="text" [(ngModel)]="editKodKlienta" class="edit-input" placeholder="np. DMA-287" />
+        </div>
+        <div class="edit-group">
+          <label class="edit-label">Numer</label>
+          <input type="text" [(ngModel)]="editNumer" class="edit-input" placeholder="np. 287" />
+        </div>
+      </div>
+
+      <div class="edit-group">
+        <label class="edit-label">Telefon</label>
+        <input type="text" [(ngModel)]="editTelefon" class="edit-input" placeholder="np. 602 653 773" />
+      </div>
+
+      <div class="edit-group">
+        <label class="edit-label">Adres dostawy</label>
+        <input type="text" [(ngModel)]="editAdres" class="edit-input" placeholder="np. ul. Kasztanowa 14 Chojnice 89-600" />
+      </div>
+
+      <!-- GPS Edit Box -->
+      <div class="edit-group gps-edit-box">
+        <div class="gps-edit-title-row">
+          <label class="edit-label">Współrzędne GPS</label>
+          <button type="button" class="btn-capture-gps-inline" (click)="captureCurrentGpsForEdit()" [disabled]="isGettingGps()">
+            📍 {{ isGettingGps() ? 'Pobieranie...' : 'Pobierz z urządzenia' }}
+          </button>
+        </div>
+        <div class="edit-row-2col">
+          <div>
+            <span class="sub-label">Szerokość (Lat):</span>
+            <input type="number" step="0.000001" [(ngModel)]="editLat" class="edit-input" placeholder="np. 52.229676" />
+          </div>
+          <div>
+            <span class="sub-label">Długość (Lng):</span>
+            <input type="number" step="0.000001" [(ngModel)]="editLng" class="edit-input" placeholder="np. 21.012229" />
+          </div>
+        </div>
+      </div>
+
+      <div class="edit-group">
+        <label class="edit-label">Uwagi / Notatki</label>
+        <textarea [(ngModel)]="editUwagi" rows="3" class="edit-textarea" placeholder="Wskazówki dojazdu, rampa, godziny..."></textarea>
+      </div>
+
+      <div class="delete-section">
+        <button type="button" class="btn-delete-client" (click)="deleteClient()">
+          Usuń tego klienta
+        </button>
+      </div>
+    </div>
+
+    <!-- Footer for VIEW mode -->
+    <div class="modal-footer" *ngIf="!isEditing()">
       <button class="footer-btn nav-btn" (click)="navigate()">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <polygon points="3 11 22 2 13 21 11 13 3 11"></polygon>
@@ -187,6 +284,16 @@
           <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
         </svg>
         <span>Zadzwoń</span>
+      </button>
+    </div>
+
+    <!-- Footer for EDIT mode -->
+    <div class="modal-footer edit-footer" *ngIf="isEditing()">
+      <button class="footer-btn cancel-btn" (click)="cancelEdit()" [disabled]="isSaving()">
+        Anuluj
+      </button>
+      <button class="footer-btn save-btn" (click)="saveEdit()" [disabled]="isSaving()">
+        {{ isSaving() ? 'Zapisywanie...' : 'Zapisz w Firebase' }}
       </button>
     </div>
   </ng-container>

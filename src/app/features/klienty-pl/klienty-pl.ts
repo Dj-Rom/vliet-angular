@@ -3,11 +3,12 @@ import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { KlientPlService, PolishClient } from '../../core/services/klient-pl.service';
 import { ViewKlientPlModal } from './modal/view-klient-pl-modal';
+import { AddKlientPlModal } from './modal/add-klient-pl-modal';
 
 @Component({
   selector: 'app-klienty-pl',
   standalone: true,
-  imports: [CommonModule, ViewKlientPlModal],
+  imports: [CommonModule, ViewKlientPlModal, AddKlientPlModal],
   templateUrl: './klienty-pl.html',
   styleUrls: ['./klienty-pl.css'],
 })

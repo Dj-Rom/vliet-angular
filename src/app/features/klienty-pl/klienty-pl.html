@@ -1,8 +1,9 @@
-<!-- Polish Client Detail Modal -->
+<!-- Modals -->
 <app-view-klient-pl-modal></app-view-klient-pl-modal>
+<app-add-klient-pl-modal></app-add-klient-pl-modal>
 
 <!-- Header & Controls -->
-<div class="klienty-pl-header" *ngIf="!klientService.isModalOpen()">
+<div class="klienty-pl-header" *ngIf="!klientService.isModalOpen() && !klientService.isAddModalOpen()">
   <!-- Top Tabs Switcher -->
   <div class="client-tabs-container">
     <button class="client-tab-btn" (click)="goToUeClients()">
@@ -49,7 +50,7 @@
 </div>
 
 <!-- List of Polish Clients -->
-<div class="clients-list-container" *ngIf="!klientService.isModalOpen()">
+<div class="clients-list-container" *ngIf="!klientService.isModalOpen() && !klientService.isAddModalOpen()">
   @for (client of klientService.filteredClients(); track client.id) {
     <div class="client-card" (click)="onCardClick(client, $event)">
       <!-- Card Header -->
@@ -77,6 +78,15 @@
           <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
         </svg>
         <span class="card-phone">{{ client.telefon }}</span>
+      </div>
+
+      <!-- GPS Row if available -->
+      <div class="card-row gps-row" *ngIf="client.gps?.lat && client.gps?.lng">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#F59E0B" stroke-width="2" class="row-icon">
+          <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+          <circle cx="12" cy="10" r="3"></circle>
+        </svg>
+        <span class="card-gps">GPS: {{ client.gps?.lat }}, {{ client.gps?.lng }}</span>
       </div>
 
       <!-- Quick Action Buttons -->
@@ -133,3 +143,15 @@
     </div>
   }
 </div>
+
+<!-- Floating Action Button to Add New Client -->
+<button
+  class="btn-add-new"
+  *ngIf="!klientService.isModalOpen() && !klientService.isAddModalOpen()"
+  (click)="klientService.openAddModal()"
+  aria-label="Dodaj nowego klienta PL"
+>
+  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M11 13H5V11H11V5H13V11H19V13H13V19H11V13Z" fill="white" />
+  </svg>
+</button>

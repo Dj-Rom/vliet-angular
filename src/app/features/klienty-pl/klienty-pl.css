@@ -251,3 +251,35 @@
   font-weight: 600;
   cursor: pointer;
 }
+
+.card-row.gps-row {
+  color: #fbbf24;
+}
+
+.card-gps {
+  font-family: monospace;
+  font-size: 13px;
+  color: #fbbf24;
+}
+
+.btn-add-new {
+  position: fixed;
+  bottom: 85px;
+  right: 20px;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: #4c8dff;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 12px rgba(76, 141, 255, 0.4);
+  cursor: pointer;
+  z-index: 15;
+  transition: transform 0.15s ease;
+}
+
+.btn-add-new:active {
+  transform: scale(0.94);
+}
