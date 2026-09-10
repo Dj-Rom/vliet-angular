@@ -1,1 +1,1646 @@
-
+[
+    {
+        "klient": "MAX-FLOWERS TOMASZ PAŁKA",
+        "telefon": "795-709-658",
+        "adres": "ul.Kasztanowa 14 Chojnice 89-600",
+        "kod_klienta": "DMA-287",
+        "numer": "287",
+        "uwagi": null,
+        "gps": {
+            "lat": null,
+            "lng": null
+        }
+    },
+    {
+        "klient": "WOJCIAK MAREK BALCEREWICZ",
+        "telefon": "694438912",
+        "adres": "ul. Bohaterów Warszawy 2a KOSZALIN 75-211",
+        "kod_klienta": "MM-218",
+        "numer": "218",
+        "uwagi": null,
+        "gps": {
+            "lat": null,
+            "lng": null
+        }
+    },
+    {
+        "klient": "LANCET SP. Z O.O.",
+        "telefon": "59 863 50 55",
+        "adres": "ul. Msciwoja II 14 Lębork 84-300",
+        "kod_klienta": "AP-B62",
+        "numer": "AP-B62",
+        "uwagi": null,
+        "gps": {
+            "lat": null,
+            "lng": null
+        }
+    },
+    {
+        "klient": "PHU Alina",
+        "telefon": "609 622 272",
+        "adres": "Wodnika 50 GDAŃSK 80-299",
+        "kod_klienta": "AP-D211",
+        "numer": "AP-D211",
+        "uwagi": null,
+        "gps": {
+            "lat": null,
+            "lng": null
+        }
+    },
+    {
+        "klient": "Wostal Miłosz",
+        "telefon": "601 831 630",
+        "adres": "ul.Wodnika 50 Gdańsk 80-299",
+        "kod_klienta": "D-202",
+        "numer": "202",
+        "uwagi": null,
+        "gps": {
+            "lat": null,
+            "lng": null
+        }
+    },
+    {
+        "klient": "FHU Jarek Plichra",
+        "telefon": "501 168 726",
+        "adres": "ul.Wodnika 50 Gdańsk 80-299",
+        "kod_klienta": "D-211",
+        "numer": "211",
+        "uwagi": null,
+        "gps": {
+            "lat": null,
+            "lng": null
+        }
+    },
+    {
+        "klient": "Jankowski Jarek",
+        "telefon": "602 633 299",
+        "adres": "ul.Rzęsna 3 Gdańsk 80-299",
+        "kod_klienta": "D-203",
+        "numer": "203",
+        "uwagi": null,
+        "gps": {
+            "lat": null,
+            "lng": null
+        }
+    },
+    {
+        "klient": "Hurtownia Leder Tomasz Zaniewski",
+        "telefon": "884-341-236",
+        "adres": "UL.SPORTOWA 2 KWIDZYN 82-500",
+        "kod_klienta": "D-219",
+        "numer": "219",
+        "uwagi": null,
+        "gps": {
+            "lat": null,
+            "lng": null
+        }
+    },
+    {
+        "klient": null,
+        "telefon": null,
+        "adres": "KWIATEK HANDEL I USLUGI MARCIN OLSZEWSKI KOBYLANKA 4 KOBYLANKA 86-302",
+        "kod_klienta": "LD-770",
+        "numer": "LD-770",
+        "uwagi": null,
+        "gps": {
+            "lat": null,
+            "lng": null
+        }
+    },
+    {
+        "klient": "Handel i Usługo Marcin Olszewski",
+        "telefon": "669 350 401",
+        "adres": "KOBYLANKA 4 KOBYLANKA 86-302",
+        "kod_klienta": "DM-212",
+        "numer": "212",
+        "uwagi": null,
+        "gps": {
+            "lat": null,
+            "lng": null
+        }
+    },
+    {
+        "klient": "PATIO COLOR PIASTÓW",
+        "telefon": "22 462-42-90",
+        "adres": "UL.WARSZAWSKA 3B PIASTÓW 05-820",
+        "kod_klienta": "KK-D335",
+        "numer": "KK-D335",
+        "uwagi": null,
+        "gps": {
+            "lat": null,
+            "lng": null
+        }
+    },
+    {
+        "klient": "ROBERT HELLADA BRICO",
+        "telefon": "572 598 453",
+        "adres": "Aleja Marszałka Józefa Piłsudskiego 48 Wyszków 07-200",
+        "kod_klienta": "MP-B384",
+        "numer": "MP-B384",
+        "uwagi": null,
+        "gps": {
+            "lat": null,
+            "lng": null
+        }
+    },
+    {
+        "klient": null,
+        "telefon": null,
+        "adres": "DRASNA Sp. z o.o BRICOMARCHE UL.JELNICKA 2B MIĘDZYRZEC PODLASKI 21-560",
+        "kod_klienta": "AP-B300",
+        "numer": "AP-B300",
+        "uwagi": null,
+        "gps": {
+            "lat": null,
+            "lng": null
+        }
+    },
+    {
+        "klient": "Rodosław Kozioł",
+        "telefon": "572 249 015",
+        "adres": "Elizówka 65, Ciecierzyn 21-003",
+        "kod_klienta": "DM-427",
+        "numer": "427",
+        "uwagi": null,
+        "gps": {
+            "lat": null,
+            "lng": null
+        }
+    },
+    {
+        "klient": null,
+        "telefon": null,
+        "adres": "BOX Warszawa BOX Warszawa WARSZAWA 02-212",
+        "kod_klienta": "AP-D32",
+        "numer": "AP-D32",
+        "uwagi": null,
+        "gps": {
+            "lat": null,
+            "lng": null
+        }
+    },
+    {
+        "klient": "Kazubek Piotr",
+        "telefon": "512 376 475",
+        "adres": "ul Bakalarska 2 / BOX Warszawa 02-212",
+        "kod_klienta": "WAWA-411",
+        "numer": "411",
+        "uwagi": null,
+        "gps": {
+            "lat": null,
+            "lng": null
+        }
+    },
+    {
+        "klient": "JMP BRONISZE",
+        "telefon": "604 799 765",
+        "adres": "ul. Poznańska 98 BRONISZE 05-850",
+        "kod_klienta": "DMA-447",
+        "numer": "447",
+        "uwagi": null,
+        "gps": {
+            "lat": null,
+            "lng": null
+        }
+    },
+    {
+        "klient": "Michał Konecki",
+        "telefon": "503-961-658",
+        "adres": "UL.RÓWNA 3 ŁÓDŹ 93-348",
+        "kod_klienta": "-401",
+        "numer": "401",
+        "uwagi": "B-KSL",
+        "gps": {
+            "lat": null,
+            "lng": null
+        }
+    },
+    {
+        "klient": "Michał Konecki",
+        "telefon": "503-961-658",
+        "adres": "UL.RÓWNA 3 ŁÓDŹ 93-348",
+        "kod_klienta": "-402",
+        "numer": "402",
+        "uwagi": "B-KSL",
+        "gps": {
+            "lat": null,
+            "lng": null
+        }
+    },
+    {
+        "klient": "Michał Konecki",
+        "telefon": "503-961-658",
+        "adres": "UL.RÓWNA 3 ŁÓDŹ 93-348",
+        "kod_klienta": "-403",
+        "numer": "403",
+        "uwagi": "B-KSL",
+        "gps": {
+            "lat": null,
+            "lng": null
+        }
+    },
+    {
+        "klient": "Swidowicz L",
+        "telefon": "606 315 112",
+        "adres": "UL.RÓWNA 3 ŁÓDŹ 93-348",
+        "kod_klienta": "B-L-490",
+        "numer": "490",
+        "uwagi": null,
+        "gps": {
+            "lat": null,
+            "lng": null
+        }
+    },
+    {
+        "klient": "Ewa Czarkowska Profit",
+        "telefon": "797-959-290",
+        "adres": "ul. Swietokrzyska 41 Przysucha 26-400",
+        "kod_klienta": "ASD-675",
+        "numer": "ASD-675",
+        "uwagi": null,
+        "gps": {
+            "lat": null,
+            "lng": null
+        }
+    },
+    {
+        "klient": "NORBI MAXDOM KOZIENICE SP. Z O.O.",
+        "telefon": "486 113 200",
+        "adres": "Ul. Warszawska 34 KOZIENICE 26-900",
+        "kod_klienta": "LD-993",
+        "numer": "LD-993",
+        "uwagi": null,
+        "gps": {
+            "lat": null,
+            "lng": null
+        }
+    },
+    {
+        "klient": "Oska Sp. Z o.o.",
+        "telefon": "502444512",
+        "adres": "ul. Lubelska 71 Zagrody 21-080",
+        "kod_klienta": "LD-736",
+        "numer": "LD-736",
+        "uwagi": null,
+        "gps": {
+            "lat": null,
+            "lng": null
+        }
+    },
+    {
+        "klient": "MROCZEK",
+        "telefon": "664 230 005",
+        "adres": "OLA ZAMOSĆ 22-400",
+        "kod_klienta": "AP-D178",
+        "numer": "AP-D178",
+        "uwagi": null,
+        "gps": {
+            "lat": null,
+            "lng": null
+        }
+    },
+    {
+        "klient": "Mariola Płaza",
+        "telefon": "664 230 005",
+        "adres": "Generała Władysława Sikorskiego 6A, 22-400",
+        "kod_klienta": "DM-415",
+        "numer": "415",
+        "uwagi": "ZAMOŚĆ 22-400",
+        "gps": {
+            "lat": null,
+            "lng": null
+        }
+    },
+    {
+        "klient": "KROL JANUSZ",
+        "telefon": "601-366-588",
+        "adres": "UL.ZAMOYSKA 129 SZCZEBRZESZYN 22-460",
+        "kod_klienta": "AP-D192",
+        "numer": "AP-D192",
+        "uwagi": null,
+        "gps": {
+            "lat": null,
+            "lng": null
+        }
+    },
+    {
+        "klient": "FHU TEKO S.C.",
+        "telefon": "601 366 588",
+        "adres": "UL. Zamojska 129 SZCZEBRZESZYN 22-460",
+        "kod_klienta": "DM-52",
+        "numer": "52",
+        "uwagi": null,
+        "gps": {
+            "lat": null,
+            "lng": null
+        }
+    },
+    {
+        "klient": "Łukasz Skaraczyński",
+        "telefon": "502 445 726",
+        "adres": "Elizówka 65, Ciecierzyn 21-003",
+        "kod_klienta": "DM-407",
+        "numer": "407",
+        "uwagi": null,
+        "gps": {
+            "lat": null,
+            "lng": null
+        }
+    },
+    {
+        "klient": "Łukasz Skaraczyński",
+        "telefon": "502 445 726",
+        "adres": "Elizówka 65, Ciecierzyn 21-003",
+        "kod_klienta": "VLIET",
+        "numer": "V-FLEURA",
+        "uwagi": null,
+        "gps": {
+            "lat": null,
+            "lng": null
+        }
+    },
+    {
+        "klient": "JMP LUBLIN",
+        "telefon": "500 290 278",
+        "adres": "Elizówka, ul. Szafranowa 6 , BOX B2-09, B2-10 Ciecierzyn 21-003",
+        "kod_klienta": "DMA-430",
+        "numer": "430",
+        "uwagi": null,
+        "gps": {
+            "lat": null,
+            "lng": null
+        }
+    },
+    {
+        "klient": "JMP RZESZOW",
+        "telefon": "500 290 278",
+        "adres": "Elizówka, ul. Szafranowa 6 , BOX B2-09, B2-10 Ciecierzyn 21-003",
+        "kod_klienta": "DMA-460",
+        "numer": "460",
+        "uwagi": null,
+        "gps": {
+            "lat": null,
+            "lng": null
+        }
+    },
+    {
+        "klient": "PRETORIS Sp.z o.o",
+        "telefon": "693-299-134",
+        "adres": "UL.SIERADZKA 66 ZDUŃSKA WOLA 98-220",
+        "kod_klienta": "AP-B91",
+        "numer": "AP-B91",
+        "uwagi": null,
+        "gps": {
+            "lat": null,
+            "lng": null
+        }
+    },
+    {
+        "klient": null,
+        "telefon": null,
+        "adres": "PIOTR K. Intermarche - Starocmentarna 7 Dąbrowa Górnicza 41-300",
+        "kod_klienta": "100",
+        "numer": "100",
+        "uwagi": "2 PAL,",
+        "gps": {
+            "lat": null,
+            "lng": null
+        }
+    },
+    {
+        "klient": null,
+        "telefon": null,
+        "adres": "Intermarche - Starocmentarna 7 Dąbrowa Górnicza 41-300",
+        "kod_klienta": "701",
+        "numer": "701",
+        "uwagi": "4 PAL,",
+        "gps": {
+            "lat": null,
+            "lng": null
+        }
+    },
+    {
+        "klient": "BOX TYCHY / Anna Stepień",
+        "telefon": "514 992 959",
+        "adres": "UL.SADOWA 3 TYCHY 43-100",
+        "kod_klienta": "B-321",
+        "numer": "321",
+        "uwagi": null,
+        "gps": {
+            "lat": null,
+            "lng": null
+        }
+    },
+    {
+        "klient": "BOX TYCHY / Anna Stepień",
+        "telefon": "514 992 959",
+        "adres": "UL.SADOWA 3 TYCHY 43-100",
+        "kod_klienta": "B-321",
+        "numer": "324",
+        "uwagi": null,
+        "gps": {
+            "lat": null,
+            "lng": null
+        }
+    },
+    {
+        "klient": "AREK",
+        "telefon": "608 358 525",
+        "adres": "UL. Radomska 14/20 GIEŁDA KWIATOWA Częstochowa 42-200",
+        "kod_klienta": "DM-350",
+        "numer": "350",
+        "uwagi": null,
+        "gps": {
+            "lat": null,
+            "lng": null
+        }
+    },
+    {
+        "klient": "AREK",
+        "telefon": "512 147 517",
+        "adres": "UL. Radomska 14/20 GIEŁDA KWIATOWA Częstochowa 42-200",
+        "kod_klienta": "DM-300",
+        "numer": "300",
+        "uwagi": null,
+        "gps": {
+            "lat": null,
+            "lng": null
+        }
+    },
+    {
+        "klient": "Wojtek Polak",
+        "telefon": "512 147 517",
+        "adres": "UL. Radomska 14/20 GIEŁDA KWIATOWA Częstochowa 42-200",
+        "kod_klienta": "VLIET",
+        "numer": "V-310",
+        "uwagi": null,
+        "gps": {
+            "lat": null,
+            "lng": null
+        }
+    },
+    {
+        "klient": null,
+        "telefon": null,
+        "adres": "ZF AUTOMOTIVE EKONOMICZA 19 CZĘSTOCHOWA 42-202",
+        "kod_klienta": "VLIET",
+        "numer": "VLIET",
+        "uwagi": "2 PALETY",
+        "gps": {
+            "lat": null,
+            "lng": null
+        }
+    },
+    {
+        "klient": "KOLIBER",
+        "telefon": "502-422-847",
+        "adres": "ul. Częstochowska 48 Biała 42-125",
+        "kod_klienta": "DM-373",
+        "numer": "373",
+        "uwagi": null,
+        "gps": {
+            "lat": null,
+            "lng": null
+        }
+    },
+    {
+        "klient": "GRAND PRIX PUCHAŁA",
+        "telefon": "502-084-380",
+        "adres": "ul. WOŁYŃSKA 24 WAPIENNIK 42-120",
+        "kod_klienta": "DM-393",
+        "numer": "393",
+        "uwagi": null,
+        "gps": {
+            "lat": null,
+            "lng": null
+        }
+    },
+    {
+        "klient": "Michał Konecki",
+        "telefon": "503-961-658",
+        "adres": "UL.RÓWNA 3 ŁÓDŹ 93-348",
+        "kod_klienta": "-404",
+        "numer": "404",
+        "uwagi": "B-KSL",
+        "gps": {
+            "lat": null,
+            "lng": null
+        }
+    },
+    {
+        "klient": "FLOR-BART BARTOSZ MAJEWSKI",
+        "telefon": "534-718-890",
+        "adres": "pl.Sulwińskiego 11 BŁASZKI 98-235",
+        "kod_klienta": "DMA-434",
+        "numer": "434",
+        "uwagi": null,
+        "gps": {
+            "lat": null,
+            "lng": null
+        }
+    },
+    {
+        "klient": "FHU ALEKSANDRA STRZALKA",
+        "telefon": "731548011",
+        "adres": "Podzborów 19 CEKÓW 62-834",
+        "kod_klienta": "MM-439",
+        "numer": "439",
+        "uwagi": null,
+        "gps": {
+            "lat": null,
+            "lng": null
+        }
+    },
+    {
+        "klient": "SZYMON OLSZEWSKI",
+        "telefon": "724-141-079",
+        "adres": "Korek 3 CEKÓW 62-834",
+        "kod_klienta": "DMA-488",
+        "numer": "488",
+        "uwagi": null,
+        "gps": {
+            "lat": null,
+            "lng": null
+        }
+    },
+    {
+        "klient": "Firma Handlowa Radosław Kozanecki",
+        "telefon": "604-410-453",
+        "adres": "Pólko 49 Żelazków 62-817",
+        "kod_klienta": "PD-397",
+        "numer": "397",
+        "uwagi": null,
+        "gps": {
+            "lat": null,
+            "lng": null
+        }
+    },
+    {
+        "klient": "Gosp Rol Ogr Przemysław Mańka",
+        "telefon": "602-190-813",
+        "adres": "Pólko 35 Żelazków 62-817",
+        "kod_klienta": "PD-398",
+        "numer": "398",
+        "uwagi": null,
+        "gps": {
+            "lat": null,
+            "lng": null
+        }
+    },
+    {
+        "klient": "Hurtownia Kwiatów Karol Gruszczyński",
+        "telefon": "509-739-632",
+        "adres": "Kokonin 44 Żelazków 62-817",
+        "kod_klienta": "RO-399",
+        "numer": "399",
+        "uwagi": null,
+        "gps": {
+            "lat": null,
+            "lng": null
+        }
+    },
+    {
+        "klient": "MP Michał Mańka",
+        "telefon": "608- 377- 043",
+        "adres": "Biernatki 6A Żelazków 62-817",
+        "kod_klienta": "PD-419",
+        "numer": "419",
+        "uwagi": null,
+        "gps": {
+            "lat": null,
+            "lng": null
+        }
+    },
+    {
+        "klient": "FLORBANK",
+        "telefon": "607 727 050",
+        "adres": "Wieś Russów 63, Żelazków k. Kalisza 62-817",
+        "kod_klienta": "DMA-455",
+        "numer": "455",
+        "uwagi": null,
+        "gps": {
+            "lat": null,
+            "lng": null
+        }
+    },
+    {
+        "klient": "AP-D173 FLORBANK ANDRZEJ BANASIAK",
+        "telefon": "607-727-050",
+        "adres": "WIEŚ RUSSÓW 63 ŻELAZKÓW k.KALISZA 62-817",
+        "kod_klienta": "AP-D173",
+        "numer": "AP-D173",
+        "uwagi": null,
+        "gps": {
+            "lat": null,
+            "lng": null
+        }
+    },
+    {
+        "klient": "FLOWERMIX",
+        "telefon": "512 539 509",
+        "adres": "ul.Harcerska 28 KONIN 62-561",
+        "kod_klienta": "DM-431",
+        "numer": "431",
+        "uwagi": null,
+        "gps": {
+            "lat": null,
+            "lng": null
+        }
+    },
+    {
+        "klient": "DOROTA KRÓL - Just Mark",
+        "telefon": "601432753",
+        "adres": "Tuliszkowska 21 Stare Miasto /k Konina 62-571",
+        "kod_klienta": "D-425",
+        "numer": "425",
+        "uwagi": null,
+        "gps": {
+            "lat": null,
+            "lng": null
+        }
+    },
+    {
+        "klient": null,
+        "telefon": null,
+        "adres": "TABIA Sp. o.o BRICO UL.DŁUGA 34 A TRZEBINIA 32-540",
+        "kod_klienta": "MP-B378",
+        "numer": "MP-B378",
+        "uwagi": null,
+        "gps": {
+            "lat": null,
+            "lng": null
+        }
+    },
+    {
+        "klient": "KOZAK CENTRUM KWIATOWE KLOSEK",
+        "telefon": "602 114 471",
+        "adres": "ul. Wiśnicka 63a Bochnia 32-700",
+        "kod_klienta": "RO-315",
+        "numer": "315",
+        "uwagi": null,
+        "gps": {
+            "lat": null,
+            "lng": null
+        }
+    },
+    {
+        "klient": null,
+        "telefon": null,
+        "adres": "TARNÓW KST-DONICZKA TARNOW 33-100",
+        "kod_klienta": "D8",
+        "numer": "D8",
+        "uwagi": null,
+        "gps": {
+            "lat": null,
+            "lng": null
+        }
+    },
+    {
+        "klient": "KWIATY SWIATA TARNOW",
+        "telefon": "514 167 895",
+        "adres": "ul. Lwowska 134A TARNOW 33-100",
+        "kod_klienta": "B-KST",
+        "numer": "303",
+        "uwagi": null,
+        "gps": {
+            "lat": null,
+            "lng": null
+        }
+    },
+    {
+        "klient": "TANDEM KWIATY SWIATA TARNOW",
+        "telefon": "515 167 895",
+        "adres": "ul. Lwowska 134A TARNOW 33-100",
+        "kod_klienta": "B-KST",
+        "numer": "305",
+        "uwagi": null,
+        "gps": {
+            "lat": null,
+            "lng": null
+        }
+    },
+    {
+        "klient": "KWIATY SWIATA TARNOW",
+        "telefon": "515 167 895",
+        "adres": "ul. Lwowska 134A TARNOW 33-100",
+        "kod_klienta": "B-PGT-306",
+        "numer": "306",
+        "uwagi": null,
+        "gps": {
+            "lat": null,
+            "lng": null
+        }
+    },
+    {
+        "klient": "KWIATY SWIATA TARNOW",
+        "telefon": "515 167 895",
+        "adres": "ul. Lwowska 134A TARNOW 33-100",
+        "kod_klienta": "b-318",
+        "numer": "318",
+        "uwagi": null,
+        "gps": {
+            "lat": null,
+            "lng": null
+        }
+    },
+    {
+        "klient": null,
+        "telefon": null,
+        "adres": "HURTOWANIA TARNÓW W.GRAJEK ul. Lwowska 134A TARNÓW 33-100",
+        "kod_klienta": "LD-711",
+        "numer": "LD-711",
+        "uwagi": null,
+        "gps": {
+            "lat": null,
+            "lng": null
+        }
+    },
+    {
+        "klient": "Stanisław Golec",
+        "telefon": "513 167 895",
+        "adres": "ul. Lwowska 134A Tarnów 33-100",
+        "kod_klienta": "TH-317",
+        "numer": "317",
+        "uwagi": null,
+        "gps": {
+            "lat": null,
+            "lng": null
+        }
+    },
+    {
+        "klient": "TRELA",
+        "telefon": "502087221",
+        "adres": "UL MAGAZYNOWA 4 KIELCE 25-565",
+        "kod_klienta": "TH-357",
+        "numer": "357",
+        "uwagi": null,
+        "gps": {
+            "lat": null,
+            "lng": null
+        }
+    },
+    {
+        "klient": "JMP FLOWERS KIELCE",
+        "telefon": "693 050 810",
+        "adres": "UL MAGAZYNOWA 4 KIELCE 25-565",
+        "kod_klienta": "DMA-369",
+        "numer": "369",
+        "uwagi": null,
+        "gps": {
+            "lat": null,
+            "lng": null
+        }
+    },
+    {
+        "klient": "Michał Konecki",
+        "telefon": "503-961-658",
+        "adres": "UL.RÓWNA 3 ŁÓDŹ 93-348",
+        "kod_klienta": "-405",
+        "numer": "405",
+        "uwagi": "B-KSL",
+        "gps": {
+            "lat": null,
+            "lng": null
+        }
+    },
+    {
+        "klient": "Michał Konecki",
+        "telefon": "503-961-658",
+        "adres": "UL.RÓWNA 3 ŁÓDŹ 93-348",
+        "kod_klienta": "-406",
+        "numer": "406",
+        "uwagi": "B-KSL",
+        "gps": {
+            "lat": null,
+            "lng": null
+        }
+    },
+    {
+        "klient": "Prix Grand",
+        "telefon": "503-961-658",
+        "adres": "UL.RÓWNA 3 ŁÓDŹ 93-348",
+        "kod_klienta": "B-L-409",
+        "numer": "409",
+        "uwagi": null,
+        "gps": {
+            "lat": null,
+            "lng": null
+        }
+    },
+    {
+        "klient": null,
+        "telefon": null,
+        "adres": "PALARO Sp.z o.o BRICOMARCHE UL.STRZELCÓW BYTOMSKICH 41 RYDUŁTOWY 44-280",
+        "kod_klienta": "AP-B72",
+        "numer": "AP-B72",
+        "uwagi": null,
+        "gps": {
+            "lat": null,
+            "lng": null
+        }
+    },
+    {
+        "klient": "DAWID RUTA SP. Z O.O",
+        "telefon": "508-365-942",
+        "adres": "U..ARMII KRAJOWEJ 9 WODZISŁAW ŚLĄSKI 44-300",
+        "kod_klienta": "AP-B171",
+        "numer": "AP-B171",
+        "uwagi": null,
+        "gps": {
+            "lat": null,
+            "lng": null
+        }
+    },
+    {
+        "klient": null,
+        "telefon": null,
+        "adres": "ARIANO Sp z o.o BRICOMARCHE UL.WIEJSKA 13 USTROŃ 43-450",
+        "kod_klienta": "MP-B134",
+        "numer": "MP-B134",
+        "uwagi": null,
+        "gps": {
+            "lat": null,
+            "lng": null
+        }
+    },
+    {
+        "klient": "BOX TYCHY / Anna Stepień",
+        "telefon": "514 992 959",
+        "adres": "UL.SADOWA 3 TYCHY 43-100",
+        "kod_klienta": "B-301",
+        "numer": "301",
+        "uwagi": null,
+        "gps": {
+            "lat": null,
+            "lng": null
+        }
+    },
+    {
+        "klient": "BOX TYCHY",
+        "telefon": "609 652 363",
+        "adres": "UL.SADOWA 3 TYCHY 43-100",
+        "kod_klienta": "B-301",
+        "numer": "313",
+        "uwagi": null,
+        "gps": {
+            "lat": null,
+            "lng": null
+        }
+    },
+    {
+        "klient": "Tomasz Polak",
+        "telefon": "606 104 739",
+        "adres": "GIEŁDA KWIATOWA UL.Sadowa 3 TYCHY 43-100",
+        "kod_klienta": "DM-319",
+        "numer": "319",
+        "uwagi": null,
+        "gps": {
+            "lat": null,
+            "lng": null
+        }
+    },
+    {
+        "klient": "Hurtownia OPIUM",
+        "telefon": "600-223-273",
+        "adres": "ul. Rybnicka 70 RACIBÓRZ 47-445",
+        "kod_klienta": "DMA-334",
+        "numer": "334",
+        "uwagi": null,
+        "gps": {
+            "lat": null,
+            "lng": null
+        }
+    },
+    {
+        "klient": null,
+        "telefon": null,
+        "adres": "BENJY-FLORA mechnice 46-073",
+        "kod_klienta": "VLIET",
+        "numer": "VLIET",
+        "uwagi": null,
+        "gps": {
+            "lat": null,
+            "lng": null
+        }
+    },
+    {
+        "klient": "PATIO COLOR ŁOWICZ",
+        "telefon": "502-436-434",
+        "adres": "UL.SIKORSKIEGO 6 ŁOWICZ 99-400",
+        "kod_klienta": "KK-D267",
+        "numer": "KK-D267",
+        "uwagi": null,
+        "gps": {
+            "lat": null,
+            "lng": null
+        }
+    },
+    {
+        "klient": null,
+        "telefon": null,
+        "adres": "JUDEK CYKLADY Sp z o o BRICOMARCHE UL.Napoleońska 29 MŁAWA 06-500",
+        "kod_klienta": "AP-B343",
+        "numer": "AP-B343",
+        "uwagi": null,
+        "gps": {
+            "lat": null,
+            "lng": null
+        }
+    },
+    {
+        "klient": "Hurtownia kwiatów FENIKS",
+        "telefon": "606197606",
+        "adres": "Borodzicza 3 CIECHANÓW 06-400",
+        "kod_klienta": "PK-566",
+        "numer": "566",
+        "uwagi": null,
+        "gps": {
+            "lat": null,
+            "lng": null
+        }
+    },
+    {
+        "klient": "Mariusz Kuchnicki",
+        "telefon": "509828777",
+        "adres": "Barska 12 WŁOCŁAWEK 87-806",
+        "kod_klienta": "D-277",
+        "numer": "278",
+        "uwagi": null,
+        "gps": {
+            "lat": null,
+            "lng": null
+        }
+    },
+    {
+        "klient": "Mariusz Kuchnicki",
+        "telefon": "509828777",
+        "adres": "Barska 12 WŁOCŁAWEK 87-806",
+        "kod_klienta": "vliet",
+        "numer": "vliet",
+        "uwagi": "1 paleta",
+        "gps": {
+            "lat": null,
+            "lng": null
+        }
+    },
+    {
+        "klient": "110PL Kowalflora",
+        "telefon": "603 171 262",
+        "adres": "ul Szymańskiego 2 TORUŃ 87-100",
+        "kod_klienta": "K-214",
+        "numer": "214",
+        "uwagi": null,
+        "gps": {
+            "lat": null,
+            "lng": null
+        }
+    },
+    {
+        "klient": "Mariusz Kuchnicki",
+        "telefon": "509828777",
+        "adres": "ul.B.Chrobrego 145 TORUŃ 87-100",
+        "kod_klienta": "D-277",
+        "numer": "277",
+        "uwagi": null,
+        "gps": {
+            "lat": null,
+            "lng": null
+        }
+    },
+    {
+        "klient": "ROOM KWIATY",
+        "telefon": "508324028",
+        "adres": "ul.Jana Pawła 2 stacja Orlen BYDGOSZCZ 85-158",
+        "kod_klienta": "VLIET",
+        "numer": "VLIET",
+        "uwagi": null,
+        "gps": {
+            "lat": null,
+            "lng": null
+        }
+    },
+    {
+        "klient": "MARIA ZAJCHOWSKA",
+        "telefon": "508324028",
+        "adres": "ul.Jana Pawła 2 stacja Orlen BYDGOSZCZ 85-158",
+        "kod_klienta": "PKO-215",
+        "numer": "215",
+        "uwagi": null,
+        "gps": {
+            "lat": null,
+            "lng": null
+        }
+    },
+    {
+        "klient": "PUKSZTO",
+        "telefon": "607 221 579",
+        "adres": "BYDGOSZCZ - ul. Karola Szajnochy 4 BYDGOSZCZ 85-739",
+        "kod_klienta": "DM-213",
+        "numer": "213",
+        "uwagi": null,
+        "gps": {
+            "lat": null,
+            "lng": null
+        }
+    },
+    {
+        "klient": "PRESTIŻ-NARCYZ",
+        "telefon": "607782396",
+        "adres": "UL.Jana Pawł 2 stacja Orlen BYDGOSZCZ 85-791",
+        "kod_klienta": "AP-D33",
+        "numer": "AP-D33",
+        "uwagi": null,
+        "gps": {
+            "lat": null,
+            "lng": null
+        }
+    },
+    {
+        "klient": "Narcyz Andzrej Szewczyk",
+        "telefon": "607 782 396",
+        "adres": "ul.Jana Pawła 2 stacja Orlen Bydgoszcz 85-791",
+        "kod_klienta": "D-206",
+        "numer": "206",
+        "uwagi": null,
+        "gps": {
+            "lat": null,
+            "lng": null
+        }
+    },
+    {
+        "klient": "Prestiz Rajchenbach P",
+        "telefon": "608 782 396",
+        "adres": "ul.Jana Pawła 2 stacja Orlen bydgoszcz 85-791",
+        "kod_klienta": "D-209",
+        "numer": "209",
+        "uwagi": null,
+        "gps": {
+            "lat": null,
+            "lng": null
+        }
+    },
+    {
+        "klient": "PPH Marco SC Kasprzak Marek",
+        "telefon": "502 561 994",
+        "adres": "ul.Przypadek 9 Inowrcław 88-100",
+        "kod_klienta": "D-210",
+        "numer": "210",
+        "uwagi": null,
+        "gps": {
+            "lat": null,
+            "lng": null
+        }
+    },
+    {
+        "klient": "NELMA SP. Z O.O.",
+        "telefon": "52 358 05 94",
+        "adres": "UL. WOJSKA POLSKIEGO 14 INOWROCŁAW 88-100",
+        "kod_klienta": "AP-B236",
+        "numer": "AP-B236",
+        "uwagi": null,
+        "gps": {
+            "lat": null,
+            "lng": null
+        }
+    },
+    {
+        "klient": "CEJLON SP.Z O.O",
+        "telefon": "519-502-321",
+        "adres": "UL.MARII KONOPNICKIEJ 1 C OŚWIĘCIM 32-600",
+        "kod_klienta": "AP-B245",
+        "numer": "AP-B245",
+        "uwagi": null,
+        "gps": {
+            "lat": null,
+            "lng": null
+        }
+    },
+    {
+        "klient": "NAPIERKOWSKI HURTOWNIA KWIATOW RÓŻA",
+        "telefon": "575615798",
+        "adres": "BOHATERÓW MONTE CASINO 330 BIELSKO BIAŁA 43-400",
+        "kod_klienta": "MM-376",
+        "numer": "376",
+        "uwagi": null,
+        "gps": {
+            "lat": null,
+            "lng": null
+        }
+    },
+    {
+        "klient": "CENTRUM KWIATOWE KAFEL",
+        "telefon": "507051497",
+        "adres": "ul.kosciuszki OLKUSZ 32-300",
+        "kod_klienta": "PKO-370",
+        "numer": "370",
+        "uwagi": null,
+        "gps": {
+            "lat": null,
+            "lng": null
+        }
+    },
+    {
+        "klient": "KAZIMIERZ SWIAC",
+        "telefon": "600335753",
+        "adres": "ul. Balicka 56 krakow 30-149",
+        "kod_klienta": "314",
+        "numer": "314",
+        "uwagi": "th",
+        "gps": {
+            "lat": null,
+            "lng": null
+        }
+    },
+    {
+        "klient": "STORCZYK INFO U CZARKA ul. Balicka 56 krakow 30-149 TH",
+        "telefon": "358 358 1",
+        "adres": null,
+        "kod_klienta": null,
+        "numer": null,
+        "uwagi": null,
+        "gps": {
+            "lat": null,
+            "lng": null
+        }
+    },
+    {
+        "klient": "MICHAŁ MORALEWICZ INFO U CZARKA ul. Balicka 56 KRAKOW 30-149 TH",
+        "telefon": "360 360 0",
+        "adres": ",5",
+        "kod_klienta": null,
+        "numer": null,
+        "uwagi": null,
+        "gps": {
+            "lat": null,
+            "lng": null
+        }
+    },
+    {
+        "klient": "MATEUSZ WOJTALA",
+        "telefon": "691694074",
+        "adres": "ul. Balicka 56 KRAKOW 30-149",
+        "kod_klienta": "TH-361",
+        "numer": "361",
+        "uwagi": null,
+        "gps": {
+            "lat": null,
+            "lng": null
+        }
+    },
+    {
+        "klient": "ul. Balicka 56 Kraków 30-149 TH",
+        "telefon": "325 325 1",
+        "adres": null,
+        "kod_klienta": null,
+        "numer": null,
+        "uwagi": null,
+        "gps": {
+            "lat": null,
+            "lng": null
+        }
+    },
+    {
+        "klient": null,
+        "telefon": "509607053",
+        "adres": "ul. Balicka 56 KRAKÓW 30-149",
+        "kod_klienta": "AS-329",
+        "numer": "329",
+        "uwagi": null,
+        "gps": {
+            "lat": null,
+            "lng": null
+        }
+    },
+    {
+        "klient": "Michał Nabiałczk INFO U CZARKA ul. Balicka 56 kraków 30-149 th",
+        "telefon": "353 353 0",
+        "adres": ",5",
+        "kod_klienta": null,
+        "numer": null,
+        "uwagi": null,
+        "gps": {
+            "lat": null,
+            "lng": null
+        }
+    },
+    {
+        "klient": "Marek Rorat ul. Balicka 56 KRAKÓW 30-149 th",
+        "telefon": "381 381 3",
+        "adres": null,
+        "kod_klienta": null,
+        "numer": null,
+        "uwagi": null,
+        "gps": {
+            "lat": null,
+            "lng": null
+        }
+    },
+    {
+        "klient": null,
+        "telefon": "509 671 080",
+        "adres": "ul. Balicka 56 (giełda Kraków) Kraków 30-149",
+        "kod_klienta": "RO-322",
+        "numer": "322",
+        "uwagi": null,
+        "gps": {
+            "lat": null,
+            "lng": null
+        }
+    },
+    {
+        "klient": "Firek Janusz",
+        "telefon": "607 980 915",
+        "adres": "ul. Balicka 56 Kraków 30-149",
+        "kod_klienta": "TH-323",
+        "numer": "323",
+        "uwagi": null,
+        "gps": {
+            "lat": null,
+            "lng": null
+        }
+    },
+    {
+        "klient": "Serafin Dariusz",
+        "telefon": "608442154",
+        "adres": "ul. Balicka 56 Kraków 30-149",
+        "kod_klienta": "TH-337",
+        "numer": "337",
+        "uwagi": null,
+        "gps": {
+            "lat": null,
+            "lng": null
+        }
+    },
+    {
+        "klient": "Grzegorz Surówka",
+        "telefon": "698 303 543",
+        "adres": "ul. Balicka 56 Kraków 30-149",
+        "kod_klienta": "TH-364",
+        "numer": "364",
+        "uwagi": null,
+        "gps": {
+            "lat": null,
+            "lng": null
+        }
+    },
+    {
+        "klient": "Ogrod. Gosp",
+        "telefon": "606714455",
+        "adres": "ul. Balicka 56 Kraków 30-149",
+        "kod_klienta": "TH-362",
+        "numer": "362",
+        "uwagi": null,
+        "gps": {
+            "lat": null,
+            "lng": null
+        }
+    },
+    {
+        "klient": "Grzegorz Surówka",
+        "telefon": "698 303 543",
+        "adres": "ul. Balicka 56 Kraków 30-149",
+        "kod_klienta": "TH-368",
+        "numer": "368",
+        "uwagi": null,
+        "gps": {
+            "lat": null,
+            "lng": null
+        }
+    },
+    {
+        "klient": null,
+        "telefon": null,
+        "adres": "MULTIFLORA ul. Balicka 56 Kraków 30-149",
+        "kod_klienta": "VLIET",
+        "numer": "VLIET",
+        "uwagi": null,
+        "gps": {
+            "lat": null,
+            "lng": null
+        }
+    },
+    {
+        "klient": "ROBERT PODLEJSKI",
+        "telefon": "600 092 320",
+        "adres": "AKACJOWA 57 WOLA HANKOWSKA 42-200",
+        "kod_klienta": "B-408",
+        "numer": "408",
+        "uwagi": null,
+        "gps": {
+            "lat": null,
+            "lng": null
+        }
+    },
+    {
+        "klient": "LISOWKI ROMAN",
+        "telefon": "601-412-180",
+        "adres": "ul. Klonowa 4 Antoniów 42-233",
+        "kod_klienta": "DM-341",
+        "numer": "341",
+        "uwagi": null,
+        "gps": {
+            "lat": null,
+            "lng": null
+        }
+    },
+    {
+        "klient": "Kontakt : Kuba",
+        "telefon": "605423301",
+        "adres": "Kościelec 23 KORZENIEW 62-831",
+        "kod_klienta": "RO-423",
+        "numer": "423",
+        "uwagi": null,
+        "gps": {
+            "lat": null,
+            "lng": null
+        }
+    },
+    {
+        "klient": null,
+        "telefon": "602399124",
+        "adres": "Droga dębińska 12 POZNAŃ 61-001",
+        "kod_klienta": "RO-151",
+        "numer": "151",
+        "uwagi": null,
+        "gps": {
+            "lat": null,
+            "lng": null
+        }
+    },
+    {
+        "klient": "SANDRA Radoslaw Konstańczuk",
+        "telefon": "790-599-691",
+        "adres": "ŚCIECHÓW 78H ŚCIECHOW 66-429",
+        "kod_klienta": "DMA-187",
+        "numer": "187",
+        "uwagi": null,
+        "gps": {
+            "lat": null,
+            "lng": null
+        }
+    },
+    {
+        "klient": "BECKER Kwiaciarnia Lawenda Piotr Szkolnicki",
+        "telefon": "503669633",
+        "adres": "AL.NIEPODLEGŁOŚCI 36 GALERIA CASCADA SZCZECIN 70-404",
+        "kod_klienta": "AP-D31",
+        "numer": "AP-D31",
+        "uwagi": null,
+        "gps": {
+            "lat": null,
+            "lng": null
+        }
+    },
+    {
+        "klient": "TOP Flower Piotr Wroński",
+        "telefon": "537977597",
+        "adres": "ul. Floriana Krygiera 5 SZCZECIN 71-001",
+        "kod_klienta": "RO-606",
+        "numer": "606",
+        "uwagi": null,
+        "gps": {
+            "lat": null,
+            "lng": null
+        }
+    },
+    {
+        "klient": "FHU MAREK RATKUŃ",
+        "telefon": "606723365",
+        "adres": "Łukasińskiego 132 Mierzyn 72-002",
+        "kod_klienta": "PKO-603",
+        "numer": "603",
+        "uwagi": null,
+        "gps": {
+            "lat": null,
+            "lng": null
+        }
+    },
+    {
+        "klient": "BECKER kwiaciarnia lavenda",
+        "telefon": "503669633",
+        "adres": "osiedle tysiaclecia 4e STARGRAD SZCZECINSKI 73-110",
+        "kod_klienta": "MM-604",
+        "numer": "604",
+        "uwagi": null,
+        "gps": {
+            "lat": null,
+            "lng": null
+        }
+    },
+    {
+        "klient": "Hurtownia kwiatów AGAWA",
+        "telefon": "784228552",
+        "adres": "wosjka polskiego 112e STARGRAD SZCZECINSKI 73-110",
+        "kod_klienta": "PKO-607",
+        "numer": "607",
+        "uwagi": null,
+        "gps": {
+            "lat": null,
+            "lng": null
+        }
+    },
+    {
+        "klient": "ŁUKASZ KMIECIK",
+        "telefon": "883 799 222 3",
+        "adres": "MAJA 7 MIASTKO 77-200",
+        "kod_klienta": "RO-200",
+        "numer": "200",
+        "uwagi": null,
+        "gps": {
+            "lat": null,
+            "lng": null
+        }
+    },
+    {
+        "klient": "PRUSSAK F.H.U. DarAa",
+        "telefon": "602 653 773",
+        "adres": "UL.LEGIONOW POLSKICH 1 PILA 64-920",
+        "kod_klienta": "D-233",
+        "numer": "233",
+        "uwagi": null,
+        "gps": {
+            "lat": null,
+            "lng": null
+        }
+    },
+    {
+        "klient": "IMPORT-EXPORT W.GRAJEK FRANOWO 1 POZNAN 61-302 BOX C",
+        "telefon": "104 104 5",
+        "adres": null,
+        "kod_klienta": null,
+        "numer": null,
+        "uwagi": null,
+        "gps": {
+            "lat": null,
+            "lng": null
+        }
+    },
+    {
+        "klient": "WAWRZYNIAK IMPORT-EXPORT W.GRAJEK FRANOWO 1 POZNAN 61-302 K",
+        "telefon": "106 106 1",
+        "adres": null,
+        "kod_klienta": null,
+        "numer": null,
+        "uwagi": null,
+        "gps": {
+            "lat": null,
+            "lng": null
+        }
+    },
+    {
+        "klient": "IMPORT-EXPORT W.GRAJEK FRANOWO 1 POZNAN 61-302 K",
+        "telefon": "108 108 4",
+        "adres": null,
+        "kod_klienta": null,
+        "numer": null,
+        "uwagi": null,
+        "gps": {
+            "lat": null,
+            "lng": null
+        }
+    },
+    {
+        "klient": "IMPORT-EXPORT W.GRAJEK FRANOWO 1 POZNAN 61-302 K",
+        "telefon": "127 127 1",
+        "adres": null,
+        "kod_klienta": null,
+        "numer": null,
+        "uwagi": null,
+        "gps": {
+            "lat": null,
+            "lng": null
+        }
+    },
+    {
+        "klient": "IMPORT-EXPORT W.GRAJEK FRANOWO 1 POZNAN 61-302 K",
+        "telefon": "129 129 1",
+        "adres": null,
+        "kod_klienta": null,
+        "numer": null,
+        "uwagi": null,
+        "gps": {
+            "lat": null,
+            "lng": null
+        }
+    },
+    {
+        "klient": "FILIP",
+        "telefon": "721-142-885",
+        "adres": "FRANOWO 1 POZNAN 61-302",
+        "kod_klienta": "V-FILIP",
+        "numer": "V-FILIP",
+        "uwagi": null,
+        "gps": {
+            "lat": null,
+            "lng": null
+        }
+    },
+    {
+        "klient": "Intermarche - Św. Mikołaja 3 Swadzim",
+        "telefon": "62-080 100 100 8",
+        "adres": null,
+        "kod_klienta": null,
+        "numer": null,
+        "uwagi": null,
+        "gps": {
+            "lat": null,
+            "lng": null
+        }
+    },
+    {
+        "klient": "MYKOLA P Intermarche - Św. Mikołaja 3 Swadzim",
+        "telefon": "62-080 701 701 8",
+        "adres": null,
+        "kod_klienta": null,
+        "numer": null,
+        "uwagi": null,
+        "gps": {
+            "lat": null,
+            "lng": null
+        }
+    },
+    {
+        "klient": null,
+        "telefon": null,
+        "adres": "NESKA Sp. z o.o. KLODZKA 14B NOWA RUDA 57-402",
+        "kod_klienta": "LD-930",
+        "numer": "LD-930",
+        "uwagi": null,
+        "gps": {
+            "lat": null,
+            "lng": null
+        }
+    },
+    {
+        "klient": "ARTUR DREAM FLOWER",
+        "telefon": "502 507 290",
+        "adres": "WINCENTEGO POLA 4F JELENIA GÓRA 58-500",
+        "kod_klienta": "PKO-333",
+        "numer": "333",
+        "uwagi": null,
+        "gps": {
+            "lat": null,
+            "lng": null
+        }
+    },
+    {
+        "klient": "Elganto Sp. z o.o.",
+        "telefon": "789-449-794",
+        "adres": "Al.Solidarnosci 47 POZNAŃ 61-696",
+        "kod_klienta": "LD-973",
+        "numer": "LD-973",
+        "uwagi": null,
+        "gps": {
+            "lat": null,
+            "lng": null
+        }
+    },
+    {
+        "klient": "GÓRKA Newa Sklep spożywczy Społem PSS",
+        "telefon": "500 126 689",
+        "adres": "Osiedle Wichrowe Wzgórze 121 POZNAŃ 61-699",
+        "kod_klienta": "LD-640",
+        "numer": "LD-640",
+        "uwagi": null,
+        "gps": {
+            "lat": null,
+            "lng": null
+        }
+    },
+    {
+        "klient": "SANOA SP. Z O.O.",
+        "telefon": "61 285 22 44",
+        "adres": "UL.Brodowska 30 Środa Wlkp. 63-000",
+        "kod_klienta": "AP-B78",
+        "numer": "AP-B78",
+        "uwagi": null,
+        "gps": {
+            "lat": null,
+            "lng": null
+        }
+    },
+    {
+        "klient": "CARLOTA SP. Z O.O.",
+        "telefon": "61 284 81 00",
+        "adres": "ul.Szkolna 15 A Śrem 63-100",
+        "kod_klienta": "AP-B44",
+        "numer": "AP-B44",
+        "uwagi": null,
+        "gps": {
+            "lat": null,
+            "lng": null
+        }
+    },
+    {
+        "klient": "EFEZ SP. Z O.O.",
+        "telefon": "65 545 45 14",
+        "adres": "UL.TARGOWA 11A Rawicz 63-900",
+        "kod_klienta": "AP-B47",
+        "numer": "AP-B47",
+        "uwagi": null,
+        "gps": {
+            "lat": null,
+            "lng": null
+        }
+    }
+]
