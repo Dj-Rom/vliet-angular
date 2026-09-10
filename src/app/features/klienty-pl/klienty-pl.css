@@ -97,6 +97,8 @@
   width: 100vw;
   max-width: 600px;
   margin: 6px 2vw 6px 2vw;
+  height: 100vh;
+  overflow: auto;
 }
 
 /* Card */

@@ -31,25 +31,19 @@
       <!-- Quick Action Bar -->
       <div class="quick-actions-bar">
         <!-- Call Button -->
-        <button
-          class="action-pill call-pill"
-          [disabled]="!item.telefon"
-          (click)="call()"
-          [title]="item.telefon ? 'Zadzwoń: ' + item.telefon : 'Brak telefonu'"
-        >
+        <button class="action-pill call-pill" [disabled]="!item.telefon" (click)="call()"
+          [title]="item.telefon ? 'Zadzwoń: ' + item.telefon : 'Brak telefonu'">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+            <path
+              d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z">
+            </path>
           </svg>
           <span>Zadzwoń</span>
         </button>
 
         <!-- SMS 30 min Button -->
-        <button
-          class="action-pill sms-pill"
-          [disabled]="!item.telefon"
-          (click)="sendSms()"
-          [title]="item.telefon ? 'Wyślij SMS o dostawie za 30 min' : 'Brak telefonu'"
-        >
+        <button class="action-pill sms-pill" [disabled]="!item.telefon" (click)="sendSms()"
+          [title]="item.telefon ? 'Wyślij SMS o dostawie za 30 min' : 'Brak telefonu'">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
           </svg>
@@ -57,16 +51,12 @@
         </button>
 
         <!-- Navigation Button -->
-        <button
-          class="action-pill nav-pill"
-          [disabled]="!item.adres && !item.gps?.lat"
-          (click)="navigate()"
-        >
+        <!-- <button class="action-pill nav-pill" [disabled]="!item.adres && !item.gps?.lat" (click)="navigate()">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <polygon points="3 11 22 2 13 21 11 13 3 11"></polygon>
           </svg>
           <span>Nawiguj</span>
-        </button>
+        </button> -->
       </div>
 
       <!-- GPS Coordinates Box (Highlighted) -->
@@ -80,11 +70,7 @@
             <span class="font600size14">Koordynaty GPS</span>
           </div>
 
-          <button
-            class="btn-capture-gps"
-            (click)="captureCurrentGps()"
-            [disabled]="isGettingGps()"
-          >
+          <button class="btn-capture-gps" (click)="captureCurrentGps()" [disabled]="isGettingGps()">
             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <circle cx="12" cy="12" r="10"></circle>
               <line x1="22" y1="12" x2="18" y2="12"></line>
@@ -92,7 +78,8 @@
               <line x1="12" y1="6" x2="12" y2="2"></line>
               <line x1="12" y1="22" x2="12" y2="18"></line>
             </svg>
-            <span>{{ isGettingGps() ? 'Pobieranie...' : (item.gps?.lat ? 'Zaktualizuj moją pozycją' : 'Zapisz moją pozycję GPS') }}</span>
+            <span>{{ isGettingGps() ? 'Pobieranie...' : (item.gps?.lat ? 'Zaktualizuj moją pozycją' : 'Zapisz moją
+              pozycję GPS') }}</span>
           </button>
         </div>
 
@@ -100,7 +87,7 @@
           <span class="coords-value">{{ item.gps?.lat }}, {{ item.gps?.lng }}</span>
           <div class="gps-quick-buttons">
             <button class="btn-gps-action" (click)="copyGps()">Kopiuj GPS</button>
-            <button class="btn-gps-action" (click)="navigate()">Nawiguj (GPS)</button>
+            // <button class="btn-gps-action" (click)="navigate()">Nawiguj (GPS)</button>
           </div>
         </div>
 
@@ -228,14 +215,16 @@
 
       <div class="edit-group">
         <label class="edit-label">Adres dostawy</label>
-        <input type="text" [(ngModel)]="editAdres" class="edit-input" placeholder="np. ul. Kasztanowa 14 Chojnice 89-600" />
+        <input type="text" [(ngModel)]="editAdres" class="edit-input"
+          placeholder="np. ul. Kasztanowa 14 Chojnice 89-600" />
       </div>
 
       <!-- GPS Edit Box -->
       <div class="edit-group gps-edit-box">
         <div class="gps-edit-title-row">
           <label class="edit-label">Współrzędne GPS</label>
-          <button type="button" class="btn-capture-gps-inline" (click)="captureCurrentGpsForEdit()" [disabled]="isGettingGps()">
+          <button type="button" class="btn-capture-gps-inline" (click)="captureCurrentGpsForEdit()"
+            [disabled]="isGettingGps()">
             📍 {{ isGettingGps() ? 'Pobieranie...' : 'Pobierz z urządzenia' }}
           </button>
         </div>
@@ -253,7 +242,8 @@
 
       <div class="edit-group">
         <label class="edit-label">Uwagi / Notatki</label>
-        <textarea [(ngModel)]="editUwagi" rows="3" class="edit-textarea" placeholder="Wskazówki dojazdu, rampa, godziny..."></textarea>
+        <textarea [(ngModel)]="editUwagi" rows="3" class="edit-textarea"
+          placeholder="Wskazówki dojazdu, rampa, godziny..."></textarea>
       </div>
 
       <div class="delete-section">
@@ -265,13 +255,13 @@
 
     <!-- Footer for VIEW mode -->
     <div class="modal-footer" *ngIf="!isEditing()">
-      <button class="footer-btn nav-btn" (click)="navigate()">
+      <!--  <button class="footer-btn nav-btn" (click)="navigate()">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <polygon points="3 11 22 2 13 21 11 13 3 11"></polygon>
         </svg>
         <span>Nawigacja</span>
       </button>
-
+-->
       <button *ngIf="item.telefon" class="footer-btn sms-btn" (click)="sendSms()">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
@@ -281,7 +271,9 @@
 
       <button *ngIf="item.telefon" class="footer-btn call-btn" (click)="call()">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+          <path
+            d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z">
+          </path>
         </svg>
         <span>Zadzwoń</span>
       </button>
@@ -293,7 +285,7 @@
         Anuluj
       </button>
       <button class="footer-btn save-btn" (click)="saveEdit()" [disabled]="isSaving()">
-        {{ isSaving() ? 'Zapisywanie...' : 'Zapisz w Firebase' }}
+        {{ isSaving() ? 'Zapisywanie...' : 'Zapisz' }}
       </button>
     </div>
   </ng-container>
