@@ -2,6 +2,7 @@ import { Routes } from '@angular/router';
 import { inject } from '@angular/core';
 import { AuthGuard } from './core/guard/authguard';
 import { StatusGuard } from './core/guard/status.guard';
+import { pendingChangesGuard } from './core/guard/pending-changes.guard';
 import { AuthService } from './core/services/auth.service';
 
 export const routes: Routes = [
@@ -108,6 +109,7 @@ export const routes: Routes = [
           },
           {
             path: 'add',
+            canDeactivate: [pendingChangesGuard],
             loadComponent: () =>
               import('./features/packaking-manager-page/pages/add-new-list/add-new-list').then(
                 (m) => m.AddNewList,
@@ -124,6 +126,7 @@ export const routes: Routes = [
       },
       {
         path: 'load-management/edit/:id',
+        canDeactivate: [pendingChangesGuard],
         loadComponent: () =>
           import('./features/packaking-manager-page/pages/edit-item/edit-item').then(
             (m) => m.EditItem,

@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { ListService } from '../../../../../core/services/load-calculator-services/load-calculator.service';
 import { MoreMenuService } from '../../../../../core/services/more-menu.service';
+import { ModalService } from '../../../../../core/services/modal.service';
 import { NgIf } from '@angular/common';
 
 @Component({
@@ -18,6 +19,7 @@ export class PackagingHeaderWithFilter {
 
   constructor(
     private moreMenuService: MoreMenuService,
+    private modalService: ModalService,
     private router: Router,
     protected listService: ListService,
   ) {
@@ -26,6 +28,10 @@ export class PackagingHeaderWithFilter {
 
   back() {
     this.router.navigate(['app/load-management/']);
+  }
+
+  openNameModal() {
+    this.modalService.openNameModal(false);
   }
 
   openMenu() {

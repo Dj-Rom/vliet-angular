@@ -24,18 +24,23 @@
    height: 120px;
  }
 
+ .btn-add-new,
  .btnAdd {
    position: fixed;
    width: 56px;
    height: 56px;
-   angle: 0 deg;
-   opacity: 1;
    bottom: 90px;
    right: 30px;
    gap: 8px;
    padding: 12px;
    border-radius: 50% !important;
    background: var(--button-primary-bg) !important;
+   border: none;
+   z-index: 150;
+   cursor: pointer;
+   display: flex;
+   align-items: center;
+   justify-content: center;
  }
 
  .header {

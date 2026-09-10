@@ -7,6 +7,7 @@ import { MoreMenuService } from '../../../core/services/more-menu.service';
 
 @Component({
   selector: 'app-are-your-sure-modal',
+  standalone: true,
   imports: [ReactiveFormsModule],
   templateUrl: './are-your-sure-modal.html',
   styleUrls: ['../add-name-modal/add-name-modal.css'],
@@ -15,7 +16,7 @@ export class AreYourSureModal {
   constructor(
     private listService: ListService,
     private router: Router,
-    private modalService: ModalService,
+    protected modalService: ModalService,
     private moreMenuService: MoreMenuService,
   ) {}
 

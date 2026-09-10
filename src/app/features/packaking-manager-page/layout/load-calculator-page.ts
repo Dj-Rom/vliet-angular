@@ -1,5 +1,7 @@
-import { Component, HostListener, OnInit, AfterViewInit } from '@angular/core';
-import { Router, RouterLink, RouterOutlet } from '@angular/router';
+import { Component, HostListener, OnInit, AfterViewInit, OnDestroy } from '@angular/core';
+import { Router, RouterLink, RouterOutlet, NavigationEnd } from '@angular/router';
+import { filter } from 'rxjs/operators';
+import { Subscription } from 'rxjs';
 import { FormsModule } from '@angular/forms';
 import { NgIf } from '@angular/common';
 import { ListService } from '../../../core/services/load-calculator-services/load-calculator.service';
@@ -18,10 +20,11 @@ import { PackakingListModal } from '../components/packaking-list-modal/packaking
   templateUrl: './load-calculator-page.html',
   styleUrls: ['./load-calculator-page.css'],
 })
-export class LoadCalculatorPage {
+export class LoadCalculatorPage implements OnDestroy {
   selectedPage = 'all';
   menuTitle = '';
   menuDate = '';
+  private navSub?: Subscription;
 
   constructor(
     protected router: Router,
@@ -31,17 +34,35 @@ export class LoadCalculatorPage {
     protected location: Location,
     protected packakingModalService: PackakingModalService,
   ) {
-    this.selectedPage = window.location.href.split('/').pop() || 'all';
+    this.updateSelectedPage();
     this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+    this.navSub = this.router.events
+      .pipe(filter((event) => event instanceof NavigationEnd))
+      .subscribe(() => {
+        this.updateSelectedPage();
+      });
+  }
+
+  ngOnDestroy() {
+    this.navSub?.unsubscribe();
+  }
+
+  private updateSelectedPage() {
+    const url = this.router.url;
+    if (url.includes('/today')) {
+      this.selectedPage = 'today';
+    } else if (url.includes('/all')) {
+      this.selectedPage = 'all';
+    } else {
+      this.selectedPage = url.split('/').pop() || 'all';
+    }
   }
 
   get isOpen() {
     return this.modalService.isNameModalOpen();
   }
-  public openPackakingListModal(title: string, date: string) {
-    this.packakingModalService.getItemAndShowModal(title, date);
-
-
+  public openPackakingListModal(title: string, date: string, item?: any) {
+    this.packakingModalService.getItemAndShowModal(title, date, item);
   }
 
   openMenu(title: string, date: string) {
@@ -57,7 +78,7 @@ export class LoadCalculatorPage {
   }
   changePage(page: string) {
     this.selectedPage = page;
-    this.router.navigate(['app/load-management', page]);
+    this.router.navigate(['/app/load-management', page]);
   }
 
   @HostListener('document:click', ['$event'])

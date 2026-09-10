@@ -11,13 +11,26 @@ export class PackakingModalService{
   constructor() {
 
   }
-  getItemAndShowModal(title: string, date: string){
+  getItemAndShowModal(title: string, dateOrId: string, item?: any){
     this.isOpenModal.set(true);
     this.title.set(title);
-    this.date.set(date);
-    const lists: any = JSON.parse(<string>localStorage.getItem('lists'));
-    if (lists && lists[date]) {
-      this.list.set(lists[date].value);
+    this.date.set(item?.date || dateOrId);
+    if (item && item.value) {
+      this.list.set(item.value);
+      return;
+    }
+    const lists: any = JSON.parse(<string>localStorage.getItem('lists') || '{}');
+    if (lists) {
+      if (lists[dateOrId]) {
+        this.list.set(lists[dateOrId].value);
+      } else {
+        const found = Object.values(lists).find(
+          (l: any) => l.id === dateOrId || l.date === dateOrId,
+        ) as any;
+        if (found) {
+          this.list.set(found.value);
+        }
+      }
     }
   }
   isActive(event: MouseEvent): void {

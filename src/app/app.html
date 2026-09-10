@@ -10,15 +10,15 @@
 <app-navigation *ngIf="!router.url.includes('auth')"></app-navigation>
 <app-add-name-modal
   *ngIf="modalService.isNameModalOpen()"
-  style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: 1000; background: rgba(0, 0, 0, 0.75); display: flex; align-items: center; justify-content: center;"
+  style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: 20000; background: rgba(0, 0, 0, 0.75); display: flex; align-items: center; justify-content: center;"
 ></app-add-name-modal>
 <app-are-your-sure-modal
   *ngIf="modalService.isSureModalOpen()"
-  style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: 1000; background: rgba(0, 0, 0, 0.75); display: flex; align-items: center; justify-content: center;"
+  style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: 20000; background: rgba(0, 0, 0, 0.75); display: flex; align-items: center; justify-content: center;"
 ></app-are-your-sure-modal>
 <app-available-capacity-modal
   *ngIf="modalService.isAvailableCapacityModalOpen()"
-  style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: 1000; background: rgba(0, 0, 0, 0.75); display: flex; align-items: center; justify-content: center;"
+  style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: 20000; background: rgba(0, 0, 0, 0.75); display: flex; align-items: center; justify-content: center;"
 ></app-available-capacity-modal>
 
 <app-more-menu *ngIf="moreMenuService.isOpen()"></app-more-menu>

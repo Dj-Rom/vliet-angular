@@ -6,7 +6,7 @@
       </svg>
 
     </button>
-    <span class="font400size16">{{ this.listService.getCurrentCompanyName() }}</span>
+    <span class="font400size16" style="cursor: pointer;" (click)="openNameModal()">{{ this.listService.getCurrentCompanyName() || 'Wpisz nazwę' }}</span>
     <button>
       <svg (click)="download()" width="44" height="44" viewBox="0 0 44 44" fill="none"
         xmlns="http://www.w3.org/2000/svg">

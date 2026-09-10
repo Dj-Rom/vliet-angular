@@ -52,21 +52,37 @@ export class Calculator {
         this.key = rawKey;
       }
 
-      this.editId = this.listService.editListId() || null;
+      this.editId =
+        this.route.snapshot.queryParamMap.get('editId') ||
+        this.listService.editListId() ||
+        null;
       this.isEdit = !!this.editId;
 
       if (this.isEdit && this.editId) {
-        const savedLists = this.listService.savedLists();
-        const list = savedLists ? savedLists[this.editId] : undefined;
-
-        if (!list) {
-          this.alert.show('error', 'Nie znaleziono edytowanej listy.');
-          this.currentInput.set('0');
+        // 1. Prefer in-memory draft list in listService (contains current values from edit-item)
+        const currentDraft = this.listService.currentList();
+        if (currentDraft?.value && currentDraft.value[this.key] !== undefined && currentDraft.value[this.key] !== 0) {
+          this.currentInput.set(this.safeToString(currentDraft.value[this.key]));
           return;
         }
 
-        const value = list.value?.[this.key] ?? 0;
-        this.currentInput.set(this.safeToString(value));
+        // 2. Check savedLists
+        const savedLists = this.listService.savedLists();
+        let list = savedLists ? savedLists[this.editId] : undefined;
+        if (!list) {
+          list = Object.values(savedLists || {}).find(
+            (l) => l.id === this.editId || l.date === this.editId,
+          );
+        }
+
+        if (list?.value && list.value[this.key] !== undefined) {
+          this.currentInput.set(this.safeToString(list.value[this.key]));
+          return;
+        }
+
+        // 3. Fallback to draft value if it exists (even 0)
+        const val = currentDraft?.value?.[this.key] ?? 0;
+        this.currentInput.set(this.safeToString(val));
       } else {
         const currentList = this.listService.currentList();
         const value = currentList?.value?.[this.key] ?? 0;
@@ -237,19 +253,8 @@ export class Calculator {
 
     try {
       if (this.isEdit && this.editId) {
-        const list = this.listService.savedLists()[this.editId];
-        if (!list) {
-          this.alert.show('error', 'Nie znaleziono listy do edycji.');
-          return;
-        }
-
-        this.listService.updateSavedList(this.editId, {
-          ...list,
-          value: {
-            ...list.value,
-            [this.key]: value,
-          },
-        });
+        this.listService.addToList(this.key, value);
+        this.listService.editListId.set(this.editId);
 
         this.router.navigate(['app/load-management/edit', this.editId]).catch((e) => {
           console.error('Navigation failed after edit save:', e);
@@ -271,7 +276,11 @@ export class Calculator {
 
   back() {
     try {
-      this.location.back();
+      if (this.isEdit && this.editId) {
+        this.router.navigate(['app/load-management/edit', this.editId]);
+      } else {
+        this.location.back();
+      }
     } catch (e) {
       console.error('back() failed:', e);
       this.router.navigate(['app/load-management']).catch((navErr) => {

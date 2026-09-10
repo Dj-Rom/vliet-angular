@@ -1,7 +1,7 @@
-import { Component, Signal, signal, inject, computed } from '@angular/core';
+import { Component, Signal, signal, inject, computed, HostListener } from '@angular/core';
 import { NgForOf, NgIf, KeyValuePipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, RouterStateSnapshot } from '@angular/router';
 
 import {
   ListItem,
@@ -10,6 +10,7 @@ import {
 import { AppStateService } from '../../../../core/services/app-state.service';
 import { ModalService } from '../../../../core/services/modal.service';
 import { PackagingHeaderWithFilter } from '../../components/header/packaging-header/packaging-header-with-filter';
+import { CanComponentDeactivate } from '../../../../core/guard/pending-changes.guard';
 
 @Component({
   selector: 'app-add-new-list',
@@ -18,7 +19,7 @@ import { PackagingHeaderWithFilter } from '../../components/header/packaging-hea
   templateUrl: './add-new-list.html',
   styleUrls: ['./add-new-list.css'],
 })
-export class AddNewList {
+export class AddNewList implements CanComponentDeactivate {
   /* ===== DEPENDENCIES ===== */
 
   private readonly listService = inject(ListService);
@@ -34,9 +35,46 @@ export class AddNewList {
 
   isOpenInformation = signal(false);
   informationUrl = signal('');
+  private isSaved = false;
 
   constructor() {
-    this.modalService.openNameModal();
+    this.listService.resetList();
+    this.modalService.openNameModal(true, () => {
+      this.isSaved = true;
+      this.listService.resetList();
+      this.router.navigate(['/app/load-management/']);
+    });
+  }
+
+  @HostListener('window:beforeunload', ['$event'])
+  onBeforeUnload(event: BeforeUnloadEvent) {
+    if (this.hasUnsavedChanges()) {
+      event.returnValue = true;
+    }
+  }
+
+  private hasUnsavedChanges(): boolean {
+    if (this.isSaved) return false;
+    const hasName = !!this.listService.getCurrentCompanyName()?.trim();
+    const hasItems = Object.values(this.currentList().value || {}).some((v) => Number(v) > 0);
+    return hasName || hasItems;
+  }
+
+  async canDeactivate(nextState?: RouterStateSnapshot): Promise<boolean> {
+    if (this.isSaved) return true;
+    if (nextState?.url.includes('/calc')) return true;
+
+    if (!this.hasUnsavedChanges()) {
+      this.listService.resetList();
+      return true;
+    }
+
+    const confirmed = await this.modalService.openSureModal('Czy na pewno chcesz wyjść bez zapisania?');
+    if (confirmed) {
+      this.listService.resetList();
+      return true;
+    }
+    return false;
   }
 
   /* ===== ACTIONS ===== */
@@ -61,6 +99,7 @@ export class AddNewList {
       return;
     }
 
+    this.isSaved = true;
     this.listService.onDone();
 
     this.router.navigate(['/app/load-management/']);

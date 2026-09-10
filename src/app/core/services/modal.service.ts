@@ -8,25 +8,32 @@ export class ModalService {
   isAvailableCapacityModalOpen = signal(false);
   onConfirm: (() => void) | undefined;
   onCancel: (() => void) | undefined;
+  onNameCancel: (() => void) | undefined;
 
   constructor(private listService: ListService) {}
   changeBodyBackGroundAndScroll(isScroll: boolean) {}
-  openNameModal(bool = true) {
+  openNameModal(bool = true, onCancel?: () => void) {
     this.changeBodyBackGroundAndScroll(true);
     if (!!this.listService.getCurrentCompanyName() && bool) return;
+    this.onNameCancel = onCancel;
     this.isNameModalOpen.set(true);
   }
 
   closeNameModal() {
     this.changeBodyBackGroundAndScroll(false);
     this.isNameModalOpen.set(false);
+    this.onNameCancel = undefined;
   }
-  openSureModal(): Promise<boolean> {
+  sureModalTitle = signal('Czy na pewno?');
+
+  openSureModal(title = 'Czy na pewno?'): Promise<boolean> {
+    this.sureModalTitle.set(title);
     this.changeBodyBackGroundAndScroll(true);
     return new Promise((resolve) => {
       this.isSureModalOpen.set(true);
 
       this.onConfirm = () => {
+        this.changeBodyBackGroundAndScroll(false);
         this.isSureModalOpen.set(false);
         resolve(true);
       };

@@ -372,7 +372,7 @@ export class FirebaseClientService {
 
   // ================= PACKAGE HISTORY =================
 
-  async getPackageHistory(): Promise<_WayBill[]> {
+  async getPackageHistory(): Promise<any[]> {
     const uid = this.getCurrentUid();
     if (!uid) return [];
     const access = await this.hasAccess();
@@ -386,7 +386,7 @@ export class FirebaseClientService {
     return this.withLoading(async () => {
       try {
         const snap = await getDocs(collection(this.db, 'users', uid, 'packageHistory'));
-        return snap.docs.map((d) => ({ id: d.id, ...d.data() }) as _WayBill);
+        return snap.docs.map((d) => ({ id: d.id, ...d.data() }));
       } catch (e) {
         console.warn('Error getting package history:', e);
         return [];
@@ -394,7 +394,28 @@ export class FirebaseClientService {
     });
   }
 
-  async addNewPackageList(data: any) {
+  subscribeToPackageHistory(
+    callback: (lists: any[]) => void,
+    onError?: (error: any) => void,
+  ): Unsubscribe {
+    const uid = this.getCurrentUid();
+    if (!uid) return () => {};
+
+    const colRef = collection(this.db, 'users', uid, 'packageHistory');
+    return onSnapshot(
+      colRef,
+      (snapshot) => {
+        const list = snapshot.docs.map((d) => ({ id: d.id, ...d.data() }));
+        callback(list);
+      },
+      (err) => {
+        console.warn('Realtime sync error on packageHistory:', err);
+        if (onError) onError(err);
+      },
+    );
+  }
+
+  async addNewPackageList(data: any): Promise<string | undefined> {
     const uid = this.getCurrentUid();
     if (!uid) return;
     const access = await this.hasAccess();
@@ -406,8 +427,10 @@ export class FirebaseClientService {
       return;
     }
     return this.withLoading(async () => {
-      const ref = doc(collection(this.db, 'users', uid, 'packageHistory'));
-      await setDoc(ref, this.addCreatedAt(data));
+      const colRef = collection(this.db, 'users', uid, 'packageHistory');
+      const ref = data.id ? doc(colRef, data.id) : doc(colRef);
+      await setDoc(ref, this.addCreatedAt({ ...data, id: ref.id }));
+      return ref.id;
     });
   }
 
@@ -426,7 +449,7 @@ export class FirebaseClientService {
       const cleanData = Object.fromEntries(
         Object.entries(data).filter(([_, v]) => v !== undefined),
       );
-      await updateDoc(doc(this.db, 'users', uid, 'packageHistory', id), cleanData);
+      await setDoc(doc(this.db, 'users', uid, 'packageHistory', id), cleanData, { merge: true });
     });
   }
 

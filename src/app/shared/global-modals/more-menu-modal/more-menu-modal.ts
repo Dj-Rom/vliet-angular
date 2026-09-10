@@ -21,7 +21,7 @@ export class MoreMenuModal {
     private modalService: ModalService,
     private alert: AlertService,
     private listService: ListService,
-    private router: Router,
+    protected router: Router,
   ) {
     this.title = this.moreMenuService.title || this.listService.getCurrentCompanyName() || 'Wpisz nazwę';
     this.date = this.moreMenuService.date;
