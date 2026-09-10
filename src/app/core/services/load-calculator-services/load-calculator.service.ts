@@ -21,11 +21,26 @@ export class ListService implements OnDestroy {
   isLoading = signal(false);
   isLiveSyncing = signal(false);
 
-  private readonly LIST_KEY = 'list';
-  private readonly LISTS_KEY = 'lists';
+  private readonly LIST_KEY_PREFIX = 'package_list_current_';
+  private readonly LISTS_KEY_PREFIX = 'package_lists_';
   private unsubscribeSnapshot?: () => void;
   private authUnsubscribe?: Unsubscribe;
-  private hasMigratedLocalLists = false;
+  private currentUid: string | null = null;
+
+  private getListsKey(): string {
+    const uid = this.currentUid || this.fb.getCurrentUid();
+    return uid ? `${this.LISTS_KEY_PREFIX}${uid}` : `${this.LISTS_KEY_PREFIX}guest`;
+  }
+
+  private getCurrentListKey(): string {
+    const uid = this.currentUid || this.fb.getCurrentUid();
+    return uid ? `${this.LIST_KEY_PREFIX}${uid}` : `${this.LIST_KEY_PREFIX}guest`;
+  }
+
+  private getCompanyNameKey(): string {
+    const uid = this.currentUid || this.fb.getCurrentUid();
+    return uid ? `package_company_${uid}` : 'package_company_guest';
+  }
 
   private readonly initialItemList: ListItem = {
     name: '',
@@ -101,6 +116,12 @@ export class ListService implements OnDestroy {
     private alert: AlertService,
     private fb: FirebaseClientService,
   ) {
+    // Clear legacy unscoped cache to prevent cross-account pollution
+    try {
+      localStorage.removeItem('lists');
+    } catch {}
+
+    this.currentUid = this.fb.getCurrentUid();
     this.restoreCurrentList();
     this.setupAuthListener();
   }
@@ -114,10 +135,20 @@ export class ListService implements OnDestroy {
 
   private setupAuthListener() {
     this.authUnsubscribe = onAuthStateChanged(this.fb.auth, (user) => {
+      this.stopRealtimeSync();
+
       if (user) {
+        this.currentUid = user.uid;
+        this.restoreCurrentList();
+        this.currentCompanyName.set(this.getCurrentCompanyName());
+        this.listsVersion.update((v) => v + 1);
         this.startRealtimeSync();
       } else {
-        this.stopRealtimeSync();
+        this.currentUid = null;
+        // User logged out: strictly clear active state so nothing leaks to the next user
+        this.list.set({ ...this.initialItemList });
+        this.currentCompanyName.set('');
+        this.listsVersion.update((v) => v + 1);
       }
     });
   }
@@ -126,6 +157,8 @@ export class ListService implements OnDestroy {
 
   startRealtimeSync(): void {
     if (this.unsubscribeSnapshot) return;
+    const uid = this.currentUid || this.fb.getCurrentUid();
+    if (!uid) return;
 
     const currentCached = this.readSavedLists();
     if (Object.keys(currentCached).length === 0) {
@@ -137,6 +170,7 @@ export class ListService implements OnDestroy {
       (firestoreData: any[]) => {
         this.isLoading.set(false);
 
+        // Map Firestore data strictly for this authenticated user
         const listsMap: Record<string, ListItem> = {};
         for (const item of firestoreData) {
           const key = item.id || item.date;
@@ -149,25 +183,9 @@ export class ListService implements OnDestroy {
           };
         }
 
-        // Merge with existing local-only lists if any (preserve offline unsaved data)
-        const localLists = this.readSavedLists();
-        for (const [localKey, localItem] of Object.entries(localLists)) {
-          const existsInFirebase = Object.values(listsMap).some(
-            (fbItem) => fbItem.id === localKey || fbItem.id === localItem.id || fbItem.date === localItem.date,
-          );
-          if (!existsInFirebase) {
-            listsMap[localKey] = localItem;
-          }
-        }
-
-        localStorage.setItem(this.LISTS_KEY, JSON.stringify(listsMap));
+        // Save strictly to this user's scoped cache
+        localStorage.setItem(this.getListsKey(), JSON.stringify(listsMap));
         this.listsVersion.update((v) => v + 1);
-
-        // Auto-migrate local lists to Firestore once
-        if (!this.hasMigratedLocalLists) {
-          this.hasMigratedLocalLists = true;
-          this.migrateLocalListsToFirebase(firestoreData);
-        }
       },
       (error) => {
         console.warn('Realtime package history sync error:', error);
@@ -185,29 +203,12 @@ export class ListService implements OnDestroy {
     }
   }
 
-  private async migrateLocalListsToFirebase(firestoreData: any[]) {
-    const localLists = this.readSavedLists();
-    const existingDatesAndIds = new Set(
-      firestoreData.flatMap((d) => [d.id, d.date].filter(Boolean)),
-    );
-
-    for (const [key, item] of Object.entries(localLists)) {
-      if (!existingDatesAndIds.has(key) && !existingDatesAndIds.has(item.id) && !existingDatesAndIds.has(item.date)) {
-        try {
-          const newDocId = await this.fb.addNewPackageList(item);
-          if (newDocId) {
-            item.id = newDocId;
-          }
-        } catch (e) {
-          console.warn('Could not auto-migrate list to Firebase:', e);
-        }
-      }
-    }
-  }
-
   private restoreCurrentList() {
-    const saved = localStorage.getItem(this.LIST_KEY);
-    if (!saved) return;
+    const saved = localStorage.getItem(this.getCurrentListKey());
+    if (!saved) {
+      this.list.set({ ...this.initialItemList });
+      return;
+    }
 
     try {
       this.list.set(JSON.parse(saved));
@@ -224,12 +225,13 @@ export class ListService implements OnDestroy {
 
   setCurrentCompanyName(name: string) {
     this.currentCompanyName.set(name);
-    localStorage.setItem('currentCompanyName', JSON.stringify(name));
+    localStorage.setItem(this.getCompanyNameKey(), JSON.stringify(name));
   }
 
   getCurrentCompanyName(): string {
     return (
-      this.currentCompanyName() || JSON.parse(localStorage.getItem('currentCompanyName') || '""')
+      this.currentCompanyName() ||
+      JSON.parse(localStorage.getItem(this.getCompanyNameKey()) || '""')
     );
   }
 
@@ -273,39 +275,43 @@ export class ListService implements OnDestroy {
 
     lists[targetKey] = {
       ...lists[targetKey],
-      name: updated.name || lists[targetKey].name,
-      value: { ...updated.value },
+      ...updated,
+      id: lists[targetKey].id || id,
     };
 
     this.saveSavedLists(lists);
+    this.alert.show('success', 'Zaktualizowano pomyślnie!');
 
-    const fbDocId = lists[targetKey].id || targetKey;
-    this.fb.updatePackageHistory(fbDocId, lists[targetKey]).catch((err) => {
-      console.warn('Failed to update package in Firebase:', err);
+    // Background Firebase update under users/{uid}/packageHistory
+    const docId = lists[targetKey].id || id;
+    this.fb.updatePackageHistory(docId, lists[targetKey]).catch((err) => {
+      console.warn('Error updating package list in Firebase:', err);
     });
   }
 
   deleteSavedList(id: string): boolean {
     const lists = this.readSavedLists();
-    let targetKey = id;
+    let keyToDelete = id;
 
-    if (!lists[targetKey]) {
+    if (!lists[keyToDelete]) {
       const foundKey = Object.keys(lists).find(
         (k) => lists[k].id === id || lists[k].date === id,
       );
-      if (foundKey) targetKey = foundKey;
+      if (foundKey) keyToDelete = foundKey;
     }
 
-    if (lists[targetKey]) {
-      const itemToDelete = lists[targetKey];
-      delete lists[targetKey];
-      localStorage.setItem(this.LISTS_KEY, JSON.stringify(lists));
-      this.listsVersion.update((v) => v + 1);
+    if (lists[keyToDelete]) {
+      const docId = lists[keyToDelete]?.id || keyToDelete;
+      delete lists[keyToDelete];
+      this.saveSavedLists(lists);
+      this.alert.show('success', 'Usunięto pomyślnie!');
 
-      const fbDocId = itemToDelete.id || targetKey;
-      this.fb.deletePackageHistory(fbDocId).catch((err) => {
-        console.warn('Failed to delete package from Firebase:', err);
-      });
+      // Background Firebase deletion under users/{uid}/packageHistory
+      if (docId) {
+        this.fb.deletePackageHistory(docId).catch((err) => {
+          console.warn('Error deleting package list from Firebase:', err);
+        });
+      }
       return true;
     }
     return false;
@@ -314,21 +320,24 @@ export class ListService implements OnDestroy {
   /* ================= STORAGE ================= */
 
   private saveCurrentList() {
-    localStorage.setItem(this.LIST_KEY, JSON.stringify(this.list()));
+    localStorage.setItem(this.getCurrentListKey(), JSON.stringify(this.list()));
   }
 
   private readSavedLists(): Record<string, ListItem> {
+    const uid = this.currentUid || this.fb.getCurrentUid();
+    if (!uid) {
+      return {};
+    }
     try {
-      return JSON.parse(localStorage.getItem(this.LISTS_KEY) || '{}');
+      return JSON.parse(localStorage.getItem(this.getListsKey()) || '{}');
     } catch {
       return {};
     }
   }
 
   private saveSavedLists(lists: Record<string, ListItem>) {
-    localStorage.setItem(this.LISTS_KEY, JSON.stringify(lists));
+    localStorage.setItem(this.getListsKey(), JSON.stringify(lists));
     this.listsVersion.update((v) => v + 1);
-    this.resetList();
   }
 
   /* ================= FINAL SAVE ================= */
@@ -352,7 +361,7 @@ export class ListService implements OnDestroy {
     this.alert.show('success', 'Saved!');
     this.resetList();
 
-    // Persist to Firebase in background
+    // Persist to Firebase in background under users/{uid}/packageHistory
     this.fb.addNewPackageList(updated).then((newDocId) => {
       if (newDocId) {
         updated.id = newDocId;
@@ -361,8 +370,7 @@ export class ListService implements OnDestroy {
         if (newDocId !== dateStr && currentLists[dateStr]) {
           delete currentLists[dateStr];
         }
-        localStorage.setItem(this.LISTS_KEY, JSON.stringify(currentLists));
-        this.listsVersion.update((v) => v + 1);
+        this.saveSavedLists(currentLists);
       }
     }).catch((err) => {
       console.warn('Error saving package list to Firebase:', err);
