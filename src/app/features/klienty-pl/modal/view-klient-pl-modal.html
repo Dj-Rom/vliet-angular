@@ -1,0 +1,193 @@
+<div class="modal-backdrop" *ngIf="isOpen" (click)="back()"></div>
+
+<div class="modal-window" role="dialog" aria-modal="true" aria-label="Klient PL" *ngIf="isOpen">
+  <ng-container *ngIf="item">
+    <!-- Header -->
+    <div class="header">
+      <button class="backBtn" (click)="back()" aria-label="Wróć">
+        <svg width="12" height="20" viewBox="0 0 12 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M10 20L0 10L10 0L11.775 1.775L3.55 10L11.775 18.225L10 20Z" fill="white" />
+        </svg>
+      </button>
+
+      <div class="header-title">
+        <span class="font600size16">Klient PL</span>
+        <span *ngIf="item.kod_klienta" class="badge-code">{{ item.kod_klienta }}</span>
+      </div>
+
+      <div class="header-spacer"></div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="modal-main">
+      <!-- Quick Action Bar -->
+      <div class="quick-actions-bar">
+        <!-- Call Button -->
+        <button
+          class="action-pill call-pill"
+          [disabled]="!item.telefon"
+          (click)="call()"
+          [title]="item.telefon ? 'Zadzwoń: ' + item.telefon : 'Brak telefonu'"
+        >
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+          </svg>
+          <span>Zadzwoń</span>
+        </button>
+
+        <!-- SMS 30 min Button -->
+        <button
+          class="action-pill sms-pill"
+          [disabled]="!item.telefon"
+          (click)="sendSms()"
+          [title]="item.telefon ? 'Wyślij SMS o dostawie za 30 min' : 'Brak telefonu'"
+        >
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+          </svg>
+          <span>SMS (30 min)</span>
+        </button>
+
+        <!-- Navigation Button -->
+        <button
+          class="action-pill nav-pill"
+          [disabled]="!item.adres && !item.gps?.lat"
+          (click)="navigate()"
+        >
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polygon points="3 11 22 2 13 21 11 13 3 11"></polygon>
+          </svg>
+          <span>Nawiguj</span>
+        </button>
+      </div>
+
+      <!-- SMS Template Preview / Edit Drawer -->
+      <div class="sms-preview-card" *ngIf="item.telefon">
+        <div class="sms-preview-header" (click)="toggleSmsEdit()">
+          <div class="sms-preview-label">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4C8DFF" stroke-width="2">
+              <circle cx="12" cy="12" r="10"></circle>
+              <polyline points="12 6 12 12 16 14"></polyline>
+            </svg>
+            <span>Szablon SMS powiadomienia (30 min):</span>
+          </div>
+          <button class="btn-edit-sms-text" type="button">
+            {{ isCustomizingSms() ? 'Zwiń' : 'Edytuj treść' }}
+          </button>
+        </div>
+
+        <div class="sms-preview-body" *ngIf="!isCustomizingSms()">
+          "{{ smsMessage() }}"
+        </div>
+
+        <div class="sms-edit-area" *ngIf="isCustomizingSms()">
+          <textarea [(ngModel)]="smsMessage" rows="3" class="sms-textarea"></textarea>
+          <div class="sms-edit-buttons">
+            <button class="btn-reset-sms" (click)="smsMessage.set(klientService.defaultSmsMessage)">
+              Domyślny tekst
+            </button>
+            <button class="btn-send-custom-sms" (click)="sendSms()">
+              Wyślij teraz
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Client Details Fields -->
+      <div class="fields-container">
+        <!-- Client / Company Name -->
+        <div class="detail-field-card">
+          <div class="field-label">Klient / Firma</div>
+          <div class="field-value font600size16 highlight-name">
+            {{ item.klient || item.kod_klienta || 'Brak nazwy' }}
+          </div>
+        </div>
+
+        <!-- Kod klienta / Numer -->
+        <div class="detail-row-2col" *ngIf="item.kod_klienta || item.numer">
+          <div class="detail-field-card" *ngIf="item.kod_klienta">
+            <div class="field-label">Kod klienta</div>
+            <div class="field-value font500size16 code-val">{{ item.kod_klienta }}</div>
+          </div>
+          <div class="detail-field-card" *ngIf="item.numer">
+            <div class="field-label">Numer</div>
+            <div class="field-value font500size16 code-val">{{ item.numer }}</div>
+          </div>
+        </div>
+
+        <!-- Phone -->
+        <div class="detail-field-card" *ngIf="item.telefon">
+          <div class="field-label-row">
+            <span class="field-label">Telefon</span>
+            <button class="copy-small-btn" (click)="copyPhone()" title="Kopiuj telefon">
+              Kopiuj
+            </button>
+          </div>
+          <div class="field-value phone-val">
+            <a [href]="'tel:' + klientService.getCleanPhone(item.telefon)" class="phone-link">
+              {{ item.telefon }}
+            </a>
+          </div>
+        </div>
+
+        <!-- Address -->
+        <div class="detail-field-card" *ngIf="item.adres">
+          <div class="field-label-row">
+            <span class="field-label">Adres dostawy</span>
+            <button class="copy-small-btn" (click)="copyAddress()" title="Kopiuj adres">
+              Kopiuj
+            </button>
+          </div>
+          <div class="field-value address-val font400size16" (click)="navigate()">
+            {{ item.adres }}
+          </div>
+        </div>
+
+        <!-- GPS Coordinates if available -->
+        <div class="detail-field-card" *ngIf="item.gps?.lat && item.gps?.lng">
+          <div class="field-label-row">
+            <span class="field-label">Współrzędne GPS</span>
+            <button class="copy-small-btn" (click)="copyGps()" title="Kopiuj GPS">
+              Kopiuj
+            </button>
+          </div>
+          <div class="field-value font400size14 gps-val">
+            {{ item.gps?.lat }}, {{ item.gps?.lng }}
+          </div>
+        </div>
+
+        <!-- Notes / Remarks -->
+        <div class="detail-field-card" *ngIf="item.uwagi">
+          <div class="field-label">Uwagi / Notatki</div>
+          <div class="field-value notes-val font400size14">
+            {{ item.uwagi }}
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bottom Actions Bar -->
+    <div class="modal-footer">
+      <button class="footer-btn nav-btn" (click)="navigate()">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <polygon points="3 11 22 2 13 21 11 13 3 11"></polygon>
+        </svg>
+        <span>Nawigacja</span>
+      </button>
+
+      <button *ngIf="item.telefon" class="footer-btn sms-btn" (click)="sendSms()">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+        </svg>
+        <span>SMS (30 min)</span>
+      </button>
+
+      <button *ngIf="item.telefon" class="footer-btn call-btn" (click)="call()">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+        </svg>
+        <span>Zadzwoń</span>
+      </button>
+    </div>
+  </ng-container>
+</div>

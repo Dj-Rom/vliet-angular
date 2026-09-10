@@ -64,7 +64,7 @@ export class SwipeNavigationService {
       this.router.navigate([urlArray[0], urlArray[1]]);
       return;
     }
-    if (url.startsWith('/app/load-location')) {
+    if (url.startsWith('/app/load-location') || url.startsWith('/app/klienty-pl')) {
       this.mobileNavigationService.navigate(movingRight ? '/app/waybill-new' : '/app/profile');
       return;
     }

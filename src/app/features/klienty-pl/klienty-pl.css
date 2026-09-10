@@ -1,0 +1,253 @@
+:host {
+  display: block;
+  min-height: 100vh;
+  background-color: #000000;
+  color: #ffffff;
+}
+
+/* Header */
+.klienty-pl-header {
+  background: #000000;
+  position: fixed;
+  top: env(safe-area-inset-top, 0px);
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  max-width: 600px;
+  padding: 16px 12px 10px 12px;
+  z-index: 10;
+  box-sizing: border-box;
+}
+
+/* Tabs switcher */
+.client-tabs-container {
+  display: flex;
+  background: #1e2329;
+  border-radius: 8px;
+  padding: 4px;
+  margin-bottom: 12px;
+  gap: 4px;
+}
+
+.client-tab-btn {
+  flex: 1;
+  padding: 10px 12px;
+  border: none;
+  background: transparent;
+  color: #9ba4ae;
+  font-family: Inter, sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-align: center;
+}
+
+.client-tab-btn.active {
+  background: #4c8dff;
+  color: #ffffff;
+  font-weight: 600;
+  box-shadow: 0 2px 8px rgba(76, 141, 255, 0.35);
+}
+
+/* Search input */
+.filterInput {
+  width: 100%;
+  height: 44px;
+  box-sizing: border-box;
+  border-radius: 6px;
+  background: #1e2329;
+  border: 1px solid #2f363e;
+  display: flex;
+  align-items: center;
+  padding: 0 12px;
+  gap: 8px;
+}
+
+.filterInput input {
+  flex: 1;
+  height: 100%;
+  background: transparent;
+  border: none;
+  color: #ffffff;
+  font-family: Inter, sans-serif;
+  font-size: 15px;
+  outline: none;
+}
+
+.filterInput input::placeholder {
+  color: #6e7781;
+}
+
+.btn-clear-search {
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+/* Clients List */
+.clients-list-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 130px 12px 120px 12px;
+  max-width: 600px;
+  margin: 0 auto;
+  box-sizing: border-box;
+  width: 100vw;
+  max-width: 600px;
+  margin: 6px 2vw 6px 2vw;
+}
+
+/* Card */
+.client-card {
+  background: #181d24;
+  border: 1px solid #28303b;
+  border-radius: 8px;
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  cursor: pointer;
+  transition: transform 0.1s ease, border-color 0.2s ease, background-color 0.2s ease;
+  user-select: none;
+}
+
+.client-card:hover {
+  border-color: #3f4a59;
+  background: #1e242d;
+}
+
+.client-card:active {
+  transform: scale(0.99);
+}
+
+.card-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.client-name {
+  color: #ffffff;
+  line-height: 22px;
+  word-break: break-word;
+}
+
+.badge-code-wrapper {
+  flex-shrink: 0;
+}
+
+.badge-code {
+  background: rgba(76, 141, 255, 0.15);
+  color: #70a6ff;
+  border: 1px solid rgba(76, 141, 255, 0.35);
+  font-size: 12px;
+  font-weight: 600;
+  padding: 2px 7px;
+  border-radius: 10px;
+  display: inline-block;
+  white-space: nowrap;
+}
+
+/* Card Row */
+.card-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  font-size: 14px;
+  line-height: 20px;
+}
+
+.row-icon {
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.card-address {
+  color: #c9d1d9;
+  word-break: break-word;
+}
+
+.card-phone {
+  color: #34d399;
+  font-weight: 500;
+  font-size: 14px;
+}
+
+/* Card Actions */
+.card-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 4px;
+  padding-top: 8px;
+  border-top: 1px solid #232a34;
+}
+
+.card-action-btn {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  height: 36px;
+  border: none;
+  border-radius: 6px;
+  font-family: Inter, sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: opacity 0.15s ease, transform 0.05s ease;
+}
+
+.card-action-btn:active {
+  transform: scale(0.97);
+}
+
+.card-call-btn {
+  background: #166534;
+  color: #86efac;
+}
+
+.card-sms-btn {
+  background: #1e3a8a;
+  color: #93c5fd;
+}
+
+.card-nav-btn {
+  background: #374151;
+  color: #e5e7eb;
+}
+
+/* Empty State */
+.empty-state {
+  text-align: center;
+  padding: 60px 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.empty-title {
+  color: #ffffff;
+  font-size: 18px;
+}
+
+.empty-subtitle {
+  color: #8b949e;
+  max-width: 320px;
+}
+
+.btn-clear-empty {
+  background: #4c8dff;
+  color: #ffffff;
+  border: none;
+  border-radius: 6px;
+  padding: 8px 18px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+}

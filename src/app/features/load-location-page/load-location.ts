@@ -4,6 +4,8 @@ import { AddLocationModalService } from '../../core/services/add-location-modal.
 import { NgIf } from '@angular/common';
 import { LoadLocationService } from '../../core/services/load-location.service';
 
+import { Router } from '@angular/router';
+
 @Component({
   selector: 'app-load-location',
   standalone: true,
@@ -15,7 +17,12 @@ export class LoadLocation implements OnInit, OnDestroy {
   constructor(
     public loadLocationService: LoadLocationService,
     public modalService: AddLocationModalService,
+    private router: Router,
   ) {}
+
+  goToPlClients(): void {
+    this.router.navigate(['/app/klienty-pl']);
+  }
 
   async ngOnInit(): Promise<void> {
     await this.loadLocationService.init();
