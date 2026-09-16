@@ -34,8 +34,47 @@ header,
   top: env(safe-area-inset-top, 0px);
   left: 50%;
   transform: translate(-50%);
-  padding: 24px 0 10px 0;
+  padding: 16px 0 10px 0;
   z-index: 10;
+  width: 96vw;
+  max-width: 600px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.client-tabs-container {
+  display: flex;
+  background: #1e2329;
+  border-radius: 8px;
+  padding: 4px;
+  margin: 0 2vw 12px 2vw;
+  gap: 4px;
+  width: 96vw;
+  max-width: 600px;
+  box-sizing: border-box;
+}
+
+.client-tab-btn {
+  flex: 1;
+  padding: 10px 12px;
+  border: none;
+  background: transparent;
+  color: #9ba4ae;
+  font-family: Inter, sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-align: center;
+}
+
+.client-tab-btn.active {
+  background: #4c8dff;
+  color: #ffffff;
+  font-weight: 600;
+  box-shadow: 0 2px 8px rgba(76, 141, 255, 0.35);
 }
 
 .btnAdd {

@@ -26,6 +26,7 @@ import {
   onSnapshot,
   Unsubscribe,
   Firestore,
+  writeBatch,
 } from 'firebase/firestore';
 import { environment } from '../../environments/environment';
 import { _WayBill, _VehicleFleet } from '../../interfaces';
@@ -543,6 +544,85 @@ export class FirebaseClientService {
       } catch (error) {
         this.alert.show('error', `Błąd usuwania: ${error}`);
         throw error;
+      }
+    });
+  }
+
+  // ================= POLISH CLIENTS (Klienci PL) =================
+
+  async getPolishClients(): Promise<any[]> {
+    return this.withLoading(async () => {
+      try {
+        const snap = await getDocs(collection(this.db, 'polish_clients'));
+        return snap.docs.map((d) => ({ id: d.id, ...d.data() }));
+      } catch (e) {
+        console.warn('Error getting polish clients:', e);
+        return [];
+      }
+    });
+  }
+
+  subscribeToPolishClients(
+    callback: (clients: any[]) => void,
+    onError?: (error: any) => void,
+  ): Unsubscribe {
+    const colRef = collection(this.db, 'polish_clients');
+    return onSnapshot(
+      colRef,
+      (snapshot) => {
+        const list = snapshot.docs.map((d) => ({ id: d.id, ...d.data() }));
+        callback(list);
+      },
+      (err) => {
+        console.warn('Realtime sync error on polish_clients:', err);
+        if (onError) onError(err);
+      },
+    );
+  }
+
+  async addPolishClient(data: any): Promise<string> {
+    return this.withLoading(async () => {
+      const colRef = collection(this.db, 'polish_clients');
+      const ref = data.id ? doc(colRef, data.id) : doc(colRef);
+      const cleanData = Object.fromEntries(
+        Object.entries(data).filter(([_, v]) => v !== undefined),
+      );
+      await setDoc(ref, this.addCreatedAt({ ...cleanData, id: ref.id }));
+      return ref.id;
+    });
+  }
+
+  async updatePolishClient(id: string, data: any): Promise<void> {
+    return this.withLoading(async () => {
+      const cleanData = Object.fromEntries(
+        Object.entries(data).filter(([_, v]) => v !== undefined),
+      );
+      await setDoc(doc(this.db, 'polish_clients', id), cleanData, { merge: true });
+    });
+  }
+
+  async deletePolishClient(id: string): Promise<void> {
+    return this.withLoading(async () => {
+      await deleteDoc(doc(this.db, 'polish_clients', id));
+    });
+  }
+
+  async batchSeedPolishClients(clients: any[]): Promise<void> {
+    return this.withLoading(async () => {
+      const chunkSize = 400;
+      for (let i = 0; i < clients.length; i += chunkSize) {
+        const chunk = clients.slice(i, i + chunkSize);
+        const batch = writeBatch(this.db);
+        for (const item of chunk) {
+          const docRef = item.id
+            ? doc(this.db, 'polish_clients', item.id)
+            : doc(collection(this.db, 'polish_clients'));
+          const cleanItem = Object.fromEntries(
+            Object.entries(item).filter(([_, v]) => v !== undefined),
+          );
+          batch.set(docRef, { ...cleanItem, id: docRef.id, createdAt: new Date().toISOString() }, { merge: true });
+        }
+        await batch.commit();
       }
     });
   }

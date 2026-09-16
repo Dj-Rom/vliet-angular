@@ -4,11 +4,14 @@
 >
   <h2 class="font400size16 mt16">{{ title }}</h2>
   <input
+    #nameInput
     type="text"
     [(ngModel)]="name"
     (keydown.enter)="name && create()"
     class="font400size16"
     autofocus
+    enterkeyhint="done"
+    autocomplete="off"
   />
   <div class="groupBtn mt6">
     <button class="font500size16" (click)="cancel()">Anuluj</button>

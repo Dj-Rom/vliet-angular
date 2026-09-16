@@ -2,8 +2,10 @@
 </app-add-location-modal>
 
 <div class="load-location-header">
-  <div class="h3 font600size16">Firmy:</div>
-  <br />
+  <div class="client-tabs-container">
+    <button class="client-tab-btn active">Klienci UE</button>
+    <button class="client-tab-btn" (click)="goToPlClients()">Klienci PL</button>
+  </div>
 
   <div class="filterInput">
     <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">

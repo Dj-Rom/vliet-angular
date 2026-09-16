@@ -9,6 +9,7 @@ import { AlertService } from './alert.service';
 import { WaybillsService } from '../../features/waybiils/services/waybills.service';
 import { LoadLocationService } from './load-location.service';
 import { AddLocationModalService } from './add-location-modal.service';
+import { PackakingModalService } from '../../features/packaking-manager-page/components/packaking-modal.service';
 
 @Injectable({
   providedIn: 'root',
@@ -32,6 +33,7 @@ export class MoreMenuService implements OnDestroy {
     private location: Location,
     private loadLocationService: LoadLocationService,
     private addLocationModalService: AddLocationModalService,
+    private packakingModalService: PackakingModalService,
   ) {
     // Закрываем все модалки/меню при любой смене маршрута,
     // чтобы не оставалось открытых модалок при переходе на другую страницу
@@ -77,17 +79,44 @@ export class MoreMenuService implements OnDestroy {
   }
 
   private formatListItemMessage(id?: string): string {
-    const editId = id || this.listService.editListId() || this.date;
+    const editId = id || this.date || this.listService.editListId();
     if (editId) {
       const lists = this.listService.savedLists();
-      const item: ListItem = lists[editId];
-      if (item) {
-        let message = `${item.name} \n${item.date}\nZaładowane:`;
+      let item: ListItem | undefined = lists[editId];
+      if (!item) {
+        item = Object.values(lists).find(
+          (l) => l.id === editId || l.date === editId,
+        );
+      }
+      if (item && item.value) {
+        let message = `${item.name || 'Lista ładunkowa'}\n${item.date || ''}\nZaładowane:`;
+        let hasItems = false;
         for (const key of Object.keys(item.value || {})) {
-          if (item.value[key] > 0) {
+          if (Number(item.value[key]) > 0) {
             message += `\n${key}: ${item.value[key]}`;
+            hasItems = true;
           }
         }
+        if (hasItems) {
+          return message.trim();
+        }
+      }
+    }
+
+    // Also check if packakingModalService has list items loaded
+    const pmValues = this.packakingModalService.list() || {};
+    if (Object.keys(pmValues).length > 0) {
+      let hasItems = false;
+      const pmTitle = this.packakingModalService.title() || 'Lista ładunkowa';
+      const pmDate = this.packakingModalService.date() || '';
+      let message = `${pmTitle}\n${pmDate}\nZaładowane:`;
+      for (const key of Object.keys(pmValues)) {
+        if (Number(pmValues[key]) > 0) {
+          message += `\n${key}: ${pmValues[key]}`;
+          hasItems = true;
+        }
+      }
+      if (hasItems) {
         return message.trim();
       }
     }
@@ -98,7 +127,7 @@ export class MoreMenuService implements OnDestroy {
     let message = `${company || 'Lista ładunkowa'}\nZaładowane:`;
     let hasItems = false;
     for (const key of Object.keys(current.value || {})) {
-      if (current.value[key] > 0) {
+      if (Number(current.value[key]) > 0) {
         message += `\n${key}: ${current.value[key]}`;
         hasItems = true;
       }
@@ -131,12 +160,11 @@ export class MoreMenuService implements OnDestroy {
   }
 
   deleteListItem(id?: string) {
-    const targetId = id || this.listService.editListId() || this.date;
+    const targetId = id || this.date || this.listService.editListId();
     if (targetId) {
       const deleted = this.listService.deleteSavedList(targetId);
       if (deleted) {
         this.closeMenu();
-        this.alert.show('success', 'Usunięto pomyślnie');
         return this.listService.savedLists();
       }
     }
@@ -171,11 +199,20 @@ export class MoreMenuService implements OnDestroy {
   }
 
   editListItem(id?: string) {
-    if (!id) {
-      this.alert.show('error', 'editListItem called without id!');
+    const editId = id || this.date || this.listService.editListId();
+    if (!editId) {
+      this.alert.show('error', 'Brak identyfikatora listy!');
       return;
     }
-    this.router.navigate(['app/load-management/edit', id]);
+    const lists = this.listService.savedLists();
+    let targetId = editId;
+    if (!lists[targetId]) {
+      const found = Object.values(lists).find((l) => l.id === editId || l.date === editId);
+      if (found) {
+        targetId = found.id || found.date;
+      }
+    }
+    this.router.navigate(['app/load-management/edit', targetId]);
     this.closeMenu();
   }
 

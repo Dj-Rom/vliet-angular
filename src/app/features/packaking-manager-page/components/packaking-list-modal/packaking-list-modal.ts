@@ -5,27 +5,28 @@ import { MoreMenuService } from '../../../../core/services/more-menu.service';
 
 @Component({
   selector: 'app-packaking-list-modal',
-  imports: [
-    NgForOf,
-    KeyValuePipe,
-    NgIf
-  ],
+  standalone: true,
+  imports: [NgForOf, KeyValuePipe, NgIf],
   templateUrl: './packaking-list-modal.html',
   styleUrl: './packaking-list-modal.css',
 })
 export class PackakingListModal {
   constructor(
     protected pMService: PackakingModalService,
-    private moreMenuService: MoreMenuService
+    private moreMenuService: MoreMenuService,
   ) {}
 
   get isListEmpty(): boolean {
-    return Object.values(this.pMService.list()).every(v => v === 0);
+    const values = Object.values(this.pMService.list() || {});
+    if (values.length === 0) return true;
+    return values.every((v) => Number(v) === 0);
   }
 
   sendPackaging = () => {
-    this.moreMenuService.sendToWhatsApp(this.pMService.date());
+    const targetId = this.pMService.id() || this.pMService.date();
+    this.moreMenuService.sendToWhatsApp(targetId);
     this.pMService.closeModalAndClear();
-  }
+  };
+
   protected readonly alert = alert;
 }

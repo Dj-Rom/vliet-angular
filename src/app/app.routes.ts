@@ -142,6 +142,13 @@ export const routes: Routes = [
         data: { title: 'Load Location' },
       },
       {
+        path: 'klienty-pl',
+        canActivate: [StatusGuard],
+        loadComponent: () =>
+          import('./features/klienty-pl/klienty-pl').then((m) => m.KlientyPlComponent),
+        data: { title: 'Klienci PL' },
+      },
+      {
         path: 'load-location/add',
         canActivate: [StatusGuard],
         loadComponent: () =>
