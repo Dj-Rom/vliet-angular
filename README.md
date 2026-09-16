@@ -1,4 +1,4 @@
-# 🚚 Flowers Transport (Vliet Transport)
+# 🚚 Flowers Transport 
 
 > **Profesjonalna aplikacja PWA dla kierowców i logistyki transportu kwiatów i roślin.**  
 > Zarządzanie trasami, listami przewozowymi, opakowaniami zwrotnymi (CC, TAG, palety), korkami na autostradach oraz bazą klientów w jednym miejscu.
