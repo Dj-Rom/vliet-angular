@@ -1,4 +1,4 @@
-import { Component, Signal, signal, inject, computed, HostListener } from '@angular/core';
+import { Component, Signal, signal, inject, computed, HostListener, OnDestroy } from '@angular/core';
 import { NgForOf, NgIf, KeyValuePipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterStateSnapshot } from '@angular/router';
@@ -19,7 +19,7 @@ import { CanComponentDeactivate } from '../../../../core/guard/pending-changes.g
   templateUrl: './add-new-list.html',
   styleUrls: ['./add-new-list.css'],
 })
-export class AddNewList implements CanComponentDeactivate {
+export class AddNewList implements CanComponentDeactivate, OnDestroy {
   /* ===== DEPENDENCIES ===== */
 
   private readonly listService = inject(ListService);
@@ -38,12 +38,20 @@ export class AddNewList implements CanComponentDeactivate {
   private isSaved = false;
 
   constructor() {
-    this.listService.resetList();
-    this.modalService.openNameModal(true, () => {
-      this.isSaved = true;
+    if (!this.listService.getCurrentCompanyName()?.trim()) {
       this.listService.resetList();
-      this.router.navigate(['/app/load-management/']);
-    });
+      this.modalService.openNameModal(true, () => {
+        this.isSaved = true;
+        this.listService.resetList();
+        this.router.navigate(['/app/load-management/']);
+      });
+    }
+  }
+
+  ngOnDestroy() {
+    if (!this.router.url.includes('/calc') && !this.isSaved) {
+      this.listService.resetList();
+    }
   }
 
   @HostListener('window:beforeunload', ['$event'])

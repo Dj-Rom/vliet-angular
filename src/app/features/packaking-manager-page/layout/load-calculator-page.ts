@@ -78,6 +78,9 @@ export class LoadCalculatorPage implements OnDestroy {
   }
   changePage(page: string) {
     this.selectedPage = page;
+    if (page === 'add') {
+      this.loadCalculatorService.resetList();
+    }
     this.router.navigate(['/app/load-management', page]);
   }
 

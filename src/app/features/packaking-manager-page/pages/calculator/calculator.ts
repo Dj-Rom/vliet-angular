@@ -234,15 +234,14 @@ export class Calculator {
     const raw = this.currentInput();
 
     if (raw === 'Error') {
-      this.alert.show('error', 'Proszę nacisnąć przycisk =');
+      this.alert.show('error', 'Proszę poprawić błąd w kalkulatorze.');
       return;
     }
 
-
     const value = this.evaluateExpression(raw);
 
-    if (value === null || raw.includes("+") || raw.includes("-") || raw.includes("×") || raw.includes("÷")) {
-      this.alert.show('error', 'Proszę nacisnąć przycisk =');
+    if (value === null) {
+      this.alert.show('error', 'Błąd w obliczeniach. Sprawdź wyrażenie.');
       return;
     }
 
@@ -256,14 +255,14 @@ export class Calculator {
         this.listService.addToList(this.key, value);
         this.listService.editListId.set(this.editId);
 
-        this.router.navigate(['app/load-management/edit', this.editId]).catch((e) => {
+        this.router.navigate(['/app/load-management/edit', this.editId]).catch((e) => {
           console.error('Navigation failed after edit save:', e);
           this.alert.show('error', 'Nie udało się przejść do listy edycji.');
         });
       } else {
         this.listService.addToList(this.key, value);
 
-        this.router.navigate(['app/load-management/add']).catch((e) => {
+        this.router.navigate(['/app/load-management/add']).catch((e) => {
           console.error('Navigation failed after add:', e);
           this.alert.show('error', 'Nie udało się przejść do listy.');
         });
@@ -277,7 +276,7 @@ export class Calculator {
   back() {
     try {
       if (this.isEdit && this.editId) {
-        this.router.navigate(['app/load-management/edit', this.editId]);
+        this.router.navigate(['/app/load-management/edit', this.editId]);
       } else {
         this.location.back();
       }
